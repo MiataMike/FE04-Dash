@@ -7415,11 +7415,6 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="177.8" y1="-111.76" x2="177.8" y2="-116.84" width="0.1524" layer="91"/>
 <label x="180.34" y="-116.84" size="1.778" layer="95"/>
 </segment>
-<segment>
-<pinref part="U$2" gate="G$1" pin="GND"/>
-<wire x1="233.68" y1="-223.52" x2="223.52" y2="-223.52" width="0.1524" layer="91"/>
-<label x="223.52" y="-223.52" size="1.778" layer="95"/>
-</segment>
 </net>
 <net name="+15V" class="0">
 <segment>
@@ -7725,21 +7720,15 @@ Source: AVX .. aphvc.pdf</description>
 <net name="MOSI" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="15"/>
+<wire x1="228.6" y1="-365.76" x2="215.9" y2="-365.76" width="0.1524" layer="91"/>
 <label x="205.74" y="-365.76" size="1.778" layer="95"/>
-<wire x1="228.6" y1="-365.76" x2="193.04" y2="-365.76" width="0.1524" layer="91"/>
-<wire x1="193.04" y1="-365.76" x2="193.04" y2="-256.54" width="0.1524" layer="91"/>
-<pinref part="U$2" gate="G$1" pin="12/MISO"/>
-<wire x1="193.04" y1="-256.54" x2="233.68" y2="-256.54" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MISO" class="0">
 <segment>
 <pinref part="JP1" gate="A" pin="16"/>
+<wire x1="228.6" y1="-368.3" x2="215.9" y2="-368.3" width="0.1524" layer="91"/>
 <label x="205.74" y="-368.3" size="1.778" layer="95"/>
-<pinref part="U$2" gate="G$1" pin="11/MOSI"/>
-<wire x1="233.68" y1="-254" x2="190.5" y2="-254" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="-254" x2="190.5" y2="-368.3" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="-368.3" x2="228.6" y2="-368.3" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="CLK" class="0">
