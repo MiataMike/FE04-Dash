@@ -630,6 +630,7 @@ W = angled&lt;p&gt;
 <sheets>
 <sheet>
 <plain>
+<text x="121.92" y="116.84" size="1.778" layer="91">FE-04 LEFT EAR BOARD</text>
 </plain>
 <instances>
 <instance part="U$2" gate="G$1" x="147.32" y="40.64"/>

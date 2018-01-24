@@ -147,6 +147,30 @@
 <libraries>
 <library name="FormE">
 <packages>
+<package name="SOIC-16">
+<smd name="1" x="0" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="2" x="1.27" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="3" x="2.54" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="4" x="3.81" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="5" x="5.08" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="6" x="6.35" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="7" x="7.62" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="8" x="8.89" y="0" dx="0.6" dy="1.55" layer="1"/>
+<smd name="9" x="8.89" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="10" x="7.62" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="11" x="6.35" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="12" x="5.08" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="13" x="3.81" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="14" x="2.54" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="15" x="1.27" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<smd name="16" x="0" y="5.4" dx="0.6" dy="1.55" layer="1"/>
+<wire x1="-1.27" y1="5.4" x2="-1.27" y2="0" width="0.127" layer="21"/>
+<wire x1="-1.27" y1="0" x2="10.16" y2="0" width="0.127" layer="21"/>
+<wire x1="10.16" y1="0" x2="10.16" y2="5.4" width="0.127" layer="21"/>
+<wire x1="10.16" y1="5.4" x2="-1.27" y2="5.4" width="0.127" layer="21"/>
+<circle x="-2" y="0" radius="0.2" width="0.8" layer="21"/>
+<text x="-3.81" y="0" size="1.27" layer="25" rot="R90">&gt;NAME</text>
+</package>
 <package name="MC00L1NCQF">
 <pad name="P$1" x="3.7084" y="0.6604" drill="1.1684"/>
 <pad name="P$2" x="3.058434375" y="3.0861" drill="1.1684"/>
@@ -161,6 +185,31 @@
 <pad name="P$11" x="1.2827" y="-3.541034375" drill="1.1684"/>
 <pad name="P$12" x="3.058434375" y="-1.7653" drill="1.1684"/>
 <pad name="P$13" x="-1.143" y="0.6604" drill="1.1684"/>
+</package>
+<package name="SOIC-14">
+<smd name="1" x="-3.81" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="2" x="-2.54" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="3" x="-1.27" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="4" x="0" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="5" x="1.27" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="6" x="2.54" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="7" x="3.81" y="-2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="8" x="3.81" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="9" x="2.54" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="10" x="1.27" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="11" x="0" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="12" x="-1.27" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="13" x="-2.54" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<smd name="14" x="-3.81" y="2.7" dx="0.55" dy="1.5" layer="1"/>
+<wire x1="-4.445" y1="2.7" x2="-4.445" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="-4.445" y1="-1.27" x2="-4.445" y2="-2.7" width="0.127" layer="21"/>
+<wire x1="-4.445" y1="-2.7" x2="4.445" y2="-2.7" width="0.127" layer="21"/>
+<wire x1="4.445" y1="-2.7" x2="4.445" y2="-1.27" width="0.127" layer="21"/>
+<wire x1="4.445" y1="-1.27" x2="4.445" y2="2.7" width="0.127" layer="21"/>
+<wire x1="4.445" y1="2.7" x2="-4.445" y2="2.7" width="0.127" layer="21"/>
+<text x="-7.62" y="-2.54" size="1.27" layer="25" rot="R90">&gt;NAME</text>
+<text x="-5.715" y="-2.54" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
+<wire x1="-4.445" y1="-1.27" x2="4.445" y2="-1.27" width="0.127" layer="21"/>
 </package>
 </packages>
 </library>
@@ -353,9 +402,89 @@ design rules under a new name.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="U$1" library="FormE" package="MC00L1NCQF" value="12-POSITION-ROTARY" x="2.54" y="-27.94"/>
+<element name="U$2" library="FormE" package="SOIC-16" value="SN74LS148D" x="-6.35" y="-49.53"/>
+<element name="U$3" library="FormE" package="SOIC-16" value="SN74LS148D" x="-6.35" y="-60.96"/>
+<element name="U$1" library="FormE" package="MC00L1NCQF" value="12-POSITION-ROTARY" x="3.81" y="-78.74"/>
+<element name="U$4" library="FormE" package="SOIC-14" value="QUAD_NAND" x="-2.54" y="-97.79"/>
 </elements>
 <signals>
+<signal name="VCC">
+<contactref element="U$2" pad="16"/>
+<contactref element="U$3" pad="16"/>
+<wire x1="-6.35" y1="-44.13" x2="-6.35" y2="-55.56" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="GND">
+<contactref element="U$2" pad="8"/>
+<contactref element="U$3" pad="8"/>
+<contactref element="U$1" pad="P$13"/>
+<wire x1="2.54" y1="-60.96" x2="2.667" y2="-78.0796" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="-49.53" x2="2.54" y2="-60.96" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$1">
+<contactref element="U$2" pad="10"/>
+<contactref element="U$1" pad="P$12"/>
+<wire x1="1.27" y1="-44.13" x2="6.868434375" y2="-80.5053" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$14">
+<contactref element="U$2" pad="11"/>
+<contactref element="U$1" pad="P$11"/>
+<wire x1="0" y1="-44.13" x2="5.0927" y2="-82.281034375" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$15">
+<contactref element="U$2" pad="12"/>
+<contactref element="U$1" pad="P$10"/>
+<wire x1="-1.27" y1="-44.13" x2="2.667" y2="-82.931" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$16">
+<contactref element="U$2" pad="13"/>
+<contactref element="U$1" pad="P$9"/>
+<wire x1="-2.54" y1="-44.13" x2="0.2413" y2="-82.281034375" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$17">
+<contactref element="U$2" pad="1"/>
+<contactref element="U$1" pad="P$8"/>
+<wire x1="-6.35" y1="-49.53" x2="-1.534434375" y2="-80.5053" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$18">
+<contactref element="U$2" pad="2"/>
+<contactref element="U$1" pad="P$7"/>
+<wire x1="-5.08" y1="-49.53" x2="-2.1844" y2="-78.0796" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$19">
+<contactref element="U$2" pad="3"/>
+<contactref element="U$1" pad="P$6"/>
+<wire x1="-3.81" y1="-49.53" x2="-1.534434375" y2="-75.6539" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$20">
+<contactref element="U$2" pad="4"/>
+<contactref element="U$1" pad="P$5"/>
+<wire x1="-2.54" y1="-49.53" x2="0.2413" y2="-73.878165625" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$21">
+<contactref element="U$2" pad="5"/>
+<contactref element="U$3" pad="15"/>
+<wire x1="-1.27" y1="-49.53" x2="-5.08" y2="-55.56" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$10">
+<contactref element="U$1" pad="P$4"/>
+<contactref element="U$3" pad="10"/>
+<wire x1="1.27" y1="-55.56" x2="2.667" y2="-73.2282" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$11">
+<contactref element="U$1" pad="P$3"/>
+<contactref element="U$3" pad="11"/>
+<wire x1="0" y1="-55.56" x2="5.0927" y2="-73.878165625" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$12">
+<contactref element="U$1" pad="P$2"/>
+<contactref element="U$3" pad="12"/>
+<wire x1="-1.27" y1="-55.56" x2="6.868434375" y2="-75.6539" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$13">
+<contactref element="U$1" pad="P$1"/>
+<contactref element="U$3" pad="13"/>
+<wire x1="-2.54" y1="-55.56" x2="7.5184" y2="-78.0796" width="0" layer="19" extent="1-1"/>
+</signal>
 </signals>
 </board>
 </drawing>
