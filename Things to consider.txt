@@ -1,0 +1,3 @@
+to keep the gauge from jittering, you could have a small mosfet control power and only power on the servo when making a change to the position
+A knob for max regen would be nice
+This GPS module would be nice, maybe one of the higher precision units if precision is important https://www.u-blox.com/en/product/neo-m8l-series
