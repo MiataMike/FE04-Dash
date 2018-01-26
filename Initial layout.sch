@@ -12391,13 +12391,6 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="233.68" y1="-271.78" x2="170.18" y2="-271.78" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$19" class="0">
-<segment>
-<pinref part="U$2" gate="G$1" pin="29"/>
-<pinref part="H1" gate="G$1" pin="7"/>
-<wire x1="233.68" y1="-274.32" x2="170.18" y2="-274.32" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$25" class="0">
 <segment>
 <pinref part="U3" gate="G$1" pin="RXD"/>
@@ -12441,6 +12434,15 @@ Source: AVX .. aphvc.pdf</description>
 <pinref part="U$1" gate="G$1" pin="P9"/>
 <wire x1="73.66" y1="-167.64" x2="40.64" y2="-167.64" width="0.1524" layer="91"/>
 <wire x1="73.66" y1="-236.22" x2="73.66" y2="-167.64" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="H1" gate="G$1" pin="7"/>
+<wire x1="170.18" y1="-274.32" x2="205.74" y2="-274.32" width="0.1524" layer="91"/>
+<wire x1="205.74" y1="-274.32" x2="205.74" y2="-279.4" width="0.1524" layer="91"/>
+<pinref part="U$2" gate="G$1" pin="31/A12"/>
+<wire x1="205.74" y1="-279.4" x2="233.68" y2="-279.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

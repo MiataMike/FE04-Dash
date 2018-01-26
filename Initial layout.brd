@@ -4281,11 +4281,6 @@ design rules under a new name.</description>
 <contactref element="H1" pad="6"/>
 <wire x1="-131.25" y1="-163.936" x2="-82.55" y2="-48.26" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$19">
-<contactref element="U$2" pad="29"/>
-<contactref element="H1" pad="7"/>
-<wire x1="-132.75" y1="-163.936" x2="-80.01" y2="-48.26" width="0" layer="19" extent="1-1"/>
-</signal>
 <signal name="N$25">
 <contactref element="U3" pad="4"/>
 <contactref element="U$2" pad="4/CANRX"/>
@@ -4309,6 +4304,11 @@ design rules under a new name.</description>
 <contactref element="U$1" pad="P$9"/>
 <wire x1="-130.4" y1="-180.365" x2="-95" y2="-132.96" width="0" layer="19" extent="1-1"/>
 <wire x1="-136.95" y1="-187" x2="-130.4" y2="-180.365" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="N$3">
+<contactref element="H1" pad="7"/>
+<contactref element="U$2" pad="31/A12"/>
+<wire x1="-132.75" y1="-163.936" x2="-74.93" y2="-48.26" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>
