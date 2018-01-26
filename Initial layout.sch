@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.4.1">
+<eagle version="8.6.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -11427,9 +11427,12 @@ Source: AVX .. aphvc.pdf</description>
 <sheet>
 <plain>
 <text x="391.16" y="-83.82" size="1.778" layer="91">7443251000</text>
-<text x="137.16" y="-358.14" size="1.778" layer="91" rot="MR0">Steering Wheel</text>
-<text x="124.46" y="-45.72" size="1.778" layer="91">Multi-function LED Display</text>
-<text x="254" y="-355.6" size="1.778" layer="91">3.5" TFT Display</text>
+<text x="149.86" y="-358.14" size="3.81" layer="91" rot="MR0">Steering Wheel</text>
+<text x="81.28" y="-45.72" size="7.62" layer="91">Multi-function LED Display</text>
+<text x="223.52" y="-355.6" size="7.62" layer="91">3.5" TFT Display</text>
+<text x="381" y="-193.04" size="7.62" layer="91">23 Pin Ampseal</text>
+<text x="337.82" y="-45.72" size="7.62" layer="91">Constant Current Power Supply</text>
+<text x="12.7" y="-358.14" size="3.81" layer="91">CAN Transiever</text>
 </plain>
 <instances>
 <instance part="U2" gate="G$1" x="353.06" y="-93.98">
@@ -12724,6 +12727,14 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="-10.16" y1="-231.14" x2="-10.16" y2="-129.54" width="0.1524" layer="91"/>
 <pinref part="LED1" gate="G$1" pin="DI"/>
 <wire x1="-10.16" y1="-129.54" x2="30.48" y2="-129.54" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$33" class="0">
+<segment>
+<wire x1="350.52" y1="-195.58" x2="350.52" y2="-297.18" width="0.1524" layer="91"/>
+<wire x1="350.52" y1="-297.18" x2="467.36" y2="-297.18" width="0.1524" layer="91"/>
+<wire x1="467.36" y1="-297.18" x2="467.36" y2="-195.58" width="0.1524" layer="91"/>
+<wire x1="467.36" y1="-195.58" x2="350.52" y2="-195.58" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
