@@ -11491,7 +11491,8 @@ Source: AVX .. aphvc.pdf</description>
 <sheet>
 <plain>
 <text x="391.16" y="-83.82" size="1.778" layer="91">7443251000</text>
-<text x="149.86" y="-358.14" size="3.81" layer="91" rot="MR0">Steering Wheel</text>
+<text x="149.86" y="-358.14" size="3.81" layer="91" rot="MR0">Steering Wheel
+        RJ-45</text>
 <text x="81.28" y="-45.72" size="7.62" layer="91">Multi-function LED Display</text>
 <text x="223.52" y="-355.6" size="7.62" layer="91">3.5" TFT Display</text>
 <text x="381" y="-193.04" size="7.62" layer="91">23 Pin Ampseal</text>
@@ -11851,11 +11852,6 @@ Source: AVX .. aphvc.pdf</description>
 <label x="426.72" y="-261.62" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="P6"/>
-<wire x1="391.16" y1="-231.14" x2="401.32" y2="-231.14" width="0.1524" layer="91"/>
-<label x="396.24" y="-231.14" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="J1" gate="G$1" pin="3"/>
 <wire x1="129.54" y1="-426.72" x2="121.92" y2="-426.72" width="0.1524" layer="91"/>
 <pinref part="J1" gate="G$1" pin="4"/>
@@ -11864,6 +11860,11 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="121.92" y1="-429.26" x2="121.92" y2="-434.34" width="0.1524" layer="91"/>
 <junction x="121.92" y="-429.26"/>
 <pinref part="GND23" gate="1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="P5"/>
+<wire x1="391.16" y1="-228.6" x2="401.32" y2="-228.6" width="0.1524" layer="91"/>
+<label x="396.24" y="-228.6" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="+15V" class="0">
@@ -12740,14 +12741,14 @@ Source: AVX .. aphvc.pdf</description>
 </net>
 <net name="SERVO_PWM" class="0">
 <segment>
-<pinref part="U$2" gate="G$1" pin="29"/>
-<wire x1="233.68" y1="-274.32" x2="210.82" y2="-274.32" width="0.1524" layer="91"/>
-<label x="210.82" y="-274.32" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="U$1" gate="G$1" pin="P3"/>
 <wire x1="391.16" y1="-223.52" x2="401.32" y2="-223.52" width="0.1524" layer="91"/>
 <label x="396.24" y="-223.52" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$2" gate="G$1" pin="22/A8"/>
+<wire x1="274.32" y1="-233.68" x2="304.8" y2="-233.68" width="0.1524" layer="91"/>
+<label x="299.72" y="-233.68" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$30" class="0">
@@ -12766,36 +12767,12 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="423.418" y1="-262.636" x2="423.418" y2="-203.2" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="RTDL" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="P4"/>
-<wire x1="391.16" y1="-226.06" x2="401.32" y2="-226.06" width="0.1524" layer="91"/>
-<label x="396.24" y="-226.06" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="U$2" gate="G$1" pin="30"/>
-<wire x1="233.68" y1="-276.86" x2="210.82" y2="-276.86" width="0.1524" layer="91"/>
-<label x="210.82" y="-276.86" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="LBL" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="P5"/>
-<wire x1="391.16" y1="-228.6" x2="401.32" y2="-228.6" width="0.1524" layer="91"/>
-<label x="396.24" y="-228.6" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="U$2" gate="G$1" pin="31/A12"/>
-<wire x1="233.68" y1="-279.4" x2="210.82" y2="-279.4" width="0.1524" layer="91"/>
-<label x="210.82" y="-279.4" size="1.778" layer="95"/>
-</segment>
-</net>
 <net name="N$32" class="0">
 <segment>
-<wire x1="414.02" y1="-231.902" x2="414.02" y2="-218.948" width="0.1524" layer="91"/>
-<wire x1="393.954" y1="-218.948" x2="393.954" y2="-231.902" width="0.1524" layer="91"/>
-<wire x1="393.954" y1="-231.902" x2="414.02" y2="-231.902" width="0.1524" layer="91"/>
-<wire x1="393.954" y1="-218.948" x2="414.02" y2="-218.948" width="0.1524" layer="91"/>
+<wire x1="419.1" y1="-229.362" x2="419.1" y2="-218.948" width="0.1524" layer="91"/>
+<wire x1="393.954" y1="-218.948" x2="393.954" y2="-229.362" width="0.1524" layer="91"/>
+<wire x1="393.954" y1="-229.362" x2="419.1" y2="-229.362" width="0.1524" layer="91"/>
+<wire x1="393.954" y1="-218.948" x2="419.1" y2="-218.948" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$27" class="0">
@@ -12897,6 +12874,25 @@ Source: AVX .. aphvc.pdf</description>
 <pinref part="R2" gate="G$1" pin="1"/>
 <wire x1="309.88" y1="-302.26" x2="309.88" y2="-269.24" width="0.1524" layer="91"/>
 <wire x1="309.88" y1="-269.24" x2="274.32" y2="-269.24" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="NEO_PIXEL_PWM" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="P4"/>
+<wire x1="391.16" y1="-226.06" x2="401.32" y2="-226.06" width="0.1524" layer="91"/>
+<label x="396.24" y="-226.06" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$2" gate="G$1" pin="21/A7"/>
+<wire x1="274.32" y1="-236.22" x2="304.8" y2="-236.22" width="0.1524" layer="91"/>
+<label x="299.72" y="-236.22" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="SPARE_5" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="P6"/>
+<wire x1="391.16" y1="-231.14" x2="406.4" y2="-231.14" width="0.1524" layer="91"/>
+<label x="398.78" y="-231.14" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
