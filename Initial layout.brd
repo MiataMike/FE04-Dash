@@ -3774,6 +3774,26 @@ design rules under a new name.</description>
 <contactref element="LED1" pad="4-DIN"/>
 <wire x1="41.85" y1="125.73" x2="123.64" y2="102.09" width="0" layer="19" extent="16-16"/>
 </signal>
+<signal name="SPARE_1">
+<contactref element="U$2" pad="33/A14"/>
+<contactref element="U$1" pad="P$12"/>
+<wire x1="109.22" y1="67.35" x2="72.84" y2="117.33" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SPARE_2">
+<contactref element="U$2" pad="34/A15"/>
+<contactref element="U$1" pad="P$11"/>
+<wire x1="113.22" y1="67.35" x2="75.38" y2="117.33" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SPARE_3">
+<contactref element="U$2" pad="35/A16"/>
+<contactref element="U$1" pad="P$8"/>
+<wire x1="95.22" y1="63.35" x2="77.92" y2="117.33" width="0" layer="19" extent="1-1"/>
+</signal>
+<signal name="SPARE_4">
+<contactref element="U$2" pad="36/A17"/>
+<contactref element="U$1" pad="P$7"/>
+<wire x1="99.22" y1="63.35" x2="80.46" y2="117.33" width="0" layer="19" extent="1-1"/>
+</signal>
 </signals>
 </board>
 </drawing>
