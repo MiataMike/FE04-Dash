@@ -3648,8 +3648,12 @@ design rules under a new name.</description>
 <signal name="D3">
 <contactref element="JP2" pad="5"/>
 </signal>
-<signal name="D2">
+<signal name="DI2">
 <contactref element="JP2" pad="6"/>
+<contactref element="U$1" pad="P$4"/>
+<contactref element="U$2" pad="21/A7"/>
+<wire x1="134.43" y1="72.4" x2="118.56" y2="123.33" width="0" layer="19" extent="1-1"/>
+<wire x1="232.22" y1="59.35" x2="134.43" y2="72.4" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="D1">
 <contactref element="JP2" pad="7"/>
@@ -3838,17 +3842,19 @@ design rules under a new name.</description>
 <contactref element="C20" pad="1"/>
 <wire x1="10.85" y1="85.505" x2="12.625" y2="83.73" width="0.254" layer="1"/>
 <wire x1="12.625" y1="83.73" x2="14.38" y2="83.73" width="0.254" layer="1"/>
+<contactref element="U$2" pad="3V3"/>
+<wire x1="14.38" y1="83.73" x2="95.7" y2="108.09" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$13">
+<signal name="DOWN">
 <contactref element="U$2" pad="25"/>
 </signal>
-<signal name="N$15">
+<signal name="LEFT">
 <contactref element="U$2" pad="26"/>
 </signal>
-<signal name="N$17">
+<signal name="RIGHT">
 <contactref element="U$2" pad="27"/>
 </signal>
-<signal name="N$18">
+<signal name="DRS_FLAP">
 <contactref element="U$2" pad="28"/>
 </signal>
 <signal name="CANL1">
@@ -3859,15 +3865,12 @@ design rules under a new name.</description>
 <wire x1="14.275" y1="86.775" x2="14.38" y2="86.67" width="0.254" layer="1"/>
 <wire x1="242.22" y1="63.35" x2="14.38" y2="86.67" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$3">
+<signal name="PADDLE">
 <contactref element="H1" pad="7"/>
 <contactref element="U$2" pad="32/A13"/>
 <wire x1="72.84" y1="108.09" x2="102.09" y2="101.474" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$16">
-<contactref element="U$2" pad="3V3"/>
-</signal>
-<signal name="N$19">
+<signal name="UP">
 <contactref element="U$2" pad="24"/>
 </signal>
 <signal name="N$11">
@@ -3896,12 +3899,12 @@ design rules under a new name.</description>
 <wire x1="13.855" y1="88.045" x2="14.38" y2="88.57" width="0.254" layer="1"/>
 <wire x1="238.22" y1="63.35" x2="14.38" y2="88.57" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$28">
+<signal name="CAN_TX">
 <contactref element="U3" pad="1"/>
 <contactref element="U$2" pad="3/CANTX"/>
 <wire x1="5.65" y1="89.315" x2="121.1" y2="108.09" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$26">
+<signal name="CAN_RX">
 <contactref element="U3" pad="4"/>
 <contactref element="U$2" pad="4/CANRX"/>
 <wire x1="5.65" y1="85.505" x2="118.56" y2="108.09" width="0" layer="19" extent="1-1"/>
@@ -3951,7 +3954,7 @@ design rules under a new name.</description>
 <contactref element="U$2" pad="22/A8"/>
 <wire x1="236.22" y1="59.35" x2="121.1" y2="123.33" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$27">
+<signal name="DI1">
 <contactref element="U$2" pad="2"/>
 <contactref element="LED1" pad="4-DIN"/>
 <wire x1="41.85" y1="125.73" x2="123.64" y2="108.09" width="0" layer="19" extent="16-16"/>
@@ -3986,23 +3989,20 @@ design rules under a new name.</description>
 <contactref element="R1" pad="2"/>
 <wire x1="-9.05" y1="15" x2="-6.25" y2="29.7" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$41">
+<signal name="RJ45_L1">
 <contactref element="U$2" pad="39/A20"/>
 <contactref element="R1" pad="1"/>
 <wire x1="-10.95" y1="15" x2="88.08" y2="123.33" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="N$42">
+<signal name="RJ45_L2">
 <contactref element="U$2" pad="38/A19"/>
 <contactref element="R2" pad="1"/>
 <wire x1="-10.95" y1="8" x2="85.54" y2="123.33" width="0" layer="19" extent="1-1"/>
 </signal>
-<signal name="NEO_PIXEL_PWM">
-<contactref element="U$1" pad="P$4"/>
-<contactref element="U$2" pad="21/A7"/>
-<wire x1="232.22" y1="59.35" x2="118.56" y2="123.33" width="0" layer="19" extent="1-1"/>
-</signal>
 <signal name="SPARE_5">
 <contactref element="U$1" pad="P$6"/>
+<contactref element="U$2" pad="37/A18"/>
+<wire x1="224.22" y1="59.35" x2="83" y2="123.33" width="0" layer="19" extent="1-1"/>
 </signal>
 </signals>
 </board>
