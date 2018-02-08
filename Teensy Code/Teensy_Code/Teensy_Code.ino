@@ -1,3 +1,6 @@
+//To add the necessary included libraries go to Sketch->Include Library->Manage Libraries...
+//Filter and get all the necessary libraries
+
 #include <SPI.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_NeoMatrix.h>
