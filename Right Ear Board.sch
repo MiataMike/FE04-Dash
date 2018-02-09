@@ -4357,6 +4357,40 @@ Source: AVX .. aphvc.pdf</description>
 </deviceset>
 </devicesets>
 </library>
+<library name="supply1" urn="urn:adsk.eagle:library:371">
+<description>&lt;b&gt;Supply Symbols&lt;/b&gt;&lt;p&gt;
+ GND, VCC, 0V, +5V, -5V, etc.&lt;p&gt;
+ Please keep in mind, that these devices are necessary for the
+ automatic wiring of the supply signals.&lt;p&gt;
+ The pin name defined in the symbol is identical to the net which is to be wired automatically.&lt;p&gt;
+ In this library the device names are the same as the pin names of the symbols, therefore the correct signal names appear next to the supply symbols in the schematic.&lt;p&gt;
+ &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+</packages>
+<symbols>
+<symbol name="+5V" urn="urn:adsk.eagle:symbol:26929/1" library_version="1">
+<wire x1="1.27" y1="-1.905" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="-1.27" y2="-1.905" width="0.254" layer="94"/>
+<text x="-2.54" y="-5.08" size="1.778" layer="96" rot="R90">&gt;VALUE</text>
+<pin name="+5V" x="0" y="-2.54" visible="off" length="short" direction="sup" rot="R90"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="+5V" urn="urn:adsk.eagle:component:26963/1" prefix="P+" library_version="1">
+<description>&lt;b&gt;SUPPLY SYMBOL&lt;/b&gt;</description>
+<gates>
+<gate name="1" symbol="+5V" x="0" y="0"/>
+</gates>
+<devices>
+<device name="">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -4375,6 +4409,13 @@ Source: AVX .. aphvc.pdf</description>
 <part name="C2" library="rcl" library_urn="urn:adsk.eagle:library:334" deviceset="C-US" device="C0402" package3d_urn="urn:adsk.eagle:package:23626/1"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="J1" library="FormE" deviceset="MOLEX_CLICKMATE-4-R/A" device="" value="502585-0470"/>
+<part name="GND2" library="supply1" deviceset="GND" device=""/>
+<part name="GND3" library="supply1" deviceset="GND" device=""/>
+<part name="GND4" library="supply1" deviceset="GND" device=""/>
+<part name="GND5" library="supply1" deviceset="GND" device=""/>
+<part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
+<part name="P+2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
+<part name="P+3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4389,6 +4430,13 @@ Source: AVX .. aphvc.pdf</description>
 <instance part="C2" gate="G$1" x="128.27" y="95.25"/>
 <instance part="GND1" gate="1" x="128.27" y="87.63"/>
 <instance part="J1" gate="G$1" x="165.1" y="49.53"/>
+<instance part="GND2" gate="1" x="58.42" y="61.976"/>
+<instance part="GND3" gate="1" x="106.68" y="61.214"/>
+<instance part="GND4" gate="1" x="91.186" y="34.29"/>
+<instance part="GND5" gate="1" x="151.13" y="41.91"/>
+<instance part="P+1" gate="1" x="152.4" y="60.96"/>
+<instance part="P+2" gate="1" x="53.34" y="106.68"/>
+<instance part="P+3" gate="1" x="86.36" y="58.42"/>
 </instances>
 <busses>
 </busses>
@@ -4398,12 +4446,12 @@ Source: AVX .. aphvc.pdf</description>
 <pinref part="SV1" gate="G$1" pin="1"/>
 <wire x1="86.36" y1="49.53" x2="86.36" y2="55.88" width="0.1524" layer="91"/>
 <label x="87.63" y="55.88" size="1.778" layer="95"/>
+<pinref part="P+3" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="C1" gate="G$1" pin="1"/>
 <pinref part="LED7" gate="G$1" pin="VDD"/>
 <wire x1="53.34" y1="97.79" x2="53.34" y2="100.33" width="0.1524" layer="91"/>
-<label x="54.61" y="104.14" size="1.778" layer="95"/>
 <wire x1="53.34" y1="100.33" x2="53.34" y2="104.14" width="0.1524" layer="91"/>
 <wire x1="81.28" y1="100.33" x2="53.34" y2="100.33" width="0.1524" layer="91"/>
 <junction x="53.34" y="100.33"/>
@@ -4415,30 +4463,16 @@ Source: AVX .. aphvc.pdf</description>
 <pinref part="C2" gate="G$1" pin="1"/>
 <wire x1="101.6" y1="100.33" x2="128.27" y2="100.33" width="0.1524" layer="91"/>
 <wire x1="128.27" y1="100.33" x2="128.27" y2="97.79" width="0.1524" layer="91"/>
+<pinref part="P+2" gate="1" pin="+5V"/>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="1"/>
 <wire x1="162.56" y1="54.61" x2="152.4" y2="54.61" width="0.1524" layer="91"/>
 <wire x1="152.4" y1="54.61" x2="152.4" y2="58.42" width="0.1524" layer="91"/>
-<label x="152.4" y="58.42" size="1.778" layer="95"/>
+<pinref part="P+1" gate="1" pin="+5V"/>
 </segment>
 </net>
 <net name="GND" class="0">
-<segment>
-<pinref part="LED7" gate="G$1" pin="GND"/>
-<wire x1="58.42" y1="72.39" x2="58.42" y2="66.04" width="0.1524" layer="91"/>
-<label x="60.96" y="66.04" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="SV1" gate="G$1" pin="3"/>
-<wire x1="86.36" y1="44.45" x2="86.36" y2="38.1" width="0.1524" layer="91"/>
-<label x="87.63" y="38.1" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="LED1" gate="G$1" pin="GND"/>
-<wire x1="106.68" y1="72.39" x2="106.68" y2="66.04" width="0.1524" layer="91"/>
-<label x="109.22" y="66.04" size="1.778" layer="95"/>
-</segment>
 <segment>
 <pinref part="C1" gate="G$1" pin="2"/>
 <pinref part="GND20" gate="1" pin="GND"/>
@@ -4449,9 +4483,25 @@ Source: AVX .. aphvc.pdf</description>
 </segment>
 <segment>
 <pinref part="J1" gate="G$1" pin="4"/>
-<wire x1="162.56" y1="46.99" x2="152.4" y2="46.99" width="0.1524" layer="91"/>
-<wire x1="152.4" y1="46.99" x2="152.4" y2="44.45" width="0.1524" layer="91"/>
-<label x="152.4" y="44.45" size="1.778" layer="95"/>
+<wire x1="162.56" y1="46.99" x2="151.13" y2="46.99" width="0.1524" layer="91"/>
+<pinref part="GND5" gate="1" pin="GND"/>
+<wire x1="151.13" y1="46.99" x2="151.13" y2="44.45" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="LED7" gate="G$1" pin="GND"/>
+<pinref part="GND2" gate="1" pin="GND"/>
+<wire x1="58.42" y1="72.39" x2="58.42" y2="64.516" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="LED1" gate="G$1" pin="GND"/>
+<pinref part="GND3" gate="1" pin="GND"/>
+<wire x1="106.68" y1="72.39" x2="106.68" y2="63.754" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="SV1" gate="G$1" pin="3"/>
+<pinref part="GND4" gate="1" pin="GND"/>
+<wire x1="86.36" y1="44.45" x2="91.186" y2="44.45" width="0.1524" layer="91"/>
+<wire x1="91.186" y1="44.45" x2="91.186" y2="36.83" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="DI" class="0">
