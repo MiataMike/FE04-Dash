@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.5.0">
+<eagle version="8.3.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -3887,10 +3887,10 @@ Source: AVX .. aphvc.pdf</description>
 <part name="P+3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="SV2" library="con-lstb" library_urn="urn:adsk.eagle:library:162" deviceset="MA03-1" device="" package3d_urn="urn:adsk.eagle:package:8339/1"/>
 <part name="SV3" library="con-lstb" library_urn="urn:adsk.eagle:library:162" deviceset="MA03-1" device="" package3d_urn="urn:adsk.eagle:package:8339/1"/>
-<part name="C4" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C4" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C1" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C1" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
 <part name="P+4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
