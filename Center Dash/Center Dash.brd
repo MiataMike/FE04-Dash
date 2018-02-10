@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.5.0">
+<eagle version="8.3.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1950,11 +1950,10 @@ Please make sure your boards conform to these design rules.</description>
 <param name="slThermalsForVias" value="0"/>
 <param name="dpMaxLengthDifference" value="10mm"/>
 <param name="dpGapFactor" value="2.5"/>
+<param name="checkGrid" value="0"/>
 <param name="checkAngle" value="0"/>
 <param name="checkFont" value="1"/>
 <param name="checkRestrict" value="1"/>
-<param name="checkStop" value="0"/>
-<param name="checkValues" value="0"/>
 <param name="useDiameter" value="13"/>
 <param name="maxErrors" value="50"/>
 </designrules>
@@ -2172,53 +2171,56 @@ Please make sure your boards conform to these design rules.</description>
 <element name="R9" library="rcl" package="R0805" value="100" x="34.29" y="56.007" smashed="yes" rot="R270">
 <attribute name="NAME" x="35.56" y="56.642" size="1.27" layer="25" rot="R270"/>
 </element>
-<element name="C1" library="rcl" package="C0603K" value="10uF" x="-69.469" y="80.518" smashed="yes" rot="R270">
+<element name="C1" library="rcl" package="C0603K" value=".1uF" x="-69.469" y="80.518" smashed="yes" rot="R270">
 <attribute name="NAME" x="-68.819" y="81.318" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="-69.469" y="80.518" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C2" library="rcl" package="C0603K" value="10uF" x="-58.42" y="87.249" smashed="yes" rot="R270">
+<element name="C2" library="rcl" package="C0603K" value=".1uF" x="-58.42" y="87.249" smashed="yes" rot="R270">
 <attribute name="NAME" x="-57.77" y="88.049" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="-58.42" y="87.249" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C3" library="rcl" package="C0603K" value="10uF" x="-45.847" y="93.345" smashed="yes" rot="R270">
+<element name="C3" library="rcl" package="C0603K" value=".1uF" x="-45.847" y="93.345" smashed="yes" rot="R270">
 <attribute name="NAME" x="-45.197" y="94.145" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="-45.847" y="93.345" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C4" library="rcl" package="C0603K" value="10uF" x="-33.909" y="97.409" smashed="yes" rot="R270">
+<element name="C4" library="rcl" package="C0603K" value=".1uF" x="-33.909" y="97.409" smashed="yes" rot="R270">
 <attribute name="NAME" x="-33.259" y="98.209" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="-33.909" y="97.409" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C5" library="rcl" package="C0603K" value="10uF" x="-21.844" y="99.949" smashed="yes" rot="R270">
+<element name="C5" library="rcl" package="C0603K" value=".1uF" x="-21.844" y="99.949" smashed="yes" rot="R270">
 <attribute name="NAME" x="-21.194" y="100.749" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="-21.844" y="99.949" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C6" library="rcl" package="C0603K" value="10uF" x="-8.89" y="101.346" smashed="yes" rot="R270">
+<element name="C6" library="rcl" package="C0603K" value=".1uF" x="-8.89" y="101.346" smashed="yes" rot="R270">
 <attribute name="NAME" x="-8.24" y="102.146" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="-8.89" y="101.346" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C7" library="rcl" package="C0603K" value="10uF" x="3.937" y="101.473" smashed="yes" rot="R270">
+<element name="C7" library="rcl" package="C0603K" value=".1uF" x="3.937" y="101.473" smashed="yes" rot="R270">
 <attribute name="NAME" x="4.587" y="102.273" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="3.937" y="101.473" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C11" library="rcl" package="C0603K" value="10uF" x="16.764" y="99.949" smashed="yes" rot="R270">
+<element name="C11" library="rcl" package="C0603K" value=".1uF" x="16.764" y="99.949" smashed="yes" rot="R270">
 <attribute name="NAME" x="17.414" y="100.749" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="16.764" y="99.949" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C13" library="rcl" package="C0603K" value="10uF" x="29.083" y="97.409" smashed="yes" rot="R270">
+<element name="C13" library="rcl" package="C0603K" value=".1uF" x="29.083" y="97.409" smashed="yes" rot="R270">
 <attribute name="NAME" x="29.733" y="98.209" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="29.083" y="97.409" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C14" library="rcl" package="C0603K" value="10uF" x="40.894" y="93.472" smashed="yes" rot="R270">
+<element name="C14" library="rcl" package="C0603K" value=".1uF" x="40.894" y="93.472" smashed="yes" rot="R270">
 <attribute name="NAME" x="41.544" y="94.272" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="40.894" y="93.472" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C15" library="rcl" package="C0603K" value="10uF" x="53.594" y="87.249" smashed="yes" rot="R270">
+<element name="C15" library="rcl" package="C0603K" value=".1uF" x="53.594" y="87.249" smashed="yes" rot="R270">
 <attribute name="NAME" x="54.244" y="88.049" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="53.594" y="87.249" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C16" library="rcl" package="C0603K" value="10uF" x="64.516" y="80.518" smashed="yes" rot="R270">
+<element name="C16" library="rcl" package="C0603K" value=".1uF" x="64.516" y="80.518" smashed="yes" rot="R270">
 <attribute name="NAME" x="65.166" y="81.318" size="1.016" layer="25" rot="R270"/>
 <attribute name="PARTNO" value="GRM188R61A106KE69D" x="64.516" y="80.518" size="1.778" layer="27" rot="R270" display="off"/>
+</element>
+<element name="R11" library="rcl" package="R0805" value="100" x="1.524" y="79.375" smashed="yes" rot="MR180">
+<attribute name="NAME" x="-3.81" y="80.01" size="1.27" layer="26" rot="MR180"/>
 </element>
 </elements>
 <signals>
@@ -2641,16 +2643,12 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="-2.509" y1="51.054" x2="-3.691" y2="52.236" width="0.3048" layer="1"/>
 </signal>
 <signal name="DI2">
-<contactref element="U$1" pad="P$4"/>
 <contactref element="U$2" pad="21/A7"/>
-<wire x1="-2" y1="73.937" x2="-2" y2="68.04" width="0.3048" layer="1"/>
-<wire x1="-2" y1="68.04" x2="-1.905" y2="67.945" width="0.3048" layer="1"/>
-<via x="-1.905" y="67.945" extent="1-16" drill="0.35"/>
-<wire x1="-1.905" y1="67.945" x2="-1.524" y2="67.564" width="0.3048" layer="16"/>
-<wire x1="-1.524" y1="67.564" x2="16.637" y2="67.564" width="0.3048" layer="16"/>
-<via x="16.637" y="67.564" extent="1-16" drill="0.35"/>
-<wire x1="16.637" y1="67.564" x2="16.637" y2="52.244" width="0.3048" layer="1"/>
-<wire x1="16.637" y1="52.244" x2="16.629" y2="52.236" width="0.3048" layer="1"/>
+<contactref element="R11" pad="2"/>
+<wire x1="16.629" y1="52.236" x2="16.629" y2="76.335" width="0.3048" layer="1"/>
+<wire x1="16.629" y1="76.335" x2="13.589" y2="79.375" width="0.3048" layer="1"/>
+<via x="13.589" y="79.375" extent="1-16" drill="0.35"/>
+<wire x1="13.589" y1="79.375" x2="2.474" y2="79.375" width="0.3048" layer="16"/>
 </signal>
 <signal name="N$2">
 <contactref element="LED1" pad="2-DOUT"/>
@@ -3268,6 +3266,14 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="69.596" y1="78.486" x2="69.596" y2="81.230396875" width="0.3048" layer="16"/>
 <wire x1="69.596" y1="81.230396875" x2="69.466671875" y2="81.359725" width="0.3048" layer="16"/>
 <wire x1="62.23" y1="81.28" x2="62.865" y2="80.645" width="0.3048" layer="16"/>
+</signal>
+<signal name="DI2_MORE">
+<contactref element="R11" pad="1"/>
+<contactref element="U$1" pad="P$4"/>
+<wire x1="0.574" y1="79.375" x2="-1.905" y2="79.375" width="0.3048" layer="16"/>
+<via x="-1.905" y="79.375" extent="1-16" drill="0.35"/>
+<wire x1="-1.905" y1="79.375" x2="-1.905" y2="74.032" width="0.3048" layer="1"/>
+<wire x1="-1.905" y1="74.032" x2="-2" y2="73.937" width="0.3048" layer="1"/>
 </signal>
 </signals>
 </board>

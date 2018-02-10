@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.5.0">
+<eagle version="8.3.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -7433,42 +7433,43 @@ Source: AVX .. aphvc.pdf</description>
 <part name="+3V4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 <part name="R9" library="rcl" deviceset="R-US_" device="R0805" value="100"/>
-<part name="C1" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C1" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C2" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C2" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C3" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C3" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C4" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C4" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C5" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C5" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C6" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C6" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C7" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C7" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C11" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C11" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C13" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C13" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C14" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C14" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C15" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C15" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
-<part name="C16" library="rcl" deviceset="C-US" device="C0603K" value="10uF">
+<part name="C16" library="rcl" deviceset="C-US" device="C0603K" value=".1uF">
 <attribute name="PARTNO" value="GRM188R61A106KE69D"/>
 </part>
+<part name="R11" library="rcl" deviceset="R-US_" device="R0805" value="100"/>
 </parts>
 <sheets>
 <sheet>
@@ -7643,6 +7644,7 @@ Source: AVX .. aphvc.pdf</description>
 <instance part="C16" gate="G$1" x="203.2" y="-114.3">
 <attribute name="PARTNO" x="203.2" y="-114.3" size="1.778" layer="96" display="off"/>
 </instance>
+<instance part="R11" gate="G$1" x="322.58" y="-236.22" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -8194,14 +8196,10 @@ Source: AVX .. aphvc.pdf</description>
 </net>
 <net name="DI2" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="P4"/>
-<wire x1="391.16" y1="-226.06" x2="401.32" y2="-226.06" width="0.1524" layer="91"/>
-<label x="396.24" y="-226.06" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="U$2" gate="G$1" pin="21/A7"/>
-<wire x1="274.32" y1="-236.22" x2="304.8" y2="-236.22" width="0.1524" layer="91"/>
+<wire x1="274.32" y1="-236.22" x2="317.5" y2="-236.22" width="0.1524" layer="91"/>
 <label x="299.72" y="-236.22" size="1.778" layer="95"/>
+<pinref part="R11" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -8787,6 +8785,18 @@ Source: AVX .. aphvc.pdf</description>
 <pinref part="R9" gate="G$1" pin="1"/>
 <pinref part="LED1" gate="G$1" pin="DI"/>
 <wire x1="2.54" y1="-129.54" x2="30.48" y2="-129.54" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="DI2_MORE" class="0">
+<segment>
+<pinref part="R11" gate="G$1" pin="1"/>
+<wire x1="327.66" y1="-236.22" x2="340.36" y2="-236.22" width="0.1524" layer="91"/>
+<label x="330.2" y="-236.22" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$1" gate="G$1" pin="P4"/>
+<wire x1="391.16" y1="-226.06" x2="401.32" y2="-226.06" width="0.1524" layer="91"/>
+<label x="396.24" y="-226.06" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

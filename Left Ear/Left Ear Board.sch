@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.5.0">
+<eagle version="8.3.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -4108,7 +4108,6 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <part name="GND1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U$3" library="FormE" deviceset="SN74LS148D" device=""/>
 <part name="P+2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VCC" device=""/>
-<part name="GND2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="U$1" library="FormE" deviceset="12-POSITION-ROTARY" device=""/>
 <part name="GND3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
 <part name="GND4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
@@ -4175,7 +4174,6 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 <instance part="GND1" gate="1" x="132.08" y="33.02"/>
 <instance part="U$3" gate="G$1" x="198.12" y="40.64"/>
 <instance part="P+2" gate="VCC" x="187.96" y="55.88"/>
-<instance part="GND2" gate="1" x="187.96" y="33.02"/>
 <instance part="U$1" gate="G$1" x="137.16" y="83.82" rot="R270"/>
 <instance part="GND3" gate="1" x="187.96" y="33.02"/>
 <instance part="GND4" gate="1" x="165.1" y="96.52"/>
@@ -4321,11 +4319,9 @@ Source: http://www.murata.com .. GRM43DR72E224KW01.pdf</description>
 </segment>
 <segment>
 <pinref part="U$3" gate="G$1" pin="GND"/>
-<pinref part="GND2" gate="1" pin="GND"/>
 <wire x1="175.26" y1="43.18" x2="187.96" y2="43.18" width="0.1524" layer="91"/>
 <wire x1="187.96" y1="43.18" x2="187.96" y2="35.56" width="0.1524" layer="91"/>
 <pinref part="GND3" gate="1" pin="GND"/>
-<junction x="187.96" y="35.56"/>
 </segment>
 <segment>
 <pinref part="U$1" gate="G$1" pin="WIPER"/>
