@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.3.1">
+<eagle version="8.6.1">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -3928,12 +3928,6 @@ Source: AVX .. aphvc.pdf</description>
 <nets>
 <net name="+5V" class="0">
 <segment>
-<pinref part="SV1" gate="G$1" pin="1"/>
-<wire x1="86.36" y1="49.53" x2="86.36" y2="55.88" width="0.1524" layer="91"/>
-<label x="87.63" y="55.88" size="1.778" layer="95"/>
-<pinref part="P+3" gate="1" pin="+5V"/>
-</segment>
-<segment>
 <pinref part="J1" gate="G$1" pin="1"/>
 <wire x1="162.56" y1="54.61" x2="152.4" y2="54.61" width="0.1524" layer="91"/>
 <wire x1="152.4" y1="54.61" x2="152.4" y2="58.42" width="0.1524" layer="91"/>
@@ -3969,6 +3963,11 @@ Source: AVX .. aphvc.pdf</description>
 <wire x1="63.5" y1="82.55" x2="53.34" y2="82.55" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="82.55" x2="53.34" y2="106.68" width="0.1524" layer="91"/>
 <junction x="53.34" y="106.68"/>
+</segment>
+<segment>
+<pinref part="P+3" gate="1" pin="+5V"/>
+<pinref part="SV1" gate="G$1" pin="2"/>
+<wire x1="86.36" y1="55.88" x2="86.36" y2="46.99" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="GND" class="0">
@@ -4025,12 +4024,10 @@ Source: AVX .. aphvc.pdf</description>
 </net>
 <net name="SERVO_PWM" class="0">
 <segment>
-<pinref part="SV1" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="46.99" x2="91.44" y2="46.99" width="0.1524" layer="91"/>
 <label x="91.44" y="46.99" size="1.778" layer="95"/>
 <pinref part="J1" gate="G$1" pin="3"/>
-<wire x1="162.56" y1="49.53" x2="91.44" y2="49.53" width="0.1524" layer="91"/>
-<wire x1="91.44" y1="49.53" x2="91.44" y2="46.99" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="49.53" x2="86.36" y2="49.53" width="0.1524" layer="91"/>
+<pinref part="SV1" gate="G$1" pin="1"/>
 </segment>
 </net>
 <net name="DATA" class="0">
