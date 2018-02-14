@@ -12,10 +12,10 @@
 //Setting up Pins
 #define D_neo_pixel_DI 2 //Dash 
 
-#define CAN_TX 3
+#define CAN_TX 3  //Only Pins for flexCan are 3 and 4
 #define CAN_RX 4
  
-#define AMS_light 5 // Left ear
+#define AMS_light 5 //Left ear
 #define IMD_light 6
 #define BSPD_light 7
 #define TPS_light 8
@@ -129,8 +129,9 @@ void setup()
 
 void loop()
 {
-  // put your main code here, to run repeatedly:
   
+  CANbus.read(rxmsg);
+  processFrame(rxmsg);
 }
 
 void amsLight(bool on)
