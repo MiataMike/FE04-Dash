@@ -1,5 +1,6 @@
 //To add the necessary included libraries go to Sketch->Include Library->Manage Libraries...
 //Filter and get all the necessary libraries
+//Make sure Board type selected in tools is a teensy
 
 #include <SPI.h>
 #include <Adafruit_GFX.h>
@@ -12,8 +13,11 @@
 //Setting up Pins
 #define D_neo_pixel_DI 2 //Dash 
 
-#define CAN_TX 3  //Only Pins for flexCan are 3 and 4
-#define CAN_RX 4
+#define CARCAN_TX 3  //CAN0
+#define CARCAN_RX 4
+
+#define DAQCAN_TX 33  //CAN1
+#define DAQCAN_RX 34
  
 #define AMS_light 5 //Left ear
 #define IMD_light 6
@@ -41,17 +45,15 @@
 #define RJ45_L1 20
 #define RJ45_L2 19
 
-#define Ignition_1 33
-#define Ignition_2 34
+#define Ignition_1 35
+#define Ignition_2 36
 
 #define SW_bit0 14
 #define SW_bit1 15
 #define SW_bit2 16
 #define SW_bit3 17
 
-#define spare_1 35
-#define spare_2 36
-#define spare_3 37
+#define spare_1 37
 
 //0x20
 uint16_t throttleOneRaw = 0;
@@ -116,7 +118,8 @@ uint8_t dashTab = 1;//start on dash 1
 uint8_t dashCount = 6;//total number of dashes
 
 //CAN Setup
-FlexCAN CANbus(500000);
+FlexCAN CARCAN(0);
+FlexCAN DAQCAN(1);
 static CAN_message_t msg,rxmsg;
 
 //TFT Screen Setup
@@ -221,7 +224,8 @@ void setup()
   }
   tft.setRotation(rotation);
   tft.fillScreen(HX8357_BLACK);
-  CANbus.begin();
+  CARCAN.begin(500000);
+  DAQCAN.begin(500000);
 }
 
 void loop()
@@ -247,7 +251,9 @@ void loop()
       CandumpTab();
       break;
   }
-  //CANbus.read(rxmsg);
+  //CARCAN.read(rxmsg);
+  //processFrame(rxmsg);
+  //DAQCAN.read(rxmsg);
   //processFrame(rxmsg);
 }
 
@@ -405,7 +411,7 @@ void updatesocServo(int var)  //What should I pass it??
   delay(10);
 }
 
-void sendFrame()
+void sendCARCANFrame()
 {
   msg.id = 0x24;
   msg.len = 8;
@@ -417,7 +423,22 @@ void sendFrame()
   msg.buf[5] = 5;
   msg.buf[6] = 6;
   msg.buf[7] = 7;
-  CANbus.write(msg);
+  CARCAN.write(msg);
+}
+
+void sendDAQCANFrame()
+{
+  msg.id = 0x00;
+  msg.len = 8;
+  msg.buf[0] = 0;
+  msg.buf[1] = 1;
+  msg.buf[2] = 2;
+  msg.buf[3] = 3;
+  msg.buf[4] = 4;
+  msg.buf[5] = 5;
+  msg.buf[6] = 6;
+  msg.buf[7] = 7;
+  DAQCAN.write(msg);
 }
 
 void processFrame(CAN_message_t f)
