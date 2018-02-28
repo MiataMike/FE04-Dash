@@ -251,10 +251,16 @@ void loop()
       CandumpTab();
       break;
   }
-  //CARCAN.read(rxmsg);
-  //processFrame(rxmsg);
-  //DAQCAN.read(rxmsg);
-  //processFrame(rxmsg);
+  if(CARCAN.available())
+  {
+    CARCAN.read(rxmsg);
+    processCARCANFrame(rxmsg);
+  }
+  if(DAQCAN.available())
+  {
+    DAQCAN.read(rxmsg);
+    processDAQCANFrame(rxmsg);
+  }
 }
 
 void fillSTlogo()
@@ -441,7 +447,7 @@ void sendDAQCANFrame()
   DAQCAN.write(msg);
 }
 
-void processFrame(CAN_message_t f)
+void processCARCANFrame(CAN_message_t f)
 {
   //Pedal Board
   uint8_t dataByte = 0;
@@ -572,5 +578,10 @@ void processFrame(CAN_message_t f)
   {
     Serial.print("WTF????");
   }
+}
+
+void processDAQCANFrame(CAN_message_t f)
+{
+  
 }
 
