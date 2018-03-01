@@ -11165,6 +11165,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="PARTNO" value="ERJ-6ENF1001V"/>
 </part>
 <part name="GND37" library="supply1" deviceset="GND" device=""/>
+<part name="+3V6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -11416,6 +11417,7 @@ type 0309, grid 2.5 mm</description>
 <attribute name="PARTNO" x="325.12" y="-259.08" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND37" gate="1" x="340.36" y="-271.78"/>
+<instance part="+3V6" gate="G$1" x="203.2" y="-175.26"/>
 </instances>
 <busses>
 </busses>
@@ -12208,6 +12210,12 @@ type 0309, grid 2.5 mm</description>
 <wire x1="381" y1="-391.16" x2="381" y2="-383.54" width="0.1524" layer="91"/>
 <junction x="381" y="-391.16"/>
 <pinref part="+3V5" gate="G$1" pin="+3V3"/>
+</segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="EN"/>
+<wire x1="208.28" y1="-180.34" x2="203.2" y2="-180.34" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="-180.34" x2="203.2" y2="-177.8" width="0.1524" layer="91"/>
+<pinref part="+3V6" gate="G$1" pin="+3V3"/>
 </segment>
 </net>
 <net name="PADDLE" class="0">
