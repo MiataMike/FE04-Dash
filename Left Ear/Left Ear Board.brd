@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.6.1">
+<eagle version="8.6.3">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -1729,6 +1729,7 @@ Please make sure your boards conform to these design rules.</description>
 <vertex x="33.782" y="-0.635"/>
 <vertex x="33.782" y="33.02"/>
 </polygon>
+<contactref element="U$3" pad="5"/>
 </signal>
 <signal name="N$1">
 <contactref element="U$2" pad="10"/>
