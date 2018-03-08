@@ -31,10 +31,8 @@
 #define CLK 13
 
 #define Paddle A13
-//#define up_button 24
-//#define down_button 25
-#define up_button 0
-#define down_button 1
+#define up_button 24
+#define down_button 25
 #define left_button 26
 #define right_button 27
 #define DRS_flap 28
@@ -114,8 +112,9 @@ float minCellVoltageF = 0;
 uint16_t packCurrent = 0;
 float packCurrentF = 0;
 
-uint8_t dashTab = 1;//start on dash 1
-uint8_t dashCount = 6;//total number of dashes
+uint8_t driveMode = 1;
+uint8_t driveModeCount = 12;
+uint8_t previousdriveMode  = 100;
 
 //CAN Setup
 FlexCAN CARCAN(0);
@@ -203,14 +202,20 @@ void setup()
   pinMode(BSPD_light, OUTPUT);
   pinMode(TPS_light, OUTPUT);
   pinMode(servo_PWM, OUTPUT);
-  pinMode(up_button, INPUT_PULLUP);  //Change up and down button #define to correct number
-  attachInterrupt(digitalPinToInterrupt(up_button), dashScrollUp, FALLING);
-  pinMode(down_button, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(down_button), dashScrollDown, FALLING);
-  pinMode(left_button, INPUT);
-  pinMode(right_button, INPUT);
-  
+  pinMode(SW_bit0, INPUT);
+  attachInterrupt(digitalPinToInterrupt(SW_bit0), updateDriveMode, CHANGE);
+  pinMode(SW_bit1, INPUT);
+  pinMode(SW_bit2, INPUT);
+  pinMode(SW_bit3, INPUT);
 
+  driveMode = digitalRead(SW_bit3);
+  driveMode <<= 1;
+  driveMode |= digitalRead(SW_bit2);
+  driveMode <<= 1;
+  driveMode |= digitalRead(SW_bit1);
+  driveMode <<= 1;
+  driveMode |= digitalRead(SW_bit0);
+  
   tft.begin(HX8357D);
   if(rotation == 1 || rotation == 3)
   {
@@ -230,26 +235,10 @@ void setup()
 
 void loop()
 {
-  switch(dashTab)
+  if(driveMode != previousdriveMode)
   {
-    case 1:
-      AccelerationTab();
-      break;
-    case 2:
-      SkidpadTab();
-      break;
-    case 3:
-      AutocrossTab();
-      break;
-    case 4:
-      EnduranceTab();
-      break;
-    case 5:
-      FaultsTab();
-      break;
-    case 6:
-      CandumpTab();
-      break;
+    changeDriveMode();
+    previousdriveMode = driveMode;
   }
   if(CARCAN.available())
   {
@@ -263,131 +252,132 @@ void loop()
   }
 }
 
-void fillSTlogo()
+void updateDriveMode()
 {
-  for(int16_t x = -35; x < tft_width; x+=68)
+  driveMode = digitalRead(SW_bit3);
+  driveMode <<= 1;
+  driveMode |= digitalRead(SW_bit2);
+  driveMode <<= 1;
+  driveMode |= digitalRead(SW_bit1);
+  driveMode <<= 1;
+  driveMode |= digitalRead(SW_bit0);
+}
+
+void changeDriveMode()
+{
+  switch(driveMode)
   {
-    for(int16_t y = 0; y < tft_height; y+=64)
-    {
-      tft.drawBitmap(x,y,STlogo, 128, 64, HX8357_BLACK);
-    }
+    case 10:
+      //mode 0
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("0");
+      break;
+    case 9:
+      //mode 1
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("1");
+      break;
+    case 8:
+      //mode 2
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("2");
+      break;
+    case 7:
+      //mode 3
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("3");
+      break;
+    case 6:
+      //mode 4
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("4");
+      break;
+    case 5:
+      //mode 5
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("5");
+      break;
+    case 4:
+      //mode 6
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("6");
+      break;
+    case 3:
+      //mode 7
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("7");
+      break;
+    case 2:
+      //mode 8
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("8");
+      break;
+    case 1:
+      //mode 9
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("9");
+      break;
+    case 0:
+      //mode 10
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("10");
+      break;
+    case 11:
+      //mode 11
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor((tft_width/2)-25,tft_height-40);
+      tft.setTextColor(HX8357_GREEN);
+      tft.setTextSize(4);
+      tft.println("11");
+      break;
+    default:
+      //FUCK??
+      tft.fillScreen(HX8357_BLACK);
+      tft.setCursor(40,40);
+      tft.setTextColor(HX8357_WHITE);
+      tft.setTextSize(14);
+      tft.println("DON'T");
+      tft.setCursor(40,200);
+      tft.setTextSize(13);
+      tft.println("PANIC");
+      tft.setCursor(400,200);
+      tft.println("!");
+      break;
   }
 }
-
-void dashScrollUp()
-{
-  dashTab++;
-  if(dashTab > dashCount){ dashTab = 1; }
-  display_on = false;
-}
-
-void dashScrollDown()
-{
-  dashTab--;
-  if(dashTab < 1){ dashTab = dashCount; }
-  display_on = false;
-}
-
-void AccelerationTab()
-{
-  if(!display_on)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    display_on = true;
-  }
-  tft.setCursor(0,0);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
-  tft.println("Acceleration Tab");
-}
-
-void SkidpadTab()
-{
-  if(!display_on)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    display_on = true;
-  }
-  tft.setCursor(0,0);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
-  tft.println("SkidPad Tab");
-}
-
-void AutocrossTab()
-{
-  if(!display_on)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    display_on = true;
-  }
-  tft.setCursor(0,0);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
-  tft.println("AutoCross Tab");
-}
-
-void EnduranceTab()
-{
-  if(!display_on)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    display_on = true;
-  }
-  tft.setCursor(0,0);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
-  tft.println("Endurance Tab");
-  tft.setTextColor(HX8357_WHITE);
-  tft.setTextSize(3);
-  tft.print("Max Temp: ");
-  tft.println(maxCellTempF);
-  tft.print("Min Temp: ");
-  tft.println(minCellTempF);
-}
-
-void FaultsTab()
-{
-  if(!display_on)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    display_on = true;
-  }
-  tft.setCursor(0,0);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
-  tft.println("Faults Tab");
-  tft.setTextColor(HX8357_WHITE);
-  tft.setTextSize(3);
-  for(uint8_t i = 0; i < 9; i++)
-  {
-    uint8_t check_faults = (faulted >> i) & 1;
-    if(check_faults == 1 && i == 0){ tft.println("Over Voltage"); }
-    else if(check_faults == 1 && i == 1){ tft.println("Under Voltage"); }
-    else if(check_faults == 1 && i == 2){ tft.println("Over Temp"); }
-    else if(check_faults == 1 && i == 3){ tft.println("Under Temp"); }
-    else if(check_faults == 1 && i == 4){ tft.println("Under Discharge Current"); }
-    else if(check_faults == 1 && i == 5){ tft.println("Over Charge Current"); }
-    else if(check_faults == 1 && i == 6){ tft.println("Contactor Fault"); }
-    else if(check_faults == 1 && i == 7){ tft.println("Cell Update Failure"); }
-    else if(check_faults == 1 && i == 8){ tft.println("Isolation Lost"); }
-  }
-}
-
-void CandumpTab()
-{
-  if(!display_on)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    display_on = true;
-  }
-  tft.setCursor(0,0);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
-  tft.println("Can Dump Tab");
-}
-
-
 
 void amsLight(bool on)
 {
@@ -417,6 +407,8 @@ void updatesocServo(int var)  //What should I pass it??
   delay(10);
 }
 
+
+//CAN Stuff
 void sendCARCANFrame()
 {
   msg.id = 0x24;
@@ -585,3 +577,14 @@ void processDAQCANFrame(CAN_message_t f)
   
 }
 
+
+void fillSTlogo()
+{
+  for(int16_t x = -35; x < tft_width; x+=68)
+  {
+    for(int16_t y = 0; y < tft_height; y+=64)
+    {
+      tft.drawBitmap(x,y,STlogo, 128, 64, HX8357_BLACK);
+    }
+  }
+}
