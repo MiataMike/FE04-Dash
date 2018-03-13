@@ -53,6 +53,7 @@ void loop()
     }
     else
     {
+      printCommonBackground();
       changeDriveMode();
     }
     previouslyon = true;
@@ -67,6 +68,7 @@ void loop()
     }
     else
     {
+      printCommonBackground();
       changeDashPage();
     }
     previouslyon = true;
@@ -87,6 +89,14 @@ void loop()
   {
     DAQCAN.read(rxmsg);
     processDAQCANFrame(rxmsg);
+  }
+  if(on || previouslyon)
+  {
+    maxCellTemp--;
+    if(maxCellTemp > 60){ maxCellTemp = 60; }
+    HVSOC--;
+    if(HVSOC > 100){ HVSOC = 100; }
+    delay(100); 
   }
 }
 

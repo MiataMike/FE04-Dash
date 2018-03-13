@@ -93,10 +93,12 @@ extern bool prechargeContactor;
 extern bool negativeContactor;
 extern bool positiveContactor;
 extern uint16_t faulted;
+extern uint16_t previousmaxCellTemp;
 extern uint16_t maxCellTemp;
 extern float maxCellTempF;
 extern uint16_t minCellTemp;
 extern float minCellTempF;
+extern uint16_t previousHVSOC;
 extern uint16_t HVSOC; //High Voltage State Of Charge
 extern float HVSOCF; //float for gauges
 

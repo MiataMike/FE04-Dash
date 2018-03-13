@@ -39,11 +39,13 @@ bool prechargeContactor = false;
 bool negativeContactor = false;
 bool positiveContactor = false;
 uint16_t faulted = 0;
-uint16_t maxCellTemp = 0;
+uint16_t previousmaxCellTemp = 200;
+uint16_t maxCellTemp = 60;
 float maxCellTempF = 0;
 uint16_t minCellTemp = 0;
 float minCellTempF = 0;
-uint16_t HVSOC = 0; //High Voltage State Of Charge
+uint16_t previousHVSOC = 200;
+uint16_t HVSOC = 100; //High Voltage State Of Charge
 float HVSOCF = 0; //float for gauges
 
 //0x42

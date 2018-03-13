@@ -28,11 +28,39 @@ void printCommonBackground()
   tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
   tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
   tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
+  if(previousHVSOC != HVSOC || !previouslyon)
+  {
+    tft.setCursor(15,20);
+    tft.setTextSize(4);
+    tft.setTextColor(HX8357_BLACK);
+    tft.print(previousHVSOC);
+    tft.print("%");
+    tft.setCursor(15,20);
+    tft.setTextColor(HX8357_GREEN);
+    tft.print(HVSOC);
+    tft.print("%");
+    previousHVSOC = HVSOC;  
+  }
+  tft.setTextColor(HX8357_GREEN);
   tft.setCursor(43,60);
   tft.setTextSize(2);
-  tft.setTextColor(HX8357_GREEN);
   tft.println("SOC");
+  if(previousmaxCellTemp != maxCellTemp || !previouslyon)
+  {
+    tft.setCursor(3*(tft_width/4)+25,20);
+    tft.setTextSize(4);
+    tft.setTextColor(HX8357_BLACK);
+    tft.print(previousmaxCellTemp);
+    tft.print("C");
+    tft.setCursor(3*(tft_width/4)+25,20);
+    tft.setTextColor(HX8357_GREEN);
+    tft.print(maxCellTemp);
+    tft.print("C");
+    previousmaxCellTemp = maxCellTemp;  
+  }
+  tft.setTextColor(HX8357_GREEN);
   tft.setCursor(367,60);
+  tft.setTextSize(2);
   tft.println("Batt Temp");
 }
 
