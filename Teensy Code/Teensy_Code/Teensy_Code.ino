@@ -134,6 +134,7 @@ bool display_on = false;
 bool on = false;
 bool starting = false;
 bool previouslyon = false;
+uint8_t previousScreenNumber = 100;
 
 const unsigned char STlogo [] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -241,23 +242,30 @@ void loop()
 {
   if(on)
   {
-    if((!previouslyon) || (driveMode != previousdriveMode))
+    if(!previouslyon)
+    {
+      tft.fillScreen(HX8357_BLACK);
+      printTopBar();
+      changeDriveMode();
+    }
+    else
     {
       changeDriveMode();
-      previousdriveMode = driveMode;
-      previouslyon = true;
     }
+    previouslyon = true;
   }
   else if(!on && previouslyon)
   {
     startScreen();
     previouslyon = false;
   }
+  
   if(CARCAN.available())
   {
     CARCAN.read(rxmsg);
     processCARCANFrame(rxmsg);
   }
+  
   if(DAQCAN.available())
   {
     DAQCAN.read(rxmsg);
@@ -295,59 +303,55 @@ void updateDriveMode()
 
 void changeDriveMode()
 {
-  tft.fillScreen(HX8357_BLACK);
-  tft.setCursor((tft_width/2)-25,tft_height-35);
-  tft.setTextColor(HX8357_GREEN);
-  tft.setTextSize(4);
   switch(driveMode)
   {
     case 10:
       //mode 0
-      tft.println("0");
+      printScreenNumber(0);
       break;
     case 9:
       //mode 1
-      tft.println("1");
+      printScreenNumber(1);
       break;
     case 8:
       //mode 2
-      tft.println("2");
+      printScreenNumber(2);
       break;
     case 7:
       //mode 3
-      tft.println("3");
+      printScreenNumber(3);
       break;
     case 6:
       //mode 4
-      tft.println("4");
+      printScreenNumber(4);
       break;
     case 5:
       //mode 5
-      tft.println("5");
+      printScreenNumber(5);
       break;
     case 4:
       //mode 6
-      tft.println("6");
+      printScreenNumber(6);
       break;
     case 3:
       //mode 7
-      tft.println("7");
+      printScreenNumber(7);
       break;
     case 2:
       //mode 8
-      tft.println("8");
+      printScreenNumber(8);
       break;
     case 1:
       //mode 9
-      tft.println("9");
+      printScreenNumber(9);
       break;
     case 0:
       //mode 10
-      tft.println("10");
+      printScreenNumber(10);
       break;
     case 11:
       //mode 11
-      tft.println("11");
+      printScreenNumber(11);
       break;
     default:
       //FUCK??
@@ -362,6 +366,28 @@ void changeDriveMode()
       tft.setCursor(400,200);
       tft.println("!");
       break;
+  }
+}
+
+void printTopBar()
+{
+  tft.drawRect(0,0,tft_width,75,HX8357_GREEN);
+  tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
+  tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
+}
+
+void printScreenNumber(uint8_t number)
+{
+  tft.setCursor((tft_width/2)-25,tft_height-35);
+  tft.setTextSize(4);
+  tft.setTextColor(HX8357_BLACK);
+  if(previousScreenNumber != number || !previouslyon)
+  {
+    tft.println(previousScreenNumber);
+    tft.setTextColor(HX8357_GREEN);
+    tft.setCursor((tft_width/2)-25,tft_height-35);
+    tft.println(number);
+    previousScreenNumber = number;
   }
 }
 
