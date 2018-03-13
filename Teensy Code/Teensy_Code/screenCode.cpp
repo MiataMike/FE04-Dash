@@ -46,28 +46,77 @@ void printScreenNumber()
   tft.setCursor((tft_width/2)-25,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
-  if(previousScreenNumber != driveMode || !previouslyon)
+  if(previousdriveMode != driveMode || !previouslyon)
   {
-    tft.println(previousScreenNumber);
+    tft.println(previousdriveMode);
     tft.setTextColor(HX8357_GREEN);
     tft.setCursor((tft_width/2)-25,tft_height-35);
     tft.println(driveMode);
-    previousScreenNumber = driveMode;
+    previousdriveMode = driveMode;
   }
   previouslymessedup = false;
 }
 
-void printScreenTitle(String title)
+void printScreenTitle(String title, uint8_t number)
 {
   tft.setCursor((tft_width/2)-70,30);
   tft.setTextSize(3);
-  tft.setTextColor(HX8357_BLACK);
   if(previousTitle != title || !previouslyon)
   {
-    tft.println(previousTitle);
+    tft.fillRect(2+(tft_width/4),2,(tft_width/2)-2,73,HX8357_BLACK);
     tft.setTextColor(HX8357_GREEN);
-    tft.setCursor((tft_width/2)-70,30);
-    tft.println(title);
+    switch(number)
+    {
+      case 0:
+        tft.setCursor(tft_width/4 + 13, 30); //GOOD
+        break;
+      case 1:
+        tft.setCursor(tft_width/4 + 50, 30); //GOOD
+        break;
+      case 2:
+        tft.setCursor(tft_width/4 + 40, 30); //GOOD
+        break;
+      case 3:
+        tft.setCursor(tft_width/4 + 40, 30); //GOOD
+        break;
+      case 4: //THIS ONE IS SPECIAL
+        break;
+      case 5:
+        tft.setCursor(tft_width/4 + 22, 30); //GOOD
+        break;
+      case 6:
+        tft.setCursor(tft_width/4 + 60, 30); //GOOD
+        break;
+      case 7:
+        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        break;
+      case 8:
+        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        break;
+      case 9:
+        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        break;
+      case 10:
+        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        break;
+      case 11:
+        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        break;
+      case 12:
+        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        break;
+      case 13:
+        tft.setCursor(tft_width/4 + 15, 30); //GOOD
+        break;
+    }
+    if(number != 4){ tft.println(title); }
+    else
+    {
+      tft.setCursor(tft_width/4 + 63, 13);
+      tft.println("Sunday");
+      tft.setCursor(tft_width/4 + 54, 43);
+      tft.println("Driving");      
+    }
     previousTitle = title;
   }
 }

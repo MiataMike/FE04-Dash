@@ -134,7 +134,7 @@ extern bool display_on;
 extern bool on;
 extern bool starting;
 extern bool previouslyon;
-extern uint8_t previousScreenNumber;
+extern uint8_t previousdriveMode;
 extern bool previouslymessedup;
 extern String previousTitle;
 

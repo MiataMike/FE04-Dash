@@ -80,7 +80,7 @@ bool display_on = false;
 bool on = false;
 bool starting = false;
 bool previouslyon = false;
-uint8_t previousScreenNumber = 100;
+uint8_t previousdriveMode = 100;
 bool previouslymessedup = false;
 String previousTitle = "Previous";
 

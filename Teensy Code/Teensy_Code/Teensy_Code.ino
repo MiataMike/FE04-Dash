@@ -120,51 +120,51 @@ void changeDriveMode()
   switch(driveMode)
   {
     case 0:
-      printScreenTitle("Acceleration");
+      printScreenTitle("Acceleration", 0);
       printScreenNumber();
       break;
     case 1:
-      printScreenTitle("Skid Pad");
+      printScreenTitle("Skid Pad", 1);
       printScreenNumber();
       break;
     case 2:
-      printScreenTitle("Autocross");
+      printScreenTitle("Autocross", 2);
       printScreenNumber();
       break;
     case 3:
-      printScreenTitle("Endurance");
+      printScreenTitle("Endurance", 3);
       printScreenNumber();
       break;
     case 4:
-      printScreenTitle("Sunday Driving");
+      printScreenTitle("Sunday Driving", 4);
       printScreenNumber();
       break;
     case 5:
-      printScreenTitle("Granny Mode");
+      printScreenTitle("Granny Mode", 5);
       printScreenNumber();
       break;
     case 6:
-      printScreenTitle("Reverse");
+      printScreenTitle("Reverse", 6);
       printScreenNumber();
       break;
     case 7:
-      printScreenTitle("Extra");
+      printScreenTitle("Extra", 7);
       printScreenNumber();
       break;
     case 8:
-      printScreenTitle("Extra1");
+      printScreenTitle("Extra1", 8);
       printScreenNumber();
       break;
     case 9:
-      printScreenTitle("Extra2");
+      printScreenTitle("Extra2", 9);
       printScreenNumber();
       break;
     case 10:
-      printScreenTitle("Extra3");
+      printScreenTitle("Extra3", 10);
       printScreenNumber();
       break;
     case 11:
-      printScreenTitle("Extra4");
+      printScreenTitle("Extra4", 11);
       printScreenNumber();
       break;
     default:
@@ -182,7 +182,7 @@ void changeDriveMode()
         tft.setCursor(400,200);
         tft.println("!");
         previouslymessedup = true;
-        previousScreenNumber = 100;
+        previousdriveMode = 100;
       }
       break;
   }
@@ -205,11 +205,11 @@ void changeDashPage()
   switch(dashpage)
   {
     case 2:
-      printScreenTitle("Faults");
+      printScreenTitle("Faults", 12);
       printScreenNumber();
       break;
     case 3:
-      printScreenTitle("Can Messages");
+      printScreenTitle("CAN Messages", 13);
       printScreenNumber();
       break;
   }
