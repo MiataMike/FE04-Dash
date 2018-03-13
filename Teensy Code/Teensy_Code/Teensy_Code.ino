@@ -115,8 +115,6 @@ uint16_t packCurrent = 0;
 float packCurrentF = 0;
 
 uint8_t driveMode = 1;
-uint8_t driveModeCount = 12;
-uint8_t previousdriveMode  = 100;
 
 //CAN Setup
 FlexCAN CARCAN(0);
@@ -135,6 +133,7 @@ bool on = false;
 bool starting = false;
 bool previouslyon = false;
 uint8_t previousScreenNumber = 100;
+bool previouslymessedup = false;
 
 const unsigned char STlogo [] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -244,9 +243,16 @@ void loop()
   {
     if(!previouslyon)
     {
-      tft.fillScreen(HX8357_BLACK);
-      printTopBar();
-      changeDriveMode();
+      if(previouslymessedup)
+      {
+        changeDriveMode();
+      }
+      else
+      {
+        tft.fillScreen(HX8357_BLACK);
+        printCommonBackground();
+        changeDriveMode();
+      }
     }
     else
     {
@@ -355,29 +361,46 @@ void changeDriveMode()
       break;
     default:
       //FUCK??
-      tft.fillScreen(HX8357_BLACK);
-      tft.setCursor(40,40);
-      tft.setTextColor(HX8357_WHITE);
-      tft.setTextSize(14);
-      tft.println("DON'T");
-      tft.setCursor(40,200);
-      tft.setTextSize(13);
-      tft.println("PANIC");
-      tft.setCursor(400,200);
-      tft.println("!");
+      if(!previouslymessedup || !previouslyon)
+      {
+        tft.fillScreen(HX8357_BLACK);
+        tft.setCursor(40,40);
+        tft.setTextColor(HX8357_WHITE);
+        tft.setTextSize(14);
+        tft.println("DON'T");
+        tft.setCursor(40,200);
+        tft.setTextSize(13);
+        tft.println("PANIC");
+        tft.setCursor(400,200);
+        tft.println("!");
+        previouslymessedup = true;
+        previousScreenNumber = 100;
+      }
       break;
   }
 }
 
-void printTopBar()
+void printCommonBackground()
 {
-  tft.drawRect(0,0,tft_width,75,HX8357_GREEN);
+  tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
+  tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
   tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
   tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
+  tft.setCursor(43,60);
+  tft.setTextSize(2);
+  tft.setTextColor(HX8357_GREEN);
+  tft.println("SOC");
+  tft.setCursor(367,60);
+  tft.println("Batt Temp");
 }
 
 void printScreenNumber(uint8_t number)
 {
+  if(previouslymessedup)
+  {
+    tft.fillScreen(HX8357_BLACK);
+    printCommonBackground();
+  }
   tft.setCursor((tft_width/2)-25,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
@@ -389,6 +412,7 @@ void printScreenNumber(uint8_t number)
     tft.println(number);
     previousScreenNumber = number;
   }
+  previouslymessedup = false;
 }
 
 void amsLight(bool on)
