@@ -38,25 +38,40 @@ void loop()
 {
   if(on && dashpage == 1)
   {
-    if(!previouslyon)
+    if(!previouslyon && razzleMode)
     {
-      if(previouslymessedup)
+      changeDriveMode();
+      previouslyon = true;
+    }
+    else if(!previouslyon)
+    {
+      tft.fillScreen(HX8357_BLACK);
+      printCommonBackground();
+      changeDriveMode();
+      previouslyon = true;
+    }
+    else
+    {
+      if(razzleMode)
       {
         changeDriveMode();
       }
       else
       {
-        tft.fillScreen(HX8357_BLACK);
-        printCommonBackground();
-        changeDriveMode();
+        if(previouslyrazzleMode)
+        {
+          tft.fillScreen(HX8357_BLACK);
+          printCommonBackground();
+          changeDriveMode();
+          previouslyrazzleMode = false;
+        }
+        else
+        {
+          printCommonBackground();
+          changeDriveMode();
+        }
       }
     }
-    else
-    {
-      printCommonBackground();
-      changeDriveMode();
-    }
-    previouslyon = true;
   }
   else if(on && dashpage != 1)
   {
@@ -65,13 +80,13 @@ void loop()
       tft.fillScreen(HX8357_BLACK);
       printCommonBackground();
       changeDashPage();
+      previouslyon = true;
     }
     else
     {
       printCommonBackground();
       changeDashPage();
     }
-    previouslyon = true;
   }
   else if(!on && previouslyon)
   {
@@ -89,14 +104,6 @@ void loop()
   {
     DAQCAN.read(rxmsg);
     processDAQCANFrame(rxmsg);
-  }
-  if(on || previouslyon)
-  {
-    maxCellTemp--;
-    if(maxCellTemp > 60){ maxCellTemp = 60; }
-    HVSOC--;
-    if(HVSOC > 100){ HVSOC = 100; }
-    delay(100); 
   }
 }
 
@@ -132,68 +139,64 @@ void changeDriveMode()
     case 0:
       printScreenTitle("Acceleration", 0);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 1:
       printScreenTitle("Skid Pad", 1);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 2:
       printScreenTitle("Autocross", 2);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 3:
       printScreenTitle("Endurance", 3);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 4:
       printScreenTitle("Sunday Driving", 4);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 5:
       printScreenTitle("Granny Mode", 5);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 6:
       printScreenTitle("Reverse", 6);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 7:
       printScreenTitle("Extra", 7);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 8:
       printScreenTitle("Extra1", 8);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 9:
       printScreenTitle("Extra2", 9);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 10:
       printScreenTitle("Extra3", 10);
       printScreenNumber();
+      razzleMode = false;
       break;
     case 11:
-      printScreenTitle("Extra4", 11);
-      printScreenNumber();
-      break;
-    default:
-      //FUCK??
-      if(!previouslymessedup || !previouslyon)
-      {
-        tft.fillScreen(HX8357_BLACK);
-        tft.setCursor(40,40);
-        tft.setTextColor(HX8357_WHITE);
-        tft.setTextSize(14);
-        tft.println("DON'T");
-        tft.setCursor(40,200);
-        tft.setTextSize(13);
-        tft.println("PANIC");
-        tft.setCursor(400,200);
-        tft.println("!");
-        previouslymessedup = true;
-        previousdriveMode = 100;
-      }
+      //printScreenTitle("Razzle Dazzle", 11);
+      //printScreenNumber();
+      bmpDraw("rnd.bmp", 0 ,0);
+      razzleMode = true;
+      previouslyrazzleMode = true;
       break;
   }
 }

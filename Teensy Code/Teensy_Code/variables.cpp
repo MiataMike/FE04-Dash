@@ -77,13 +77,14 @@ int16_t tft_width = 0;
 int16_t tft_height = 0;
 uint8_t rotation = 3;
 bool display_on = false;
+bool razzleMode = false;
+bool previouslyrazzleMode = false;
 
 //Key
 bool on = false;
 bool starting = false;
 bool previouslyon = false;
 uint8_t previousdriveMode = 100;
-bool previouslymessedup = false;
 String previousTitle = "Previous";
 
 const unsigned char STlogo [] PROGMEM = {

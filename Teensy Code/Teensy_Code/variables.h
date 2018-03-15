@@ -131,13 +131,14 @@ extern int16_t tft_width;
 extern int16_t tft_height;
 extern uint8_t rotation;
 extern bool display_on;
+extern bool razzleMode;
+extern bool previouslyrazzleMode;
 
 //Key
 extern bool on;
 extern bool starting;
 extern bool previouslyon;
 extern uint8_t previousdriveMode;
-extern bool previouslymessedup;
 extern String previousTitle;
 
 extern const unsigned char STlogo [] PROGMEM;

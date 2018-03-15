@@ -28,7 +28,7 @@ void printCommonBackground()
   tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
   tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
   tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
-  if(previousHVSOC != HVSOC || !previouslyon)
+  if(previousHVSOC != HVSOC || !previouslyon || previouslyrazzleMode)
   {
     tft.setTextSize(4);
     tft.setTextColor(HX8357_BLACK);
@@ -49,7 +49,7 @@ void printCommonBackground()
   tft.setCursor(43,60);
   tft.setTextSize(2);
   tft.println("SOC");
-  if(previousmaxCellTemp != maxCellTemp || !previouslyon)
+  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previouslyrazzleMode)
   {
     //tft.setCursor(3*(tft_width/4)+25,20);
     tft.setTextSize(4);
@@ -76,15 +76,10 @@ void printCommonBackground()
 
 void printScreenNumber()
 {
-  if(previouslymessedup)
-  {
-    tft.fillScreen(HX8357_BLACK);
-    printCommonBackground();
-  }
   tft.setCursor((tft_width/2)-25,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
-  if(previousdriveMode != driveMode || !previouslyon)
+  if(previousdriveMode != driveMode || !previouslyon || previouslyrazzleMode)
   {
     tft.println(previousdriveMode);
     tft.setTextColor(HX8357_GREEN);
@@ -92,14 +87,13 @@ void printScreenNumber()
     tft.println(driveMode);
     previousdriveMode = driveMode;
   }
-  previouslymessedup = false;
 }
 
 void printScreenTitle(String title, uint8_t number)
 {
   tft.setCursor((tft_width/2)-70,30);
   tft.setTextSize(3);
-  if(previousTitle != title || !previouslyon)
+  if(previousTitle != title || !previouslyon || previouslyrazzleMode)
   {
     tft.fillRect(2+(tft_width/4),2,(tft_width/2)-2,73,HX8357_BLACK);
     tft.setTextColor(HX8357_GREEN);
@@ -138,7 +132,7 @@ void printScreenTitle(String title, uint8_t number)
         tft.setCursor(tft_width/4 + 65, 30); //GOOD
         break;
       case 11:
-        tft.setCursor(tft_width/4 + 65, 30); //GOOD
+        tft.setCursor(tft_width/4 + 5, 30); //GOOD
         break;
       case 12:
         tft.setCursor(tft_width/4 + 65, 30); //GOOD
