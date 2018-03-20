@@ -2242,7 +2242,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="-21.638" y="67.04" size="1.27" layer="26" rot="MR90"/>
 </element>
 <element name="R6" library="rcl" package="R0603" value="DNP" x="25.019" y="72.304" smashed="yes" rot="MR180">
-<attribute name="NAME" x="23.368" y="71.587" size="1.27" layer="26" rot="MR0"/>
+<attribute name="NAME" x="25.908" y="73.111" size="1.27" layer="26" rot="MR0"/>
 <attribute name="PARTNO" value="*" x="25.019" y="72.304" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
 <element name="R7" library="rcl" package="R0603" value="DNP" x="19.106" y="72.843" smashed="yes" rot="MR180">
@@ -2382,16 +2382,16 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="VALUE" x="19.812" y="24.511" size="1.27" layer="27"/>
 </element>
 <element name="Q1" library="FormE" package="BSS138" value="BSS138" x="1.905" y="61.976" smashed="yes" rot="MR0">
-<attribute name="NAME" x="4.445" y="59.436" size="1.27" layer="26" rot="MR90"/>
+<attribute name="NAME" x="3.175" y="58.928" size="1.27" layer="26" rot="MR0"/>
 </element>
 <element name="Q2" library="FormE" package="BSS138" value="BSS138" x="5.842" y="61.976" smashed="yes" rot="MR0">
-<attribute name="NAME" x="8.382" y="59.436" size="1.27" layer="26" rot="MR90"/>
+<attribute name="NAME" x="6.985" y="59.055" size="1.27" layer="26" rot="MR0"/>
 </element>
 <element name="Q3" library="FormE" package="BSS138" value="BSS138" x="10.033" y="61.976" smashed="yes" rot="MR0">
-<attribute name="NAME" x="12.573" y="59.436" size="1.27" layer="26" rot="MR90"/>
+<attribute name="NAME" x="11.049" y="59.055" size="1.27" layer="26" rot="MR0"/>
 </element>
 <element name="Q4" library="FormE" package="BSS138" value="BSS138" x="14.097" y="61.849" smashed="yes" rot="MR0">
-<attribute name="NAME" x="16.637" y="59.309" size="1.27" layer="26" rot="MR90"/>
+<attribute name="NAME" x="15.367" y="58.928" size="1.27" layer="26" rot="MR0"/>
 </element>
 <element name="U4" library="FormE" package="SOIC8-N_MC" value="" x="-28.448" y="74.93" smashed="yes" rot="MR180">
 <attribute name="NAME" x="-29.464" y="78.74" size="1.27" layer="26" ratio="6" rot="SMR180"/>
