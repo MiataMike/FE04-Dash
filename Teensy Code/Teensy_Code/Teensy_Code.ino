@@ -13,8 +13,9 @@ void setup()
   pinMode(BSPD_light, OUTPUT);
   pinMode(TPS_light, OUTPUT);
   pinMode(servo_PWM, OUTPUT);
+  pinMode(GS_pin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(GS_pin), updateDriveMode, RISING);
   pinMode(SW_bit0, INPUT);
-  attachInterrupt(digitalPinToInterrupt(SW_bit0), updateDriveMode, CHANGE);
   pinMode(SW_bit1, INPUT);
   pinMode(SW_bit2, INPUT);
   pinMode(SW_bit3, INPUT);
@@ -27,6 +28,8 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(right_button), scrollDashRight, FALLING);
 
   SD.begin(SDCS);
+  cdpixels.begin();
+  repixels.begin();
 
   setupScreen();
   
@@ -198,6 +201,11 @@ void changeDriveMode()
       razzleMode = true;
       previouslyrazzleMode = true;
       break;
+     default:
+      printScreenTitle("default", 69);
+      printScreenNumber();
+      razzleMode = false;
+      break;
   }
 }
 
@@ -230,7 +238,9 @@ void changeDashPage()
 
 void fixDriveModeNumber()
 {
-  if(driveMode != 11){ driveMode = 10 - driveMode; }
+  if(driveMode == 0){ driveMode = 10;}
+  else if(driveMode == 1){ driveMode = 11; }
+  else {driveMode -= 2; }
 }
 
 void amsLight(bool on)

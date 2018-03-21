@@ -12,7 +12,8 @@
 #include <string.h>
 
 //Setting up Pins
-#define D_neo_pixel_DI 2 //Dash 
+#define CD_neo_pixel_DI 2 //Dash
+#define NUM_CD_PIXELS 12
 
 #define CARCAN_TX 3  //CAN0
 #define CARCAN_RX 4
@@ -41,6 +42,7 @@
 
 #define servo_PWM 22 //Right ear
 #define RE_neo_pixel_DI 21
+#define NUM_RE_PIXELS 2
 
 #define RJ45_L1 20
 #define RJ45_L2 19
@@ -52,8 +54,7 @@
 #define SW_bit1 15
 #define SW_bit2 16
 #define SW_bit3 17
-
-#define spare_1 37
+#define GS_pin 37
 
 //0x20
 extern uint16_t throttleOneRaw;
@@ -140,6 +141,10 @@ extern bool starting;
 extern bool previouslyon;
 extern uint8_t previousdriveMode;
 extern String previousTitle;
+
+//NeoPixels
+extern Adafruit_NeoPixel cdpixels;
+extern Adafruit_NeoPixel repixels;
 
 extern const unsigned char STlogo [] PROGMEM;
 
