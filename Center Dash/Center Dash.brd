@@ -3570,18 +3570,6 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="U$1" pad="P$12"/>
 <wire x1="0" y1="69.977" x2="0" y2="57.15" width="0.3048" layer="1"/>
 </signal>
-<signal name="SPARE_1">
-<contactref element="U$2" pad="37/A18"/>
-<via x="13.716" y="77.978" extent="1-16" drill="0.3302"/>
-<wire x1="13.716" y1="77.978" x2="-16.764" y2="77.978" width="0.3048" layer="16"/>
-<wire x1="-16.764" y1="77.978" x2="-18.796" y2="75.946" width="0.3048" layer="16"/>
-<via x="-18.796" y="75.946" extent="1-16" drill="0.3302"/>
-<wire x1="-18.796" y1="75.946" x2="-18.796" y2="52.371" width="0.3048" layer="1"/>
-<wire x1="-18.796" y1="52.371" x2="-18.931" y2="52.236" width="0.3048" layer="1"/>
-<contactref element="U$1" pad="P$8"/>
-<wire x1="13.716" y1="77.978" x2="14" y2="77.694" width="0.3048" layer="1"/>
-<wire x1="14" y1="77.694" x2="14" y2="73.977" width="0.3048" layer="1"/>
-</signal>
 <signal name="N$11">
 <contactref element="R9" pad="1"/>
 <contactref element="LED1" pad="4-DIN"/>
@@ -3860,6 +3848,18 @@ Please make sure your boards conform to these design rules.</description>
 <contactref element="U$1" pad="P$15"/>
 <wire x1="12" y1="69.977" x2="12" y2="69.937" width="0.3048" layer="1"/>
 <wire x1="12" y1="69.937" x2="11.938" y2="69.875" width="0.3048" layer="1"/>
+</signal>
+<signal name="SW_GS">
+<contactref element="U$1" pad="P$8"/>
+<contactref element="U$2" pad="37/A18"/>
+<via x="13.716" y="77.978" extent="1-16" drill="0.3302"/>
+<wire x1="13.716" y1="77.978" x2="-16.764" y2="77.978" width="0.3048" layer="16"/>
+<wire x1="-16.764" y1="77.978" x2="-18.796" y2="75.946" width="0.3048" layer="16"/>
+<via x="-18.796" y="75.946" extent="1-16" drill="0.3302"/>
+<wire x1="-18.796" y1="75.946" x2="-18.796" y2="52.371" width="0.3048" layer="1"/>
+<wire x1="-18.796" y1="52.371" x2="-18.931" y2="52.236" width="0.3048" layer="1"/>
+<wire x1="13.716" y1="77.978" x2="14" y2="77.694" width="0.3048" layer="1"/>
+<wire x1="14" y1="77.694" x2="14" y2="73.977" width="0.3048" layer="1"/>
 </signal>
 </signals>
 <errors>

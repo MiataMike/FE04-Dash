@@ -12613,18 +12613,6 @@ type 0309, grid 2.5 mm</description>
 <pinref part="U$1" gate="G$1" pin="P12"/>
 </segment>
 </net>
-<net name="SPARE_1" class="0">
-<segment>
-<wire x1="416.56" y1="-231.14" x2="429.26" y2="-231.14" width="0.1524" layer="91"/>
-<label x="424.18" y="-231.14" size="1.778" layer="95"/>
-<pinref part="U$1" gate="G$1" pin="P8"/>
-</segment>
-<segment>
-<pinref part="U$2" gate="G$1" pin="37/A18"/>
-<wire x1="274.32" y1="-271.78" x2="292.1" y2="-271.78" width="0.1524" layer="91"/>
-<label x="281.94" y="-271.78" size="1.778" layer="95"/>
-</segment>
-</net>
 <net name="N$11" class="0">
 <segment>
 <pinref part="R9" gate="G$1" pin="1"/>
@@ -12911,6 +12899,18 @@ type 0309, grid 2.5 mm</description>
 <wire x1="416.56" y1="-251.46" x2="480.06" y2="-251.46" width="0.1524" layer="91"/>
 <label x="469.9" y="-251.46" size="1.778" layer="95"/>
 <pinref part="U$1" gate="G$1" pin="P15"/>
+</segment>
+</net>
+<net name="SW_GS" class="0">
+<segment>
+<wire x1="416.56" y1="-231.14" x2="429.26" y2="-231.14" width="0.1524" layer="91"/>
+<label x="424.18" y="-231.14" size="1.778" layer="95"/>
+<pinref part="U$1" gate="G$1" pin="P8"/>
+</segment>
+<segment>
+<pinref part="U$2" gate="G$1" pin="37/A18"/>
+<wire x1="274.32" y1="-271.78" x2="292.1" y2="-271.78" width="0.1524" layer="91"/>
+<label x="281.94" y="-271.78" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
