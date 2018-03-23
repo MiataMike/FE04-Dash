@@ -19,7 +19,7 @@ void setupScreen()
 
 void startScreen()
 {
-    bmpDraw("logo.bmp", 0, 0);
+  bmpDraw("logo.bmp", 0, 0);
 }
 
 void printCommonBackground()
