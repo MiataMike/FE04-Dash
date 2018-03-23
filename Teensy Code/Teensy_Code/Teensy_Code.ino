@@ -6,6 +6,15 @@
 #include "variables.h"
 #include "screenCode.h"
 
+#include <Servo.h> 
+ 
+Servo myservo;  // create servo object to control a servo 
+                // twelve servo objects can be created on most boards
+
+
+ 
+int pos = 0;    // variable to store the servo position 
+
 void setup() 
 {
   pinMode(AMS_light, OUTPUT);
@@ -31,14 +40,53 @@ void setup()
   cdpixels.begin();
   repixels.begin();
 
+  
   setupScreen();
+
+  amsLight(true);
+  imdLight(true);
+  bspdLight(true);
+  qbaiLight(true);
   
   CARCAN.begin(500000);
   DAQCAN.begin(500000);
-}
 
+  for(int i=0;i<NUM_RE_PIXELS;i++){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    repixels.setPixelColor(i, repixels.Color(255,255,255)); // Moderately bright green color.
+
+    repixels.show(); // This sends the updated pixel color to the hardware.
+
+    delay(500); // Delay for a period of time (in milliseconds).
+
+  }
+ myservo.attach(servo_PWM);
+ myservo.write(175);
+ delay(500);
+ myservo.detach();
+ delay(1000);
+
+ myservo.attach(servo_PWM);
+ myservo.write(17); //degree2write = percentage*1.58 +17
+ delay(1000);
+ myservo.detach();
+ 
+}
 void loop()
 {
+{
+
+ loopPixel(cdpixels.Color(150,150,0));
+ loopPixel(cdpixels.Color(0,150,0));
+ loopPixel(cdpixels.Color(0,150,150));
+ loopPixel(cdpixels.Color(0,0,150));
+ loopPixel(cdpixels.Color(150,0,150));
+ loopPixel(cdpixels.Color(150,0,0));
+
+ 
+  }
+ 
   if(on && dashpage == 1)
   {
     if(!previouslyon && razzleMode)
@@ -258,7 +306,7 @@ void bspdLight(bool on)
   digitalWrite(BSPD_light, on);
 }
 
-void tpsLight(bool on)
+void qbaiLight(bool on)
 {
   digitalWrite(TPS_light, on);
 }
@@ -452,3 +500,19 @@ void fillSTlogo()
     }
   }
 }
+
+void loopPixel(uint32_t color )
+{
+ for(int i=0;i<NUM_CD_PIXELS;i++){
+
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    cdpixels.setPixelColor(i, color); // Moderately bright green color.
+
+    cdpixels.show(); // This sends the updated pixel color to the hardware.
+
+    delay(50); // Delay for a period of time (in milliseconds).
+
+ 
+  }
+}
+
