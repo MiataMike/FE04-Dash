@@ -93,7 +93,6 @@ extern uint16_t batteryTemp;
 extern float batteryTempF;
 
 //0x41
-extern bool chargingMode;
 extern bool prechargeContactor;
 extern bool negativeContactor;
 extern bool positiveContactor;

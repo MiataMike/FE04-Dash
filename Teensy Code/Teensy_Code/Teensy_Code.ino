@@ -24,6 +24,7 @@ void setup()
   pinMode(Ignition_1, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(Ignition_1), displayDriveMode, CHANGE);
   pinMode(Ignition_2, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(Ignition_2), enableDriveMode, FALLING);
   pinMode(left_button, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(left_button), scrollDashLeft, FALLING);
   pinMode(right_button, INPUT_PULLUP);
@@ -53,7 +54,6 @@ void setup()
   loopPixel(cdpixels.Color(0,0,150));
   loopPixel(cdpixels.Color(150,0,150));
   loopPixel(cdpixels.Color(150,0,0));
- 
 }
 
 void loop()
@@ -127,8 +127,16 @@ void loop()
   {
     updatesocServo();
   }
+  if(previousmaxCellTemp != maxCellTemp)
+  {
+    updatetempPixels();
+  }
   previousHVSOC = HVSOC;
   previousmaxCellTemp = maxCellTemp;
+  
+  imdLight(IMDfault);
+  amsLight(AMSfault);
+  bspdLight(BSPDfault);
   
   if(CARCAN.available())
   {
@@ -428,6 +436,11 @@ void updatesocServo()
   socservo.detach();
 }
 
+void updatetempPixels()
+{
+  
+}
+
 
 //CAN Stuff
 void sendCARCANFrame()
@@ -537,8 +550,6 @@ void processCARCANFrame(CAN_message_t f)
     faulted = f.buf[0] << 1;
     dataByte = f.buf[1];
     faulted |= dataByte >> 7;
-    if((dataByte & 0x01) == 1){ chargingMode = true; }
-    else chargingMode = false;
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ prechargeContactor = true; }
     else prechargeContactor = false;

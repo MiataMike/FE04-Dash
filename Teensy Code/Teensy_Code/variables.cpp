@@ -34,7 +34,6 @@ uint16_t batteryTemp = 0;
 float batteryTempF = 0;
 
 //0x41
-bool chargingMode = false;
 bool prechargeContactor = false;
 bool negativeContactor = false;
 bool positiveContactor = false;
