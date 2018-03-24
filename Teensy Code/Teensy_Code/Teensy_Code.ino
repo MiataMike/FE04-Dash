@@ -131,7 +131,7 @@ void loop()
   {
     updatesocServo();
   }
-  if(previousmaxCellTemp != maxCellTemp)
+  if((previousmaxCellTemp != maxCellTemp) && (driveMode != 11))
   {
     updatetempPixels();
   }
@@ -403,14 +403,14 @@ void fixDriveModeNumber()
   else {driveMode -= 2; }
 }
 
-void amsLight(bool on)
-{
-  digitalWrite(AMS_light, on);
-}
-
 void imdLight(bool on)
 {
   digitalWrite(IMD_light, on);
+}
+
+void amsLight(bool on)
+{
+  digitalWrite(AMS_light, on);
 }
 
 void bspdLight(bool on)
@@ -455,7 +455,54 @@ void updatesocServo()
 
 void updatetempPixels()
 {
+  for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
+  {
+    cdpixels.setPixelColor(i, 0,0,0);
+  }
+  cdpixels.show();
   
+  uint8_t pixels = 0;
+  if(maxCellTemp <= 0) { pixels = 1; }
+  else if(maxCellTemp <=5) { pixels = 2; }
+  else if(maxCellTemp <=10) { pixels = 3; }
+  else if(maxCellTemp <=16) { pixels = 4; }
+  else if(maxCellTemp <=21) { pixels = 5; }
+  else if(maxCellTemp <=27) { pixels = 6; }
+  else if(maxCellTemp <=32) { pixels = 7; }
+  else if(maxCellTemp <=38) { pixels = 8; }
+  else if(maxCellTemp <=43) { pixels = 9; }
+  else if(maxCellTemp <=49) { pixels = 10; }
+  else if(maxCellTemp <=54) { pixels = 11; }
+  else { pixels = 12; }
+  
+  switch(pixels)
+  {
+    case 12:
+      cdpixels.setPixelColor(11, 255,0,0);
+    case 11:
+      cdpixels.setPixelColor(10, 255,0,0);
+    case 10:
+      cdpixels.setPixelColor(9, 255,0,0);
+    case 9:
+      cdpixels.setPixelColor(8, 255,50,0);
+    case 8:
+      cdpixels.setPixelColor(7, 253,255,18);
+    case 7:
+      cdpixels.setPixelColor(6, 170,255,0);
+    case 6:
+      cdpixels.setPixelColor(5, 0,255,0);
+    case 5:
+      cdpixels.setPixelColor(4, 0,255,117);
+    case 4:
+      cdpixels.setPixelColor(3, 0,223,247);
+    case 3:
+      cdpixels.setPixelColor(2, 0,126,255);
+    case 2:
+      cdpixels.setPixelColor(1, 0,65,255);
+    case 1:
+      cdpixels.setPixelColor(0, 0,0,255);    
+  }
+  cdpixels.show();
 }
 
 
