@@ -6,6 +6,11 @@
 #include "variables.h"
 #include "screenCode.h"
 
+//Dash Button 2 is to start car, Dash button 3 is to turn off the car
+//Dash Button 2 = Ignition 2, Dash Button 3 = Neither Ignition 1 or 2
+//Dash Button 3 is bit 0x01
+//Dash Button 2 is bit 0x02
+
 bool reverseMode = false;
 
 void setup() 
@@ -24,7 +29,6 @@ void setup()
   pinMode(Ignition_1, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(Ignition_1), displayDriveMode, CHANGE);
   pinMode(Ignition_2, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(Ignition_2), enableDriveMode, FALLING);
   pinMode(left_button, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(left_button), scrollDashLeft, FALLING);
   pinMode(right_button, INPUT_PULLUP);
