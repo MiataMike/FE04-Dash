@@ -10,6 +10,7 @@
 #include <kinetis_flexcan.h>
 #include <SD.h>
 #include <string.h>
+#include <Servo.h>
 
 //Setting up Pins
 #define CD_neo_pixel_DI 2 //Dash
@@ -55,6 +56,9 @@
 #define SW_bit2 16
 #define SW_bit3 17
 #define GS_pin 37
+
+#define ON true
+#define OFF false
 
 //0x20
 extern uint16_t throttleOneRaw;
@@ -117,9 +121,11 @@ extern float minCellVoltageF;
 extern uint16_t packCurrent;
 extern float packCurrentF;
 
+//Dash
 extern uint8_t driveMode;
 extern uint8_t dashpage;
 extern uint8_t dashcount;
+extern uint8_t razzledelay;
 
 //CAN Setup
 extern FlexCAN CARCAN;
@@ -132,8 +138,6 @@ extern int16_t tft_width;
 extern int16_t tft_height;
 extern uint8_t rotation;
 extern bool display_on;
-extern bool razzleMode;
-extern bool previouslyrazzleMode;
 
 //Key
 extern bool on;
@@ -145,6 +149,10 @@ extern String previousTitle;
 //NeoPixels
 extern Adafruit_NeoPixel cdpixels;
 extern Adafruit_NeoPixel repixels;
+
+//State of Charge Servo
+extern Servo socservo;
+extern uint8_t servoval;
 
 extern const unsigned char STlogo [] PROGMEM;
 

@@ -11490,36 +11490,24 @@ type 0309, grid 2.5 mm</description>
 <pinref part="GND3" gate="1" pin="GND"/>
 <pinref part="LED6" gate="G$1" pin="GND"/>
 <wire x1="477.52" y1="-139.7" x2="477.52" y2="-144.78" width="0.1524" layer="91"/>
-<wire x1="477.52" y1="-144.78" x2="302.26" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="477.52" y1="-144.78" x2="444.5" y2="-144.78" width="0.1524" layer="91"/>
 <junction x="302.26" y="-144.78"/>
-</segment>
-<segment>
+<pinref part="LED2" gate="G$1" pin="GND"/>
+<wire x1="444.5" y1="-144.78" x2="408.94" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="408.94" y1="-144.78" x2="370.84" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="370.84" y1="-144.78" x2="335.28" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="335.28" y1="-144.78" x2="302.26" y2="-144.78" width="0.1524" layer="91"/>
+<wire x1="335.28" y1="-139.7" x2="335.28" y2="-144.78" width="0.1524" layer="91"/>
+<junction x="335.28" y="-144.78"/>
 <pinref part="LED3" gate="G$1" pin="GND"/>
 <wire x1="370.84" y1="-139.7" x2="370.84" y2="-144.78" width="0.1524" layer="91"/>
-</segment>
-<segment>
+<junction x="370.84" y="-144.78"/>
 <pinref part="LED4" gate="G$1" pin="GND"/>
 <wire x1="408.94" y1="-139.7" x2="408.94" y2="-144.78" width="0.1524" layer="91"/>
-</segment>
-<segment>
+<junction x="408.94" y="-144.78"/>
 <pinref part="LED5" gate="G$1" pin="GND"/>
 <wire x1="444.5" y1="-139.7" x2="444.5" y2="-144.78" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="LED8" gate="G$1" pin="GND"/>
-<wire x1="447.04" y1="-96.52" x2="447.04" y2="-101.6" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="LED9" gate="G$1" pin="GND"/>
-<wire x1="411.48" y1="-96.52" x2="411.48" y2="-101.6" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="LED10" gate="G$1" pin="GND"/>
-<wire x1="375.92" y1="-96.52" x2="375.92" y2="-101.6" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="LED11" gate="G$1" pin="GND"/>
-<wire x1="340.36" y1="-96.52" x2="340.36" y2="-101.6" width="0.1524" layer="91"/>
+<junction x="444.5" y="-144.78"/>
 </segment>
 <segment>
 <pinref part="LED12" gate="G$1" pin="GND"/>
@@ -11527,8 +11515,24 @@ type 0309, grid 2.5 mm</description>
 <pinref part="GND5" gate="1" pin="GND"/>
 <pinref part="LED7" gate="G$1" pin="GND"/>
 <wire x1="480.06" y1="-96.52" x2="480.06" y2="-101.6" width="0.1524" layer="91"/>
-<wire x1="480.06" y1="-101.6" x2="304.8" y2="-101.6" width="0.1524" layer="91"/>
+<wire x1="480.06" y1="-101.6" x2="447.04" y2="-101.6" width="0.1524" layer="91"/>
 <junction x="304.8" y="-101.6"/>
+<pinref part="LED8" gate="G$1" pin="GND"/>
+<wire x1="447.04" y1="-101.6" x2="411.48" y2="-101.6" width="0.1524" layer="91"/>
+<wire x1="411.48" y1="-101.6" x2="375.92" y2="-101.6" width="0.1524" layer="91"/>
+<wire x1="375.92" y1="-101.6" x2="340.36" y2="-101.6" width="0.1524" layer="91"/>
+<wire x1="340.36" y1="-101.6" x2="304.8" y2="-101.6" width="0.1524" layer="91"/>
+<wire x1="447.04" y1="-96.52" x2="447.04" y2="-101.6" width="0.1524" layer="91"/>
+<junction x="447.04" y="-101.6"/>
+<pinref part="LED9" gate="G$1" pin="GND"/>
+<wire x1="411.48" y1="-96.52" x2="411.48" y2="-101.6" width="0.1524" layer="91"/>
+<junction x="411.48" y="-101.6"/>
+<pinref part="LED10" gate="G$1" pin="GND"/>
+<wire x1="375.92" y1="-96.52" x2="375.92" y2="-101.6" width="0.1524" layer="91"/>
+<junction x="375.92" y="-101.6"/>
+<pinref part="LED11" gate="G$1" pin="GND"/>
+<wire x1="340.36" y1="-96.52" x2="340.36" y2="-101.6" width="0.1524" layer="91"/>
+<junction x="340.36" y="-101.6"/>
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="GND"/>
@@ -12159,12 +12163,6 @@ type 0309, grid 2.5 mm</description>
 <pinref part="LED11" gate="G$1" pin="DO"/>
 <pinref part="LED12" gate="G$1" pin="DI"/>
 <wire x1="327.66" y1="-88.9" x2="317.5" y2="-88.9" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$1" class="0">
-<segment>
-<pinref part="LED2" gate="G$1" pin="GND"/>
-<wire x1="335.28" y1="-139.7" x2="335.28" y2="-144.78" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="+3V3" class="0">

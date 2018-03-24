@@ -6,12 +6,7 @@
 #include "variables.h"
 #include "screenCode.h"
 
-#include <Servo.h> 
- 
-Servo myservo;  // create servo object to control a servo 
-                // twelve servo objects can be created on most boards
- 
-int pos = 0;    // variable to store the servo position 
+bool reverseMode = false;
 
 void setup() 
 {
@@ -39,26 +34,12 @@ void setup()
   repixels.begin();
   
   setupScreen();
-
-  amsLight(true);
-  imdLight(true);
-  bspdLight(true);
-  qbaiLight(true);
   
   CARCAN.begin(500000);
   DAQCAN.begin(500000);
-  
-  myservo.attach(servo_PWM);
-  myservo.write(percenttoServo(100));
-  delay(500);
-  myservo.detach();
-  delay(1000);
 
-  myservo.attach(servo_PWM);
-  myservo.write(percenttoServo(0));
-  delay(1000);
-  myservo.detach();
-  
+  updatesocServo();
+    
   for(int i=0;i<NUM_RE_PIXELS;i++)
   {
     repixels.setPixelColor(i, repixels.Color(255,255,255));
@@ -76,10 +57,10 @@ void setup()
 }
 
 void loop()
-{ 
+{
   if(on && dashpage == 1)
   {
-    if(!previouslyon && razzleMode)
+    if(!previouslyon && driveMode == 11)
     {
       changeDriveMode();
       previouslyon = true;
@@ -93,18 +74,17 @@ void loop()
     }
     else
     {
-      if(razzleMode)
+      if(driveMode == 11)
       {
         changeDriveMode();
       }
       else
       {
-        if(previouslyrazzleMode)
+        if(previousdriveMode == 11)
         {
           tft.fillScreen(HX8357_BLACK);
           printCommonBackground();
           changeDriveMode();
-          previouslyrazzleMode = false;
         }
         else
         {
@@ -143,6 +123,12 @@ void loop()
     loopPixel(cdpixels.Color(150,0,150));
     loopPixel(cdpixels.Color(150,0,0));
   }
+  if(previousHVSOC != HVSOC)
+  {
+    updatesocServo();
+  }
+  previousHVSOC = HVSOC;
+  previousmaxCellTemp = maxCellTemp;
   
   if(CARCAN.available())
   {
@@ -189,76 +175,171 @@ void changeDriveMode()
     case 0:
       printScreenTitle("Acceleration", 0);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 0;
       break;
     case 1:
       printScreenTitle("Skid Pad", 1);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 1;
       break;
     case 2:
       printScreenTitle("Autocross", 2);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 2;
       break;
     case 3:
       printScreenTitle("Endurance", 3);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 3;
       break;
     case 4:
       printScreenTitle("Sunday Driving", 4);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 4;
       break;
     case 5:
       printScreenTitle("Granny Mode", 5);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 5;
       break;
     case 6:
-      printScreenTitle("Reverse", 6);
+      if(reverseMode)
+      {
+        printScreenTitle("Reverse", 6);
+      }
+      else
+      {
+        printScreenTitle("Extra0", 6);
+      }
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 6;
       break;
     case 7:
       printScreenTitle("Extra", 7);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 7;
       break;
     case 8:
       printScreenTitle("Extra1", 8);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 8;
       break;
     case 9:
       printScreenTitle("Extra2", 9);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 9;
       break;
     case 10:
       printScreenTitle("Extra3", 10);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 10;
       break;
     case 11:
-      if(!previouslyrazzleMode || !previouslyon)
+      if((previousdriveMode != 11) || !previouslyon)
       {
         bmpDraw("rnd.bmp", 0, 0);
+        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
+        {
+          cdpixels.setPixelColor(i, 0,0,0);
+        }
+        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
+        {
+          repixels.setPixelColor(i, 0,0,0);
+        }
+        cdpixels.show();
+        repixels.show();
       }
-      razzleMode = true;
-      previouslyrazzleMode = true;
-      loopPixel(cdpixels.Color(150,150,0));
-      loopPixel(cdpixels.Color(0,150,0));
-      loopPixel(cdpixels.Color(0,150,150));
-      loopPixel(cdpixels.Color(0,0,150));
-      loopPixel(cdpixels.Color(150,0,150));
-      loopPixel(cdpixels.Color(150,0,0));
+      previousdriveMode = 11;
+      razzleMode();
       break;
     default:
       printScreenTitle("default", 69);
       printScreenNumber();
-      razzleMode = false;
+      if(previousdriveMode == 11)
+      {
+        qbaiLight(OFF);
+        bspdLight(OFF);
+        amsLight(OFF);
+        imdLight(OFF);
+      }
+      previousdriveMode = 69;
       break;
   }
 }
@@ -317,12 +398,34 @@ void qbaiLight(bool on)
   digitalWrite(TPS_light, on);
 }
 
-void updatesocServo(int var)  //What should I pass it??
+void updatesocServo()
 {
-  digitalWrite(servo_PWM, HIGH);
-  delayMicroseconds(1800);    //Update the delays
-  digitalWrite(20,LOW);
-  delay(10);
+  socservo.attach(servo_PWM);
+  if(HVSOC < 26)
+  {
+    servoval = map(HVSOC, 0, 25, 19, 51);
+    socservo.write(servoval);
+    delay(250);
+  }
+  else if(HVSOC < 51)
+  {
+    servoval = map(HVSOC, 26, 50, 52, 90);
+    socservo.write(servoval);
+    delay(250);
+  }
+  else if(HVSOC < 76)
+  {
+    servoval = map(HVSOC, 51, 75, 91, 135);
+    socservo.write(servoval);
+    delay(250);
+  }
+  else
+  {
+    servoval = map(HVSOC, 76, 100, 136, 175);
+    socservo.write(servoval);
+    delay(250);
+  }
+  socservo.detach();
 }
 
 
@@ -517,8 +620,129 @@ void loopPixel(uint32_t color )
   }
 }
 
-uint8_t percenttoServo(uint8_t percent)
+void razzleMode()
 {
-  return percent*1.58+16;
-}
+  qbaiLight(ON);
+  delay(razzledelay);
+  bspdLight(ON);
+  delay(razzledelay);
+  amsLight(ON);
+  delay(razzledelay);
+  
+  qbaiLight(OFF);
+  delay(razzledelay);
+  imdLight(ON);
+  delay(razzledelay);
+  
+  bspdLight(OFF);
+  delay(razzledelay);
+  cdpixels.setPixelColor(0, 207,0,82);
+  cdpixels.show();
+  delay(razzledelay);
+  
+  amsLight(OFF);
+  delay(razzledelay);
+  cdpixels.setPixelColor(1, 143,0,158);
+  cdpixels.show();
+  delay(razzledelay);
+  
+  imdLight(OFF);
+  delay(razzledelay);
+  cdpixels.setPixelColor(2, 103,0,209);
+  cdpixels.show();
+  delay(razzledelay);
 
+  cdpixels.setPixelColor(0, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(3, 42,0,255);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(1, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(4, 0,0,255);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(2, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(5, 0,115,116);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(3, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(6, 0,153,98);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(4, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(7, 0,173,0);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(5, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(8, 0,255,0);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(6, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(9, 199,255,0);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(7, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(10, 253,255,0);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(8, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  cdpixels.setPixelColor(11, 255,185,0);
+  cdpixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(9, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  repixels.setPixelColor(0, 255,185,0);
+  repixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(10, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  repixels.setPixelColor(1, 0,0,255);
+  repixels.show();
+  delay(razzledelay);
+
+  cdpixels.setPixelColor(11, 0,0,0);
+  cdpixels.show();
+  delay(razzledelay);
+  qbaiLight(ON);
+  delay(razzledelay);
+
+  repixels.setPixelColor(0, 0,0,0);
+  repixels.show();
+  delay(razzledelay);
+  bspdLight(ON);
+  delay(razzledelay);
+
+  repixels.setPixelColor(1, 0,0,0);
+  repixels.show();
+  delay(razzledelay);
+  amsLight(ON);
+}

@@ -45,7 +45,7 @@ float maxCellTempF = 0;
 uint16_t minCellTemp = 0;
 float minCellTempF = 0;
 uint16_t previousHVSOC = 200;
-uint16_t HVSOC = 100; //High Voltage State Of Charge
+uint16_t HVSOC = 30; //High Voltage State Of Charge
 float HVSOCF = 0; //float for gauges
 
 //0x42
@@ -62,9 +62,11 @@ float minCellVoltageF = 0;
 uint16_t packCurrent = 0;
 float packCurrentF = 0;
 
+//Dash
 uint8_t driveMode = 1;
 uint8_t dashpage = 1;
 uint8_t dashcount = 3;
+uint8_t razzledelay = 50;
 
 //CAN Setup
 FlexCAN CARCAN(0);
@@ -75,10 +77,8 @@ CAN_message_t msg,rxmsg;
 HX8357_t3 tft = HX8357_t3(CS, DC);
 int16_t tft_width = 0;
 int16_t tft_height = 0;
-uint8_t rotation = 3;
+uint8_t rotation = 1;
 bool display_on = false;
-bool razzleMode = false;
-bool previouslyrazzleMode = false;
 
 //Key
 bool on = false;
@@ -88,8 +88,12 @@ uint8_t previousdriveMode = 100;
 String previousTitle = "Previous";
 
 //NeoPixels
-Adafruit_NeoPixel cdpixels = Adafruit_NeoPixel(NUM_CD_PIXELS,CD_neo_pixel_DI, NEO_RGB + NEO_KHZ800);
-Adafruit_NeoPixel repixels = Adafruit_NeoPixel(NUM_RE_PIXELS,RE_neo_pixel_DI, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel cdpixels = Adafruit_NeoPixel(NUM_CD_PIXELS,CD_neo_pixel_DI, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel repixels = Adafruit_NeoPixel(NUM_RE_PIXELS,RE_neo_pixel_DI, NEO_GRB + NEO_KHZ800);
+
+//State of Charge Servo
+Servo socservo;
+uint8_t servoval = 0;
 
 const unsigned char STlogo [] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,

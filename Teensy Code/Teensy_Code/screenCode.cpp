@@ -28,7 +28,7 @@ void printCommonBackground()
   tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
   tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
   tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
-  if(previousHVSOC != HVSOC || !previouslyon || previouslyrazzleMode)
+  if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11)
   {
     tft.setTextSize(4);
     tft.setTextColor(HX8357_BLACK);
@@ -42,14 +42,13 @@ void printCommonBackground()
     else if(HVSOC < 100 && HVSOC > 9){ tft.setCursor(30,20); }
     else if(HVSOC < 10){ tft.setCursor(40,20); }
     tft.print(HVSOC);
-    tft.print("%");
-    previousHVSOC = HVSOC;  
+    tft.print("%"); 
   }
   tft.setTextColor(HX8357_GREEN);
   tft.setCursor(43,60);
   tft.setTextSize(2);
   tft.println("SOC");
-  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previouslyrazzleMode)
+  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11)
   {
     //tft.setCursor(3*(tft_width/4)+25,20);
     tft.setTextSize(4);
@@ -65,8 +64,7 @@ void printCommonBackground()
     else if(maxCellTemp < 100 && maxCellTemp > 9){ tft.setCursor(3*(tft_width/4)+30,20); }
     else if(maxCellTemp < 10){ tft.setCursor(3*(tft_width/4)+40,20); }
     tft.print(maxCellTemp);
-    tft.print("C");
-    previousmaxCellTemp = maxCellTemp;  
+    tft.print("C"); 
   }
   tft.setTextColor(HX8357_GREEN);
   tft.setCursor(367,60);
@@ -79,13 +77,12 @@ void printScreenNumber()
   tft.setCursor((tft_width/2)-25,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
-  if(previousdriveMode != driveMode || !previouslyon || previouslyrazzleMode)
+  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11)
   {
     tft.println(previousdriveMode);
     tft.setTextColor(HX8357_GREEN);
     tft.setCursor((tft_width/2)-25,tft_height-35);
     tft.println(driveMode);
-    previousdriveMode = driveMode;
   }
 }
 
@@ -93,7 +90,7 @@ void printScreenTitle(String title, uint8_t number)
 {
   tft.setCursor((tft_width/2)-70,30);
   tft.setTextSize(3);
-  if(previousTitle != title || !previouslyon || previouslyrazzleMode)
+  if(previousTitle != title || !previouslyon || previousdriveMode == 11)
   {
     tft.fillRect(2+(tft_width/4),2,(tft_width/2)-2,73,HX8357_BLACK);
     tft.setTextColor(HX8357_GREEN);
@@ -139,6 +136,9 @@ void printScreenTitle(String title, uint8_t number)
         break;
       case 13:
         tft.setCursor(tft_width/4 + 15, 30); //GOOD
+        break;
+      default:
+        tft.setCursor(tft_width/4 + 15, 30);
         break;
     }
     if(number != 4){ tft.println(title); }

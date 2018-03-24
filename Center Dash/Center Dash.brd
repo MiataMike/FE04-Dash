@@ -2549,6 +2549,7 @@ Please make sure your boards conform to these design rules.</description>
 <via x="-31.115" y="70.993" extent="1-16" drill="0.3302"/>
 <wire x1="-31.115" y1="70.993" x2="-32.879" y2="70.993" width="0.3048" layer="16"/>
 <wire x1="-32.879" y1="70.993" x2="-33.136" y2="71.25" width="0.3048" layer="16"/>
+<contactref element="LED2" pad="3-GND"/>
 </signal>
 <signal name="+15V">
 <contactref element="U2" pad="2"/>
@@ -3025,9 +3026,6 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="-64.566671875" y1="81.359725" x2="-60.833" y2="85.093396875" width="0.3048" layer="16"/>
 <wire x1="-60.833" y1="85.093396875" x2="-60.833" y2="89.27170625" width="0.3048" layer="16"/>
 <wire x1="-60.833" y1="89.27170625" x2="-59.551025" y2="90.55368125" width="0.3048" layer="16"/>
-</signal>
-<signal name="N$1">
-<contactref element="LED2" pad="3-GND"/>
 </signal>
 <signal name="+3V3">
 <contactref element="U3" pad="5"/>
