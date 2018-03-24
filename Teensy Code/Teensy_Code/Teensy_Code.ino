@@ -137,10 +137,23 @@ void loop()
   }
   previousHVSOC = HVSOC;
   previousmaxCellTemp = maxCellTemp;
-  
-  imdLight(IMDfault);
-  amsLight(AMSfault);
-  bspdLight(BSPDfault);
+
+  if(driveMode != 11)
+  {
+    imdLight(IMDfault);
+    amsLight(AMSfault);
+    bspdLight(BSPDfault);
+  }
+  if(HVSOC <= 20)
+  {
+    repixels.setPixelColor(1, 255,0,0);
+    repixels.show();
+  }
+  else
+  {
+    repixels.setPixelColor(1, 0,0,0);
+    repixels.show();
+  }
   
   if(CARCAN.available())
   {
