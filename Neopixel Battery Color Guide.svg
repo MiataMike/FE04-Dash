@@ -26,10 +26,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.2451217"
-     inkscape:cx="495.85725"
+     inkscape:cx="512.72307"
      inkscape:cy="683.31352"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer2"
      showgrid="false"
      inkscape:window-width="3200"
      inkscape:window-height="1744"
@@ -50,6 +50,18 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2">
+    <rect
+       style="opacity:0.98999999;fill:#fcffff;fill-opacity:1;fill-rule:evenodd;stroke:#05080d;stroke-width:0.025;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.20779221"
+       id="rect4601"
+       width="493.62811"
+       height="65.448753"
+       x="-106.88548"
+       y="78.76664" />
+  </g>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
@@ -357,7 +369,7 @@
          id="tspan5025"
          x="181.81137"
          y="135.25545"
-         style="stroke-width:0.26458332"></tspan></text>
+         style="stroke-width:0.26458332" /></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot4697-8-9-9"
