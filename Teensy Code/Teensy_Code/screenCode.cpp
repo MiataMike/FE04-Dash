@@ -187,7 +187,7 @@ void bmpDraw(const char *filename, uint8_t x, uint16_t y) {
   uint8_t  r, g, b;
   uint32_t pos = 0, startTime = millis();
 
-  uint16_t awColors[480];  // hold colors for one row at a time...
+  uint16_t awColors[tft_width];  // hold colors for one row at a time...
 
   if((x >= tft.width()) || (y >= tft.height())) return;
 

@@ -29,7 +29,7 @@ void setup()
   
   //Ignition Switch Setup
   pinMode(Ignition_1, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(Ignition_1), displayDriveMode, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(Ignition_1), updateDriveMode, CHANGE);
   pinMode(Ignition_2, INPUT_PULLUP);
   
   //Steering Wheel Setup
@@ -43,7 +43,7 @@ void setup()
   
   //Dash Screen Setup
   setupScreen();
-  displayDriveMode();
+  updateDriveMode();
   
   //Dash Lights Setup
   setupLights();
@@ -114,6 +114,7 @@ void loop()
   else if(!on && previouslyon)
   {
     startScreen();
+    updateTempPixels();
     previouslyon = false;
   }
   
@@ -125,9 +126,10 @@ void loop()
   previousHVSOC = HVSOC;
   
   //Update Temperature pixels
-  if((previousmaxCellTemp != maxCellTemp) && (driveMode != 11))
+  if(previousmaxCellTemp != maxCellTemp)
   {
-    updateTempPixels();
+    if(on && (driveMode != 11)){ updateTempPixels(); }
+    else if(!on){ updateTempPixels(); }
   }
   previousmaxCellTemp = maxCellTemp;
 
@@ -151,25 +153,13 @@ void loop()
   }
 
   driveModeEnabledLight(driveActive);
-  sendCARCANFrame();
-}
-
-void displayDriveMode()
-{
-  on = !digitalRead(Ignition_1);
-  driveMode = digitalRead(SW_bit3);
-  driveMode <<= 1;
-  driveMode |= digitalRead(SW_bit2);
-  driveMode <<= 1;
-  driveMode |= digitalRead(SW_bit1);
-  driveMode <<= 1;
-  driveMode |= digitalRead(SW_bit0);
-  fixDriveModeNumber();
+  //sendCARCANFrame();
 }
 
 void updateDriveMode()
 {
-  if(driveActive || startActive)
+  on = !digitalRead(Ignition_1);
+  if(!driveActive || !startActive)
   {
     driveMode = digitalRead(SW_bit3);
     driveMode <<= 1;
