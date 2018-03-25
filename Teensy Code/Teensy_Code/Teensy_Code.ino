@@ -97,6 +97,7 @@ void loop()
     if(driveMode == 11)
     {
       dashpage = 1;
+      changeDriveMode();
     }
     else if(!previouslyon)
     {

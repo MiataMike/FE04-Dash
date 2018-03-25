@@ -91,6 +91,7 @@ void printScreenNumber()
     tft.setTextColor(HX8357_GREEN);
     tft.setCursor((tft_width/2)-25,tft_height-35);
     tft.println(driveMode);
+    previousdriveMode = driveMode;
   }
 }
 
