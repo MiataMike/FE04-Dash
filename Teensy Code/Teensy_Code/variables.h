@@ -25,7 +25,7 @@
 #define AMS_light 5 //Left ear
 #define IMD_light 6
 #define BSPD_light 7
-#define TPS_light 8
+#define QBAI_light 8
 
 #define DC 9
 #define CS 10
@@ -78,6 +78,7 @@ extern float throttleDiff;
 extern bool BSPDfault; //statuses
 extern bool IMDfault;
 extern bool AMSfault;
+extern bool TBPfault; //Throttle Brake Plausibility (QBAI)
 extern bool driveActive;
 extern bool startActive;
 extern bool shutdownActive;

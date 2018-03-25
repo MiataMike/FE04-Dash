@@ -19,6 +19,7 @@ float throttleDiff = 0;
 bool BSPDfault = false; //statuses
 bool IMDfault = false;
 bool AMSfault = false;
+bool TBPfault = false;
 bool driveActive = false;
 bool startActive = false;
 bool shutdownActive = false;

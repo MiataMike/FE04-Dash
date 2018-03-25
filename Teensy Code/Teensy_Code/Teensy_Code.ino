@@ -14,7 +14,7 @@ void setup()
   pinMode(AMS_light, OUTPUT);
   pinMode(IMD_light, OUTPUT);
   pinMode(BSPD_light, OUTPUT);
-  pinMode(TPS_light, OUTPUT);
+  pinMode(QBAI_light, OUTPUT);
   
   //Servo Setup
   pinMode(servo_PWM, OUTPUT);
@@ -139,6 +139,7 @@ void loop()
     imdLight(IMDfault);
     amsLight(AMSfault);
     bspdLight(BSPDfault);
+    qbaiLight(TBPfault);
   }
   
   if(HVSOC <= 20)
@@ -186,55 +187,31 @@ void changeDriveMode()
     case 0:
       printScreenTitle("Acceleration", 0);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 0;
       break;
     case 1:
       printScreenTitle("Skid Pad", 1);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 1;
       break;
     case 2:
       printScreenTitle("Autocross", 2);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 2;
       break;
     case 3:
       printScreenTitle("Endurance", 3);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 3;
       break;
     case 4:
       printScreenTitle("Sunday Driving", 4);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 4;
       break;
     case 5:
       printScreenTitle("Granny Mode", 5);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 5;
       break;
     case 6:
@@ -247,46 +224,26 @@ void changeDriveMode()
         printScreenTitle("Extra0", 6);
       }
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 6;
       break;
     case 7:
       printScreenTitle("Extra", 7);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 7;
       break;
     case 8:
       printScreenTitle("Extra1", 8);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 8;
       break;
     case 9:
       printScreenTitle("Extra2", 9);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 9;
       break;
     case 10:
       printScreenTitle("Extra3", 10);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 10;
       break;
     case 11:
@@ -310,10 +267,6 @@ void changeDriveMode()
     default:
       printScreenTitle("default", 69);
       printScreenNumber();
-      if(previousdriveMode == 11)
-      {
-        qbaiLight(OFF);
-      }
       previousdriveMode = 69;
       break;
   }
@@ -369,7 +322,7 @@ void bspdLight(bool on)
 
 void qbaiLight(bool on)
 {
-  digitalWrite(TPS_light, on);
+  digitalWrite(QBAI_light, on);
 }
 
 void driveModeEnabledLight(bool enabled)
@@ -556,6 +509,9 @@ void processCARCANFrame()
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ shutdownActive = false; }
     else shutdownActive = true;
+    dataByte >>=1;
+    if((dataByte & 0x01) == 1){ TBPfault = true; }
+    else TBPfault = false;
     carSpeed = rxmsg.buf[5];
     carSpeed <<= 8;
     carSpeed |= rxmsg.buf[6];
