@@ -6,8 +6,8 @@
 #include <Adafruit_NeoMatrix.h>
 #include <Adafruit_GFX.h>
 #include <HX8357_t3.h>
-#include <FlexCAN.h>
-#include <kinetis_flexcan.h>
+#include <FlexCAN_t3.h>
+#include <kinetis_flexcan_t3.h>
 #include <SD.h>
 #include <string.h>
 #include <Servo.h>

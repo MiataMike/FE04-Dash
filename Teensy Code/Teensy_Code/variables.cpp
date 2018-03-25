@@ -44,7 +44,7 @@ float maxCellTempF = 0;
 uint16_t minCellTemp = 0;
 float minCellTempF = 0;
 uint16_t previousHVSOC = 200;
-uint16_t HVSOC = 30; //High Voltage State Of Charge
+uint16_t HVSOC = 0; //High Voltage State Of Charge
 float HVSOCF = 0; //float for gauges
 
 //0x42
@@ -68,8 +68,8 @@ uint8_t dashcount = 3;
 uint8_t razzledelay = 50;
 
 //CAN Setup
-FlexCAN CARCAN(0);
-FlexCAN DAQCAN(1);
+FlexCAN CARCAN(500000,0);
+FlexCAN DAQCAN(500000,1);
 CAN_message_t msg,rxmsg;
 
 //TFT Screen Setup

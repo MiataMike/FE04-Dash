@@ -40,18 +40,9 @@ void setup()
   
   setupScreen();
   
-  CARCAN.begin(500000);
-  DAQCAN.begin(500000);
-
-  updatesocServo();
-    
-  for(int i=0;i<NUM_RE_PIXELS;i++)
-  {
-    repixels.setPixelColor(i, repixels.Color(255,255,255));
-    repixels.show();
-    delay(50);
-  }
-
+  CARCAN.begin();
+  DAQCAN.begin();
+  
   loopPixel(cdpixels.Color(150,150,0));
   loopPixel(cdpixels.Color(0,150,0));
   loopPixel(cdpixels.Color(0,150,150));
@@ -89,6 +80,7 @@ void loop()
           tft.fillScreen(HX8357_BLACK);
           printCommonBackground();
           changeDriveMode();
+          updatetempPixels();
         }
         else
         {
@@ -120,12 +112,6 @@ void loop()
       startScreen();
     }
     previouslyon = false;
-    loopPixel(cdpixels.Color(150,150,0));
-    loopPixel(cdpixels.Color(0,150,0));
-    loopPixel(cdpixels.Color(0,150,150));
-    loopPixel(cdpixels.Color(0,0,150));
-    loopPixel(cdpixels.Color(150,0,150));
-    loopPixel(cdpixels.Color(150,0,0));
   }
   if(previousHVSOC != HVSOC)
   {
@@ -203,9 +189,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 0;
       break;
@@ -215,9 +198,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 1;
       break;
@@ -227,9 +207,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 2;
       break;
@@ -239,9 +216,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 3;
       break;
@@ -251,9 +225,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 4;
       break;
@@ -263,9 +234,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 5;
       break;
@@ -282,9 +250,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 6;
       break;
@@ -294,9 +259,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 7;
       break;
@@ -306,9 +268,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 8;
       break;
@@ -318,9 +277,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 9;
       break;
@@ -330,9 +286,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 10;
       break;
@@ -360,9 +313,6 @@ void changeDriveMode()
       if(previousdriveMode == 11)
       {
         qbaiLight(OFF);
-        bspdLight(OFF);
-        amsLight(OFF);
-        imdLight(OFF);
       }
       previousdriveMode = 69;
       break;
@@ -627,6 +577,7 @@ void processCARCANFrame(CAN_message_t f)
     maxCellTemp <<= 8;
     maxCellTemp |= f.buf[3];
     maxCellTempF = (float)maxCellTemp/10;
+    maxCellTemp = maxCellTemp/10;
     minCellTemp = f.buf[4];
     minCellTemp <<= 8;
     minCellTemp |= f.buf[5];
@@ -634,7 +585,8 @@ void processCARCANFrame(CAN_message_t f)
     HVSOC = f.buf[6];
     HVSOC <<= 8;
     HVSOC |= f.buf[7];
-    HVSOCF = (float)HVSOC/10;   
+    HVSOCF = (float)HVSOC/10;
+    HVSOC = HVSOC/10;
   }
   else if(f.id == 0x42)
   {
