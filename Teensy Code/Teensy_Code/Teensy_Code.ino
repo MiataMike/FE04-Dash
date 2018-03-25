@@ -153,13 +153,13 @@ void loop()
   }
 
   driveModeEnabledLight(driveActive);
-  //sendCARCANFrame();
+  sendCARCANFrame();
 }
 
 void updateDriveMode()
 {
   on = !digitalRead(Ignition_1);
-  if(!driveActive || !startActive)
+  if(!driveActive && !startActive)
   {
     driveMode = digitalRead(SW_bit3);
     driveMode <<= 1;
@@ -468,14 +468,14 @@ void sendCARCANFrame()
 {
   txmsg.id = 0x24;
   txmsg.len = 8;
-  txmsg.buf[0] = 0;
-  txmsg.buf[1] = ignitionByte();
-  txmsg.buf[2] = 2;
-  txmsg.buf[3] = 3;
-  txmsg.buf[4] = 4;
-  txmsg.buf[5] = 5;
-  txmsg.buf[6] = 6;
-  txmsg.buf[7] = 7;
+  txmsg.buf[0] = ignitionByte();
+  txmsg.buf[1] = 0;
+  txmsg.buf[2] = 0;
+  txmsg.buf[3] = 0;
+  txmsg.buf[4] = 0;
+  txmsg.buf[5] = 0;
+  txmsg.buf[6] = 0;
+  txmsg.buf[7] = 0;
   CARCAN.write(txmsg);
 }
 
