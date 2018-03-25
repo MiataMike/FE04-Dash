@@ -15,79 +15,77 @@ bool reverseMode = false;
 
 void setup() 
 {
+  //Fault Light Setup
   pinMode(AMS_light, OUTPUT);
   pinMode(IMD_light, OUTPUT);
   pinMode(BSPD_light, OUTPUT);
   pinMode(TPS_light, OUTPUT);
+  
+  //Servo Setup
   pinMode(servo_PWM, OUTPUT);
-  pinMode(GS_pin, INPUT);
-  attachInterrupt(digitalPinToInterrupt(GS_pin), updateDriveMode, RISING);
+  
+  //Drive Mode Switch Setup
   pinMode(SW_bit0, INPUT);
   pinMode(SW_bit1, INPUT);
   pinMode(SW_bit2, INPUT);
   pinMode(SW_bit3, INPUT);
+  pinMode(GS_pin, INPUT);
+  attachInterrupt(digitalPinToInterrupt(GS_pin), updateDriveMode, RISING);
+  
+  //Ignition Switch Setup
   pinMode(Ignition_1, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(Ignition_1), displayDriveMode, CHANGE);
   pinMode(Ignition_2, INPUT_PULLUP);
+  
+  //Steering Wheel Setup
   pinMode(left_button, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(left_button), scrollDashLeft, FALLING);
   pinMode(right_button, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(right_button), scrollDashRight, FALLING);
 
+  //Teensy SD Card Setup
   SD.begin(SDCS);
-  cdpixels.begin();
-  repixels.begin();
   
+  //Dash Screen Setup
   setupScreen();
+  displayDriveMode();
   
+  //Dash Lights Setup
+  setupLights();
+  
+  //Dash CAN Setup
   CARCAN.begin();
   DAQCAN.begin();
   
-  loopPixel(cdpixels.Color(150,150,0));
-  loopPixel(cdpixels.Color(0,150,0));
-  loopPixel(cdpixels.Color(0,150,150));
-  loopPixel(cdpixels.Color(0,0,150));
-  loopPixel(cdpixels.Color(150,0,150));
-  loopPixel(cdpixels.Color(150,0,0));
 }
 
 void loop()
 {
   if(on && dashpage == 1)
   {
-    if(!previouslyon && driveMode == 11)
+    if(!previouslyon)        //If it was on the start logo, erase screen
     {
+      if(driveMode != 11)
+      {
+         tft.fillScreen(HX8357_BLACK);
+         printCommonBackground();
+      }
       changeDriveMode();
       previouslyon = true;
     }
-    else if(!previouslyon)
+    else if(driveMode == 11)  //If it is in razzle mode, update image to dog
     {
-      tft.fillScreen(HX8357_BLACK);
-      printCommonBackground();
       changeDriveMode();
-      previouslyon = true;
     }
-    else
+    else                        //If any other drive mode, update screen
     {
-      if(driveMode == 11)
-      {
-        changeDriveMode();
-      }
-      else
-      {
-        if(previousdriveMode == 11)
-        {
-          tft.fillScreen(HX8357_BLACK);
-          printCommonBackground();
-          changeDriveMode();
-          updatetempPixels();
-        }
-        else
-        {
-          printCommonBackground();
-          changeDriveMode();
-        }
-      }
+     if(previousdriveMode == 11)      
+     {
+       tft.fillScreen(HX8357_BLACK);  //blank screen
+       updatetempPixels();            //reset pixels to current battery temp
+     }
+     printCommonBackground();         //update background
+     changeDriveMode();               //updates everything else on screen
     }
   }
   else if(on && dashpage != 1)
@@ -105,25 +103,39 @@ void loop()
       changeDashPage();
     }
   }
-  else if(!on)
+  else if(!on && previouslyon)
   {
-    if(previouslyon)
-    {
-      startScreen();
-    }
+    startScreen();
     previouslyon = false;
   }
+  
+  if(CARCAN.available())
+  {
+    CARCAN.read(rxmsg); //needs moved to processCARCANFrame
+    processCARCANFrame(rxmsg);
+  }
+  
+  if(DAQCAN.available())
+  {
+    DAQCAN.read(rxmsg); //needs moved to processDAQCANFrame
+    processDAQCANFrame(rxmsg);
+  }
+  
+  //Update Servo
   if(previousHVSOC != HVSOC)
   {
     updatesocServo();
   }
+  previousHVSOC = HVSOC;
+  
+  //Update Temperature pixels
   if((previousmaxCellTemp != maxCellTemp) && (driveMode != 11))
   {
     updatetempPixels();
   }
-  previousHVSOC = HVSOC;
   previousmaxCellTemp = maxCellTemp;
 
+  //Update fault lights
   if(driveMode != 11)
   {
     imdLight(IMDfault);
@@ -139,18 +151,6 @@ void loop()
   {
     repixels.setPixelColor(1, 0,0,0);
     repixels.show();
-  }
-  
-  if(CARCAN.available())
-  {
-    CARCAN.read(rxmsg);
-    processCARCANFrame(rxmsg);
-  }
-  
-  if(DAQCAN.available())
-  {
-    DAQCAN.read(rxmsg);
-    processDAQCANFrame(rxmsg);
   }
 }
 
@@ -177,6 +177,13 @@ void updateDriveMode()
   driveMode <<= 1;
   driveMode |= digitalRead(SW_bit0);
   fixDriveModeNumber();
+}
+
+void fixDriveModeNumber()
+{
+  if(driveMode == 0){ driveMode = 10;}
+  else if(driveMode == 1){ driveMode = 11; }
+  else {driveMode -= 2; }
 }
 
 void changeDriveMode()
@@ -346,12 +353,6 @@ void changeDashPage()
   }
 }
 
-void fixDriveModeNumber()
-{
-  if(driveMode == 0){ driveMode = 10;}
-  else if(driveMode == 1){ driveMode = 11; }
-  else {driveMode -= 2; }
-}
 
 void imdLight(bool on)
 {
@@ -637,6 +638,18 @@ void fillSTlogo()
   }
 }
 
+void setupLights()
+{
+  cdpixels.begin();
+  repixels.begin();
+  loopPixel(cdpixels.Color(150,150,0));
+  loopPixel(cdpixels.Color(0,150,0));
+  loopPixel(cdpixels.Color(0,150,150));
+  loopPixel(cdpixels.Color(0,0,150));
+  loopPixel(cdpixels.Color(150,0,150));
+  loopPixel(cdpixels.Color(150,0,0));
+}
+
 void loopPixel(uint32_t color )
 {
   for(int i=0;i<NUM_CD_PIXELS;i++)
@@ -772,4 +785,5 @@ void razzleMode()
   repixels.show();
   delay(razzledelay);
   amsLight(ON);
-}
+} 
+
