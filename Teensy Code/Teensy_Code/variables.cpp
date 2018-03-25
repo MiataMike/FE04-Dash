@@ -79,19 +79,13 @@ HX8357_t3 tft = HX8357_t3(CS, DC);
 int16_t tft_width = 0;
 int16_t tft_height = 0;
 uint8_t rotation = 1;
-bool updateDriveActiveNumber = false;
-bool updateDriveActiveText = false;
-bool driveEnter = false;
-bool updateStartActiveNumber = false;
-bool updateStartActiveText = false;
-bool startEnter = false;
 
 //Key
 bool on = false;
-bool starting = false;
 bool previouslyon = false;
 uint8_t previousdriveMode = 100;
 String previousTitle = "Previous";
+bool previouslyStartActive = false;
 
 //NeoPixels
 Adafruit_NeoPixel cdpixels = Adafruit_NeoPixel(NUM_CD_PIXELS,CD_neo_pixel_DI, NEO_GRB + NEO_KHZ800);

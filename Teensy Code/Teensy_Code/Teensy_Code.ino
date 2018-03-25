@@ -64,28 +64,6 @@ void loop()
   {
     processDAQCANFrame();
   }
-
-  if(driveActive && driveEnter)
-  {
-    updateDriveActiveNumber = true;
-    updateDriveActiveText = true;
-    driveEnter = false;
-  }
-  else if(!driveActive && !driveEnter)
-  {
-    driveEnter = true;
-  }
-
-  if(startActive && startEnter)
-  {
-    updateStartActiveNumber = true;
-    updateStartActiveText = true;
-    startEnter = false;
-  }
-  else if(!startActive && !startEnter)
-  {
-    startEnter = true;
-  }
   
   if(on && dashpage == 1)
   {
@@ -208,65 +186,54 @@ void changeDriveMode()
   switch(driveMode)
   {
     case 0:
-      printScreenTitle("Acceleration", 0);
-      printScreenNumber();
+      printCommonScreenInfo("Acceleration", 0);
       previousdriveMode = 0;
       break;
     case 1:
-      printScreenTitle("Skid Pad", 1);
-      printScreenNumber();
+      printCommonScreenInfo("Skid Pad", 1);
       previousdriveMode = 1;
       break;
     case 2:
-      printScreenTitle("Autocross", 2);
-      printScreenNumber();
+      printCommonScreenInfo("Autocross", 2);
       previousdriveMode = 2;
       break;
     case 3:
-      printScreenTitle("Endurance", 3);
-      printScreenNumber();
+      printCommonScreenInfo("Endurance", 3);
       previousdriveMode = 3;
       break;
     case 4:
-      printScreenTitle("Sunday Driving", 4);
-      printScreenNumber();
+      printCommonScreenInfo("Sunday Driving", 4);
       previousdriveMode = 4;
       break;
     case 5:
-      printScreenTitle("Granny Mode", 5);
-      printScreenNumber();
+      printCommonScreenInfo("Granny Mode", 5);
       previousdriveMode = 5;
       break;
     case 6:
       if(reverseMode)
       {
-        printScreenTitle("Reverse", 6);
+        printCommonScreenInfo("Reverse", 6);
       }
       else
       {
-        printScreenTitle("Extra0", 6);
+        printCommonScreenInfo("Extra0", 6);
       }
-      printScreenNumber();
       previousdriveMode = 6;
       break;
     case 7:
-      printScreenTitle("Extra", 7);
-      printScreenNumber();
+      printCommonScreenInfo("Extra", 7);
       previousdriveMode = 7;
       break;
     case 8:
-      printScreenTitle("Extra1", 8);
-      printScreenNumber();
+      printCommonScreenInfo("Extra1", 8);
       previousdriveMode = 8;
       break;
     case 9:
-      printScreenTitle("Extra2", 9);
-      printScreenNumber();
+      printCommonScreenInfo("Extra2", 9);
       previousdriveMode = 9;
       break;
     case 10:
-      printScreenTitle("Extra3", 10);
-      printScreenNumber();
+      printCommonScreenInfo("Extra3", 10);
       previousdriveMode = 10;
       break;
     case 11:
@@ -288,8 +255,7 @@ void changeDriveMode()
       razzleMode();
       break;
     default:
-      printScreenTitle("default", 69);
-      printScreenNumber();
+      printCommonScreenInfo("default", 69);
       previousdriveMode = 69;
       break;
   }
@@ -318,12 +284,10 @@ void changeDashPage()
   switch(dashpage)
   {
     case 2:
-      printScreenTitle("Faults", 12);
-      printScreenNumber();
+      printCommonScreenInfo("Faults", 12);
       break;
     case 3:
-      printScreenTitle("CAN Messages", 13);
-      printScreenNumber();
+      printCommonScreenInfo("CAN Messages", 13);
       break;
   }
 }

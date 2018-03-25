@@ -138,19 +138,13 @@ extern HX8357_t3 tft;
 extern int16_t tft_width;
 extern int16_t tft_height;
 extern uint8_t rotation;
-extern bool updateDriveActiveNumber;
-extern bool updateDriveActiveText;
-extern bool driveEnter;
-extern bool updateStartActiveNumber;
-extern bool updateStartActiveText;
-extern bool startEnter;
 
 //Key
 extern bool on;
-extern bool starting;
 extern bool previouslyon;
 extern uint8_t previousdriveMode;
 extern String previousTitle;
+extern bool previouslyStartActive;
 
 //NeoPixels
 extern Adafruit_NeoPixel cdpixels;
