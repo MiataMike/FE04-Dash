@@ -79,8 +79,10 @@ HX8357_t3 tft = HX8357_t3(CS, DC);
 int16_t tft_width = 0;
 int16_t tft_height = 0;
 uint8_t rotation = 1;
+bool updateDriveActiveNumber = false;
 bool updateDriveActiveText = false;
 bool driveEnter = false;
+bool updateStartActiveNumber = false;
 bool updateStartActiveText = false;
 bool startEnter = false;
 

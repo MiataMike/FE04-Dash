@@ -67,6 +67,7 @@ void loop()
 
   if(driveActive && driveEnter)
   {
+    updateDriveActiveNumber = true;
     updateDriveActiveText = true;
     driveEnter = false;
   }
@@ -77,6 +78,7 @@ void loop()
 
   if(startActive && startEnter)
   {
+    updateStartActiveNumber = true;
     updateStartActiveText = true;
     startEnter = false;
   }

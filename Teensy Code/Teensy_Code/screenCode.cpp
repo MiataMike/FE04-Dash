@@ -85,7 +85,7 @@ void printScreenNumber()
   tft.setCursor((tft_width/2)-25,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
-  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || updateDriveActiveText || updateStartActiveText)
+  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || updateDriveActiveNumber || updateStartActiveNumber)
   {
     tft.println(previousdriveMode);
     if(driveActive){ tft.setTextColor(HX8357_BLUE); }
@@ -94,8 +94,8 @@ void printScreenNumber()
     tft.setCursor((tft_width/2)-25,tft_height-35);
     tft.println(driveMode);
     previousdriveMode = driveMode;
-    updateDriveActiveText = false;
-    updateStartActiveText = false;
+    updateDriveActiveNumber = false;
+    updateStartActiveNumber = false;
   }
 }
 
