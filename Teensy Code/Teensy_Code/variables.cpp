@@ -20,6 +20,7 @@ bool BSPDfault = false; //statuses
 bool IMDfault = false;
 bool AMSfault = false;
 bool TBPfault = false;
+bool BOTSfault = false;
 bool driveActive = false;
 bool startActive = false;
 bool shutdownActive = false;
@@ -78,7 +79,10 @@ HX8357_t3 tft = HX8357_t3(CS, DC);
 int16_t tft_width = 0;
 int16_t tft_height = 0;
 uint8_t rotation = 1;
-bool display_on = false;
+bool updateDriveActiveText = false;
+bool driveEnter = false;
+bool updateStartActiveText = false;
+bool startEnter = false;
 
 //Key
 bool on = false;

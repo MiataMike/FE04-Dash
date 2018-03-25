@@ -79,6 +79,7 @@ extern bool BSPDfault; //statuses
 extern bool IMDfault;
 extern bool AMSfault;
 extern bool TBPfault; //Throttle Brake Plausibility (QBAI)
+extern bool BOTSfault; //Brake over travel
 extern bool driveActive;
 extern bool startActive;
 extern bool shutdownActive;
@@ -137,7 +138,10 @@ extern HX8357_t3 tft;
 extern int16_t tft_width;
 extern int16_t tft_height;
 extern uint8_t rotation;
-extern bool display_on;
+extern bool updateDriveActiveText;
+extern bool driveEnter;
+extern bool updateStartActiveText;
+extern bool startEnter;
 
 //Key
 extern bool on;

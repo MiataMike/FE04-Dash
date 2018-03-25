@@ -85,13 +85,17 @@ void printScreenNumber()
   tft.setCursor((tft_width/2)-25,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
-  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11)
+  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || updateDriveActiveText || updateStartActiveText)
   {
     tft.println(previousdriveMode);
-    tft.setTextColor(HX8357_GREEN);
+    if(driveActive){ tft.setTextColor(HX8357_BLUE); }
+    else if(startActive){ tft.setTextColor(HX8357_RED); }
+    else{ tft.setTextColor(HX8357_GREEN); }
     tft.setCursor((tft_width/2)-25,tft_height-35);
     tft.println(driveMode);
     previousdriveMode = driveMode;
+    updateDriveActiveText = false;
+    updateStartActiveText = false;
   }
 }
 
@@ -99,10 +103,12 @@ void printScreenTitle(String title, uint8_t number)
 {
   tft.setCursor((tft_width/2)-70,30);
   tft.setTextSize(3);
-  if(previousTitle != title || !previouslyon || previousdriveMode == 11)
+  if(previousTitle != title || !previouslyon || previousdriveMode == 11 || updateDriveActiveText || updateStartActiveText)
   {
     tft.fillRect(2+(tft_width/4),2,(tft_width/2)-2,73,HX8357_BLACK);
-    tft.setTextColor(HX8357_GREEN);
+    if(driveActive){ tft.setTextColor(HX8357_BLUE); }
+    else if(startActive){ tft.setTextColor(HX8357_RED); }
+    else{ tft.setTextColor(HX8357_GREEN); }
     switch(number)
     {
       case 0:
@@ -159,6 +165,8 @@ void printScreenTitle(String title, uint8_t number)
       tft.println("Driving");      
     }
     previousTitle = title;
+    updateDriveActiveText = false;
+    updateStartActiveText = false;
   }
 }
 
