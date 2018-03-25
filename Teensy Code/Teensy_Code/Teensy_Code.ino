@@ -61,6 +61,18 @@ void setup()
 
 void loop()
 {
+  if(CARCAN.available())
+  {
+    CARCAN.read(rxmsg); //needs moved to processCARCANFrame
+    processCARCANFrame(rxmsg);
+  }
+  
+  if(DAQCAN.available())
+  {
+    DAQCAN.read(rxmsg); //needs moved to processDAQCANFrame
+    processDAQCANFrame(rxmsg);
+  }
+  
   if(on && dashpage == 1)
   {
     if(!previouslyon)        //If it was on the start logo, erase screen
@@ -109,17 +121,7 @@ void loop()
     previouslyon = false;
   }
   
-  if(CARCAN.available())
-  {
-    CARCAN.read(rxmsg); //needs moved to processCARCANFrame
-    processCARCANFrame(rxmsg);
-  }
-  
-  if(DAQCAN.available())
-  {
-    DAQCAN.read(rxmsg); //needs moved to processDAQCANFrame
-    processDAQCANFrame(rxmsg);
-  }
+ 
   
   //Update Servo
   if(previousHVSOC != HVSOC)
@@ -136,7 +138,7 @@ void loop()
   previousmaxCellTemp = maxCellTemp;
 
   //Update fault lights
-  if(driveMode != 11)
+  if(driveMode != 11 || !on)
   {
     imdLight(IMDfault);
     amsLight(AMSfault);
@@ -183,7 +185,7 @@ void fixDriveModeNumber()
 {
   if(driveMode == 0){ driveMode = 10;}
   else if(driveMode == 1){ driveMode = 11; }
-  else {driveMode -= 2; }
+  else { driveMode -= 2; }
 }
 
 void changeDriveMode()

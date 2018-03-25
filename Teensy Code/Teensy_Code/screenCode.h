@@ -7,6 +7,8 @@
 void setupScreen();
 void startScreen();
 void printCommonBackground();
+void updateScreenSOC();
+void updateScreenBatteryTemp();
 void printScreenNumber();
 void printScreenTitle(String title, uint8_t number);
 void bmpDraw(const char *filename, uint8_t x, uint16_t y);

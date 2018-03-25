@@ -30,19 +30,7 @@ void printCommonBackground()
   tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
   if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11)
   {
-    tft.setTextSize(4);
-    tft.setTextColor(HX8357_BLACK);
-    if(previousHVSOC >= 100){ tft.setCursor(15,20); }
-    else if(previousHVSOC < 100 && previousHVSOC > 9){ tft.setCursor(30,20); }
-    else if(previousHVSOC < 10){ tft.setCursor(40,20); }
-    tft.print(previousHVSOC);
-    tft.print("%");
-    tft.setTextColor(HX8357_GREEN);
-    if(HVSOC >= 100){ tft.setCursor(15,20); }
-    else if(HVSOC < 100 && HVSOC > 9){ tft.setCursor(30,20); }
-    else if(HVSOC < 10){ tft.setCursor(40,20); }
-    tft.print(HVSOC);
-    tft.print("%"); 
+    updateScreenSOC();
   }
   tft.setTextColor(HX8357_GREEN);
   tft.setCursor(43,60);
@@ -50,28 +38,45 @@ void printCommonBackground()
   tft.println("SOC");
   if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11)
   {
-    //tft.setCursor(3*(tft_width/4)+25,20);
-    tft.setTextSize(4);
-    tft.setTextColor(HX8357_BLACK);
-    if(previousmaxCellTemp >= 100){ tft.setCursor(3*(tft_width/4)+15,20); }
-    else if(previousmaxCellTemp < 100 && previousmaxCellTemp > 9){ tft.setCursor(3*(tft_width/4)+30,20); }
-    else if(previousmaxCellTemp < 10){ tft.setCursor(3*(tft_width/4)+40,20); }
-    tft.print(previousmaxCellTemp);
-    tft.print("C");
-    //tft.setCursor(3*(tft_width/4)+25,20);
-    tft.setTextColor(HX8357_GREEN);
-    if(maxCellTemp >= 100){ tft.setCursor(3*(tft_width/4)+15,20); }
-    else if(maxCellTemp < 100 && maxCellTemp > 9){ tft.setCursor(3*(tft_width/4)+30,20); }
-    else if(maxCellTemp < 10){ tft.setCursor(3*(tft_width/4)+40,20); }
-    tft.print(maxCellTemp);
-    tft.print("C"); 
+    updateScreenBatteryTemp();
   }
   tft.setTextColor(HX8357_GREEN);
   tft.setCursor(367,60);
   tft.setTextSize(2);
   tft.println("Batt Temp");
 }
-
+void updateScreenSOC()
+{
+  tft.setTextSize(4);
+  tft.setTextColor(HX8357_BLACK);
+  if(previousHVSOC >= 100){ tft.setCursor(15,20); }
+  else if(previousHVSOC < 100 && previousHVSOC > 9){ tft.setCursor(30,20); }
+  else if(previousHVSOC < 10){ tft.setCursor(40,20); }
+  tft.print(previousHVSOC);
+  tft.print("%");
+  tft.setTextColor(HX8357_GREEN);
+  if(HVSOC >= 100){ tft.setCursor(15,20); }
+  else if(HVSOC < 100 && HVSOC > 9){ tft.setCursor(30,20); }
+  else if(HVSOC < 10){ tft.setCursor(40,20); }
+  tft.print(HVSOC);
+  tft.print("%"); 
+}
+void updateScreenBatteryTemp()
+{
+  tft.setTextSize(4);
+  tft.setTextColor(HX8357_BLACK);
+  if(previousmaxCellTemp >= 100){ tft.setCursor(3*(tft_width/4)+15,20); }
+  else if(previousmaxCellTemp < 100 && previousmaxCellTemp > 9){ tft.setCursor(3*(tft_width/4)+30,20); }
+  else if(previousmaxCellTemp < 10){ tft.setCursor(3*(tft_width/4)+40,20); }
+  tft.print(previousmaxCellTemp);
+  tft.print("C");
+  tft.setTextColor(HX8357_GREEN);
+  if(maxCellTemp >= 100){ tft.setCursor(3*(tft_width/4)+15,20); }
+  else if(maxCellTemp < 100 && maxCellTemp > 9){ tft.setCursor(3*(tft_width/4)+30,20); }
+  else if(maxCellTemp < 10){ tft.setCursor(3*(tft_width/4)+40,20); }
+  tft.print(maxCellTemp);
+  tft.print("C"); 
+}
 void printScreenNumber()
 {
   tft.setCursor((tft_width/2)-25,tft_height-35);
