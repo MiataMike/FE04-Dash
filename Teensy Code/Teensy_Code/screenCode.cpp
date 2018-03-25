@@ -45,6 +45,7 @@ void printCommonBackground()
   tft.setTextSize(2);
   tft.println("Batt Temp");
 }
+
 void updateScreenSOC()
 {
   tft.setTextSize(4);
@@ -61,6 +62,7 @@ void updateScreenSOC()
   tft.print(HVSOC);
   tft.print("%"); 
 }
+
 void updateScreenBatteryTemp()
 {
   tft.setTextSize(4);
@@ -77,6 +79,7 @@ void updateScreenBatteryTemp()
   tft.print(maxCellTemp);
   tft.print("C"); 
 }
+
 void printScreenNumber()
 {
   tft.setCursor((tft_width/2)-25,tft_height-35);

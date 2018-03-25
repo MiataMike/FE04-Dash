@@ -70,7 +70,7 @@ uint8_t razzledelay = 50;
 //CAN Setup
 FlexCAN CARCAN(500000,0);
 FlexCAN DAQCAN(500000,1);
-CAN_message_t msg,rxmsg;
+CAN_message_t txmsg,rxmsg;
 
 //TFT Screen Setup
 HX8357_t3 tft = HX8357_t3(CS, DC);

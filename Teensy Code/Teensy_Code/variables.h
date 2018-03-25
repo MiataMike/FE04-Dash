@@ -129,7 +129,7 @@ extern uint8_t razzledelay;
 //CAN Setup
 extern FlexCAN CARCAN;
 extern FlexCAN DAQCAN;
-extern CAN_message_t msg,rxmsg;
+extern CAN_message_t txmsg,rxmsg;
 
 //TFT Screen Setup
 extern HX8357_t3 tft;

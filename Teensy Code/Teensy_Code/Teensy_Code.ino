@@ -1,15 +1,10 @@
-//To add the necessary included libraries go to Sketch->Include Library->Manage Libraries...
+//To add the necessary included libraries go to Sketch->Include Library->Add .ZIP Library...
 //Filter and get all the necessary libraries
 //Make sure Board type selected in tools is a teensy
 
 #include <Arduino.h>
 #include "variables.h"
 #include "screenCode.h"
-
-//Dash Button 2 is to start car, Dash button 3 is to turn off the car
-//Dash Button 2 = Ignition 2, Dash Button 3 = Neither Ignition 1 or 2
-//Dash Button 3 is bit 0x01
-//Dash Button 2 is bit 0x02
 
 bool reverseMode = false;
 
@@ -56,21 +51,18 @@ void setup()
   //Dash CAN Setup
   CARCAN.begin();
   DAQCAN.begin();
-  
 }
 
 void loop()
 {
   if(CARCAN.available())
   {
-    CARCAN.read(rxmsg); //needs moved to processCARCANFrame
-    processCARCANFrame(rxmsg);
+    processCARCANFrame();
   }
   
   if(DAQCAN.available())
   {
-    DAQCAN.read(rxmsg); //needs moved to processDAQCANFrame
-    processDAQCANFrame(rxmsg);
+    processDAQCANFrame();
   }
   
   if(on && dashpage == 1)
@@ -94,7 +86,7 @@ void loop()
      if(previousdriveMode == 11)      
      {
        tft.fillScreen(HX8357_BLACK);  //blank screen
-       updatetempPixels();            //reset pixels to current battery temp
+       updateTempPixels();            //reset pixels to current battery temp
      }
      printCommonBackground();         //update background
      changeDriveMode();               //updates everything else on screen
@@ -102,7 +94,11 @@ void loop()
   }
   else if(on && dashpage != 1)
   {
-    if(!previouslyon)
+    if(driveMode == 11)
+    {
+      dashpage = 1;
+    }
+    else if(!previouslyon)
     {
       tft.fillScreen(HX8357_BLACK);
       printCommonBackground();
@@ -121,8 +117,6 @@ void loop()
     previouslyon = false;
   }
   
- 
-  
   //Update Servo
   if(previousHVSOC != HVSOC)
   {
@@ -133,7 +127,7 @@ void loop()
   //Update Temperature pixels
   if((previousmaxCellTemp != maxCellTemp) && (driveMode != 11))
   {
-    updatetempPixels();
+    updateTempPixels();
   }
   previousmaxCellTemp = maxCellTemp;
 
@@ -144,6 +138,7 @@ void loop()
     amsLight(AMSfault);
     bspdLight(BSPDfault);
   }
+  
   if(HVSOC <= 20)
   {
     repixels.setPixelColor(1, 255,0,0);
@@ -154,6 +149,9 @@ void loop()
     repixels.setPixelColor(1, 0,0,0);
     repixels.show();
   }
+
+  driveModeEnabledLight(driveActive);
+  sendCARCANFrame();
 }
 
 void displayDriveMode()
@@ -171,14 +169,17 @@ void displayDriveMode()
 
 void updateDriveMode()
 {
-  driveMode = digitalRead(SW_bit3);
-  driveMode <<= 1;
-  driveMode |= digitalRead(SW_bit2);
-  driveMode <<= 1;
-  driveMode |= digitalRead(SW_bit1);
-  driveMode <<= 1;
-  driveMode |= digitalRead(SW_bit0);
-  fixDriveModeNumber();
+  if(driveActive || startActive)
+  {
+    driveMode = digitalRead(SW_bit3);
+    driveMode <<= 1;
+    driveMode |= digitalRead(SW_bit2);
+    driveMode <<= 1;
+    driveMode |= digitalRead(SW_bit1);
+    driveMode <<= 1;
+    driveMode |= digitalRead(SW_bit0);
+    fixDriveModeNumber();
+  }
 }
 
 void fixDriveModeNumber()
@@ -330,14 +331,20 @@ void changeDriveMode()
 
 void scrollDashLeft()
 {
-  if(dashpage == 1){ dashpage = 3; }
-  else{ dashpage--; }
+  if(driveMode != 11)
+  {
+    if(dashpage == 1){ dashpage = 3; }
+    else{ dashpage--; }
+  }
 }
 
 void scrollDashRight()
 {
-  if(dashpage == 3){ dashpage = 1; }
-  else{ dashpage++; }
+  if(driveMode != 11)
+  {
+    if(dashpage == 3){ dashpage = 1; }
+    else{ dashpage++; }
+  }
 }
 
 void changeDashPage()
@@ -354,7 +361,6 @@ void changeDashPage()
       break;
   }
 }
-
 
 void imdLight(bool on)
 {
@@ -374,6 +380,14 @@ void bspdLight(bool on)
 void qbaiLight(bool on)
 {
   digitalWrite(TPS_light, on);
+}
+
+void driveModeEnabledLight(bool enabled)
+{
+  if(enabled){ repixels.setPixelColor(0, 0,0,255); }
+  else if(startActive){ repixels.setPixelColor(0, 255,0,0); }
+  else{ repixels.setPixelColor(0, 0,255,0); }
+  repixels.show();
 }
 
 void updatesocServo()
@@ -406,7 +420,7 @@ void updatesocServo()
   socservo.detach();
 }
 
-void updatetempPixels()
+void updateTempPixels()
 {
   for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
   {
@@ -462,67 +476,79 @@ void updatetempPixels()
 //CAN Stuff
 void sendCARCANFrame()
 {
-  msg.id = 0x24;
-  msg.len = 8;
-  msg.buf[0] = 0;
-  msg.buf[1] = 1;
-  msg.buf[2] = 2;
-  msg.buf[3] = 3;
-  msg.buf[4] = 4;
-  msg.buf[5] = 5;
-  msg.buf[6] = 6;
-  msg.buf[7] = 7;
-  CARCAN.write(msg);
+  txmsg.id = 0x24;
+  txmsg.len = 8;
+  txmsg.buf[0] = 0;
+  txmsg.buf[1] = ignitionByte();
+  txmsg.buf[2] = 2;
+  txmsg.buf[3] = 3;
+  txmsg.buf[4] = 4;
+  txmsg.buf[5] = 5;
+  txmsg.buf[6] = 6;
+  txmsg.buf[7] = 7;
+  CARCAN.write(txmsg);
+}
+
+uint8_t ignitionByte()
+{
+  uint8_t buf = 0;
+  if(driveMode == 11){ buf |= 0; }
+  else {buf |= !digitalRead(Ignition_2); }
+  buf <<= 1;
+  buf |= !on;
+  return buf;
 }
 
 void sendDAQCANFrame()
 {
-  msg.id = 0x00;
-  msg.len = 8;
-  msg.buf[0] = 0;
-  msg.buf[1] = 1;
-  msg.buf[2] = 2;
-  msg.buf[3] = 3;
-  msg.buf[4] = 4;
-  msg.buf[5] = 5;
-  msg.buf[6] = 6;
-  msg.buf[7] = 7;
-  DAQCAN.write(msg);
+  txmsg.id = 0x00;
+  txmsg.len = 8;
+  txmsg.buf[0] = 0;
+  txmsg.buf[1] = 1;
+  txmsg.buf[2] = 2;
+  txmsg.buf[3] = 3;
+  txmsg.buf[4] = 4;
+  txmsg.buf[5] = 5;
+  txmsg.buf[6] = 6;
+  txmsg.buf[7] = 7;
+  DAQCAN.write(txmsg);
 }
 
-void processCARCANFrame(CAN_message_t f)
+void processCARCANFrame()
 {
+  CARCAN.read(rxmsg);
+  
   //Pedal Board
   uint8_t dataByte = 0;
-  if(f.id == 0x20)
+  if(rxmsg.id == 0x20)
   {
-    throttleOneRaw = f.buf[0];
+    throttleOneRaw = rxmsg.buf[0];
     throttleOneRaw <<= 8;
-    throttleOneRaw |= f.buf[1];
+    throttleOneRaw |= rxmsg.buf[1];
     throttleOneF = (float)(throttleOneRaw-256)/18.3;
-    throttleTwoRaw = f.buf[2];
+    throttleTwoRaw = rxmsg.buf[2];
     throttleTwoRaw <<= 8;
-    throttleTwoRaw |= f.buf[3];
+    throttleTwoRaw |= rxmsg.buf[3];
     throttleTwoF = (float)(throttleTwoRaw-256)/18.3;
     throttleDiff = abs(throttleOneF-throttleTwoF);
     
-    brakePressureFrontRaw = f.buf[4];
+    brakePressureFrontRaw = rxmsg.buf[4];
     brakePressureFrontRaw <<= 8;
-    brakePressureFrontRaw |= f.buf[5];
+    brakePressureFrontRaw |= rxmsg.buf[5];
     brakePressureFrontF = (float)(brakePressureFrontRaw-256)/10;
     if(brakePressureFrontF >= 13){ brakePressureBool = true; }
     else brakePressureBool = false;
     if(brakePressureFrontF >= brakeMax){ brakeMax = brakePressureFrontF; }
-    brakePressureRearRaw = f.buf[6];
+    brakePressureRearRaw = rxmsg.buf[6];
     brakePressureRearRaw <<= 8;
-    brakePressureRearRaw |= f.buf[7];
+    brakePressureRearRaw |= rxmsg.buf[7];
     brakePressureRearF = (float)(brakePressureRearRaw-256)/10;
   }
 
   //Bridge Card Messages
-  else if(f.id == 0x28)
+  else if(rxmsg.id == 0x28)
   {
-    dataByte = f.buf[0];
+    dataByte = rxmsg.buf[0];
     if((dataByte & 0x01) == 1){ BSPDfault = true; }
     else BSPDfault = false;
     dataByte >>= 1;
@@ -540,32 +566,32 @@ void processCARCANFrame(CAN_message_t f)
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ shutdownActive = false; }
     else shutdownActive = true;
-    carSpeed = f.buf[5];
+    carSpeed = rxmsg.buf[5];
     carSpeed <<= 8;
-    carSpeed |= f.buf[6];
+    carSpeed |= rxmsg.buf[6];
     carSpeedF = double(carSpeed)/10;
   }
-  else if(f.id == 0x29)
+  else if(rxmsg.id == 0x29)
   {
-    MCTemp = f.buf[0];
+    MCTemp = rxmsg.buf[0];
     MCTemp <<= 8;
-    MCTemp |= f.buf[1];
+    MCTemp |= rxmsg.buf[1];
     MCTempF = (float)MCTemp/10;
-    motorTemp = f.buf[2];
+    motorTemp = rxmsg.buf[2];
     motorTemp <<= 8;
-    motorTemp |= f.buf[3];
+    motorTemp |= rxmsg.buf[3];
     motorTempF = (float)motorTemp/10;
-    batteryTemp = f.buf[4];
+    batteryTemp = rxmsg.buf[4];
     batteryTemp <<= 8;
-    batteryTemp |= f.buf[5];
+    batteryTemp |= rxmsg.buf[5];
     batteryTempF = (float)batteryTemp/10;
   }
 
   //AMS Messages
-  else if(f.id == 0x41)
+  else if(rxmsg.id == 0x41)
   {
-    faulted = f.buf[0] << 1;
-    dataByte = f.buf[1];
+    faulted = rxmsg.buf[0] << 1;
+    dataByte = rxmsg.buf[1];
     faulted |= dataByte >> 7;
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ prechargeContactor = true; }
@@ -576,45 +602,45 @@ void processCARCANFrame(CAN_message_t f)
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ positiveContactor = true; }
     else positiveContactor = false;
-    maxCellTemp = f.buf[2];
+    maxCellTemp = rxmsg.buf[2];
     maxCellTemp <<= 8;
-    maxCellTemp |= f.buf[3];
+    maxCellTemp |= rxmsg.buf[3];
     maxCellTempF = (float)maxCellTemp/10;
     maxCellTemp = maxCellTemp/10;
-    minCellTemp = f.buf[4];
+    minCellTemp = rxmsg.buf[4];
     minCellTemp <<= 8;
-    minCellTemp |= f.buf[5];
+    minCellTemp |= rxmsg.buf[5];
     minCellTempF = (float)minCellTemp/10;      
-    HVSOC = f.buf[6];
+    HVSOC = rxmsg.buf[6];
     HVSOC <<= 8;
-    HVSOC |= f.buf[7];
+    HVSOC |= rxmsg.buf[7];
     HVSOCF = (float)HVSOC/10;
     HVSOC = HVSOC/10;
   }
-  else if(f.id == 0x42)
+  else if(rxmsg.id == 0x42)
   {
-    packVoltage = f.buf[0];
+    packVoltage = rxmsg.buf[0];
     packVoltage <<= 8;
-    packVoltage |= f.buf[1];
+    packVoltage |= rxmsg.buf[1];
     packVoltageF = (float)packVoltage/10;
-    vehicleVoltage = f.buf[2];
+    vehicleVoltage = rxmsg.buf[2];
     vehicleVoltage <<= 8;
-    vehicleVoltage |= f.buf[3];
+    vehicleVoltage |= rxmsg.buf[3];
     vehicleVoltageF = (float)vehicleVoltage/10;
-    maxCellVoltage = f.buf[4];
+    maxCellVoltage = rxmsg.buf[4];
     maxCellVoltage <<= 8;
-    maxCellVoltage |= f.buf[5];
+    maxCellVoltage |= rxmsg.buf[5];
     maxCellVoltageF = (float)maxCellVoltage/1000;
-    minCellVoltage = f.buf[6];
+    minCellVoltage = rxmsg.buf[6];
     minCellVoltage <<= 8;
-    minCellVoltage |= f.buf[7];
+    minCellVoltage |= rxmsg.buf[7];
     minCellVoltageF = (float)minCellVoltage/1000; 
   }
-  else if(f.id == 0x43)
+  else if(rxmsg.id == 0x43)
   {
-    packCurrent = f.buf[0];
+    packCurrent = rxmsg.buf[0];
     packCurrent <<= 8;
-    packCurrent |= f.buf[1];
+    packCurrent |= rxmsg.buf[1];
     packCurrentF = (float)packCurrent/10;
   }
   else
@@ -623,21 +649,9 @@ void processCARCANFrame(CAN_message_t f)
   }
 }
 
-void processDAQCANFrame(CAN_message_t f)
+void processDAQCANFrame()
 {
-  
-}
-
-
-void fillSTlogo()
-{
-  for(int16_t x = -35; x < tft_width; x+=68)
-  {
-    for(int16_t y = 0; y < tft_height; y+=64)
-    {
-      tft.drawBitmap(x,y,STlogo, 128, 64, HX8357_BLACK);
-    }
-  }
+  DAQCAN.read(rxmsg);
 }
 
 void setupLights()
@@ -787,5 +801,16 @@ void razzleMode()
   repixels.show();
   delay(razzledelay);
   amsLight(ON);
-} 
+}
+
+void fillSTlogo()
+{
+  for(int16_t x = -35; x < tft_width; x+=68)
+  {
+    for(int16_t y = 0; y < tft_height; y+=64)
+    {
+      tft.drawBitmap(x,y,STlogo, 128, 64, HX8357_BLACK);
+    }
+  }
+}
 
