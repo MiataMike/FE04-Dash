@@ -29,8 +29,8 @@ void setup()
   
   //Ignition Switch Setup
   pinMode(Ignition_1, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(Ignition_1), updateDriveMode, CHANGE);
   pinMode(Ignition_2, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(Ignition_2), updateDriveMode, CHANGE);
   
   //Steering Wheel Setup
   pinMode(left_button, INPUT_PULLUP);
@@ -160,7 +160,7 @@ void loop()
 
 void updateDriveMode()
 {
-  on = !digitalRead(Ignition_1);
+  on = !digitalRead(Ignition_2);
   if(!driveActive && !startActive)
   {
     driveMode = digitalRead(SW_bit3);
@@ -423,7 +423,7 @@ uint8_t ignitionByte()
 {
   uint8_t buf = 0;
   if(driveMode == 11){ buf |= 0; }
-  else {buf |= !digitalRead(Ignition_2); }
+  else {buf |= !digitalRead(Ignition_1); }
   buf <<= 1;
   buf |= !on;
   return buf;
