@@ -79,7 +79,6 @@ extern bool BSPDfault; //statuses
 extern bool IMDfault;
 extern bool AMSfault;
 extern bool TBPfault; //Throttle Brake Plausibility (QBAI)
-extern bool BOTSfault; //Brake over travel
 extern bool driveActive;
 extern bool startActive;
 extern bool shutdownActive;

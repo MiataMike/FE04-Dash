@@ -140,7 +140,7 @@ void loop()
     imdLight(IMDfault);
     amsLight(AMSfault);
     bspdLight(BSPDfault);
-    qbaiLight(BOTSfault);
+    qbaiLight(TBPfault);
   }
   
   if(HVSOC <= 20)
@@ -499,9 +499,6 @@ void processCARCANFrame()
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ TBPfault = true; }
     else TBPfault = false;
-    dataByte >>=1;
-    if((dataByte & 0x01) == 1){ BOTSfault = true; }
-    else BOTSfault = false;
     carSpeed = rxmsg.buf[5];
     carSpeed <<= 8;
     carSpeed |= rxmsg.buf[6];
