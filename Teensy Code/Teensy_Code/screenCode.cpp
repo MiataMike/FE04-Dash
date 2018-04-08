@@ -28,7 +28,7 @@ void printCommonBackground()
   tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
   tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
   tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
-  if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11)
+  if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
   {
     updateScreenSOC();
   }
@@ -36,7 +36,7 @@ void printCommonBackground()
   tft.setCursor(43,60);
   tft.setTextSize(2);
   tft.println("SOC");
-  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11)
+  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
   {
     updateScreenBatteryTemp();
   }
@@ -160,12 +160,12 @@ void printScreenTitle(String title, uint8_t number)
 
 void printCommonScreenInfo(String title, uint8_t number)
 {
-  if(previousTitle != title || !previouslyon || previousdriveMode == 11 || previouslyStartActive != startActive)
+  if(previousTitle != title || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive)
   {
     printScreenTitle(title, number);
     previousTitle = title;
   }
-  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || previouslyStartActive != startActive)
+  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive)
   {
     printScreenNumber();
     previousdriveMode = driveMode;

@@ -69,7 +69,7 @@ void loop()
   {
     if(!previouslyon)        //If it was on the start logo, erase screen
     {
-      if(driveMode != 11)
+      if(driveMode != 11 && driveMode != 10)
       {
          tft.fillScreen(HX8357_BLACK);
          printCommonBackground();
@@ -77,13 +77,13 @@ void loop()
       changeDriveMode();
       previouslyon = true;
     }
-    else if(driveMode == 11)  //If it is in razzle mode, update image to dog
+    else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
     {
       changeDriveMode();
     }
     else                        //If any other drive mode, update screen
     {
-     if(previousdriveMode == 11)      
+     if(previousdriveMode == 11 || previousdriveMode == 10)      
      {
        tft.fillScreen(HX8357_BLACK);  //blank screen
        updateTempPixels();            //reset pixels to current battery temp
@@ -94,7 +94,7 @@ void loop()
   }
   else if(on && dashpage != 1)
   {
-    if(driveMode == 11)
+    if(driveMode == 11 || driveMode == 10)
     {
       dashpage = 1;
       changeDriveMode();
@@ -129,13 +129,13 @@ void loop()
   //Update Temperature pixels
   if(previousmaxCellTemp != maxCellTemp)
   {
-    if(on && (driveMode != 11)){ updateTempPixels(); }
+    if(on && driveMode != 11 && driveMode != 10){ updateTempPixels(); }
     else if(!on){ updateTempPixels(); }
   }
   previousmaxCellTemp = maxCellTemp;
 
   //Update fault lights
-  if(driveMode != 11 || !on)
+  if((driveMode != 11 && driveMode != 10) || !on)
   {
     imdLight(IMDfault);
     amsLight(AMSfault);
@@ -143,7 +143,7 @@ void loop()
     qbaiLight(TBPfault);
   }
   
-  if(HVSOC <= 20)
+  if(HVSOC <= 20 && driveMode != 11 && driveMode != 10)
   {
     repixels.setPixelColor(1, 255,0,0);
     repixels.show();
@@ -154,8 +154,9 @@ void loop()
     repixels.show();
   }
 
-  driveModeEnabledLight(driveActive);
-  sendCARCANFrame();
+  if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
+  
+  sendCARCANFrame();  
 }
 
 void updateDriveMode()
@@ -233,8 +234,26 @@ void changeDriveMode()
       previousdriveMode = 9;
       break;
     case 10:
-      printCommonScreenInfo("Extra3", 10);
+      if((previousdriveMode != 10) || !previouslyon)
+      {
+        bmpDraw("mroom.bmp", 0, 0);
+        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
+        {
+          cdpixels.setPixelColor(i, 0,0,0);
+        }
+        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
+        {
+          repixels.setPixelColor(i, 0,0,0);
+        }
+        cdpixels.show();
+        repixels.show();
+        imdLight(false);
+        amsLight(false);
+        bspdLight(false);
+        qbaiLight(false);
+      }
       previousdriveMode = 10;
+      mushroomMode();
       break;
     case 11:
       if((previousdriveMode != 11) || !previouslyon)
@@ -263,7 +282,7 @@ void changeDriveMode()
 
 void scrollDashLeft()
 {
-  if(driveMode != 11)
+  if(driveMode != 11 && driveMode != 10)
   {
     if(dashpage == 1){ dashpage = 3; }
     else{ dashpage--; }
@@ -272,7 +291,7 @@ void scrollDashLeft()
 
 void scrollDashRight()
 {
-  if(driveMode != 11)
+  if(driveMode != 11 && driveMode != 10)
   {
     if(dashpage == 3){ dashpage = 1; }
     else{ dashpage++; }
@@ -359,19 +378,31 @@ void updateTempPixels()
   cdpixels.show();
   
   uint8_t pixels = 0;
-  if(maxCellTemp <= 0) { pixels = 1; }
-  else if(maxCellTemp <=5) { pixels = 2; }
-  else if(maxCellTemp <=10) { pixels = 3; }
-  else if(maxCellTemp <=16) { pixels = 4; }
-  else if(maxCellTemp <=21) { pixels = 5; }
-  else if(maxCellTemp <=27) { pixels = 6; }
-  else if(maxCellTemp <=32) { pixels = 7; }
-  else if(maxCellTemp <=38) { pixels = 8; }
-  else if(maxCellTemp <=43) { pixels = 9; }
-  else if(maxCellTemp <=49) { pixels = 10; }
-  else if(maxCellTemp <=54) { pixels = 11; }
-  else { pixels = 12; }
-  
+  if(driveMode == 3)
+  {
+    if(maxCellTemp <= 54) { pixels = 1; }
+    else if(maxCellTemp <= 55) { pixels = 4; }
+    else if(maxCellTemp <= 56) { pixels = 6; }
+    else if(maxCellTemp <= 57) { pixels = 8; }
+    else if(maxCellTemp <= 58) { pixels = 10; }
+    else if(maxCellTemp <= 60) { pixels = 12; }
+  }
+  else
+  {
+    if(maxCellTemp <= 0) { pixels = 1; }
+    else if(maxCellTemp <=5) { pixels = 2; }
+    else if(maxCellTemp <=10) { pixels = 3; }
+    else if(maxCellTemp <=16) { pixels = 4; }
+    else if(maxCellTemp <=21) { pixels = 5; }
+    else if(maxCellTemp <=27) { pixels = 6; }
+    else if(maxCellTemp <=32) { pixels = 7; }
+    else if(maxCellTemp <=38) { pixels = 8; }
+    else if(maxCellTemp <=43) { pixels = 9; }
+    else if(maxCellTemp <=49) { pixels = 10; }
+    else if(maxCellTemp <=54) { pixels = 11; }
+    else { pixels = 12; }
+  }
+    
   switch(pixels)
   {
     case 12:
@@ -422,7 +453,7 @@ void sendCARCANFrame()
 uint8_t ignitionByte()
 {
   uint8_t buf = 0;
-  if(driveMode == 11){ buf |= 0; }
+  if(driveMode == 11 || driveMode == 10){ buf |= 0; }
   else {buf |= !digitalRead(Ignition_1); }
   buf <<= 1;
   buf |= !on;
@@ -607,6 +638,23 @@ void loopPixel(uint32_t color )
     cdpixels.show();
     delay(25);
   }
+}
+
+void mushroomMode()
+{
+  cdpixels.setPixelColor(0, 255,0,0);
+  cdpixels.setPixelColor(1, 255,0,0);
+  cdpixels.setPixelColor(2, 255,255,255);
+  cdpixels.setPixelColor(3, 255,255,255);
+  cdpixels.setPixelColor(4, 255,0,0);
+  cdpixels.setPixelColor(5, 255,0,0);
+  cdpixels.setPixelColor(6, 255,255,255);
+  cdpixels.setPixelColor(7, 255,255,255);
+  cdpixels.setPixelColor(8, 255,0,0);
+  cdpixels.setPixelColor(9, 255,0,0);
+  cdpixels.setPixelColor(10, 255,255,255);
+  cdpixels.setPixelColor(11, 255,255,255);
+  cdpixels.show();
 }
 
 void razzleMode()
