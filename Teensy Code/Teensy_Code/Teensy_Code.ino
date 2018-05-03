@@ -69,7 +69,7 @@ void loop()
   {
     if(!previouslyon)        //If it was on the start logo, erase screen
     {
-      if(driveMode != 11 && driveMode != 10)
+      if(driveMode != 11 && driveMode != 9)
       {
          tft.fillScreen(HX8357_BLACK);
          printCommonBackground();
@@ -77,13 +77,13 @@ void loop()
       changeDriveMode();
       previouslyon = true;
     }
-    else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
+    else if(driveMode == 11 || driveMode == 9)  //If it is in razzle mode, update image to dog
     {
       changeDriveMode();
     }
     else                        //If any other drive mode, update screen
     {
-     if(previousdriveMode == 11 || previousdriveMode == 10)      
+     if(previousdriveMode == 11 || previousdriveMode == 9)      
      {
        tft.fillScreen(HX8357_BLACK);  //blank screen
        updateTempPixels();            //reset pixels to current battery temp
@@ -94,7 +94,7 @@ void loop()
   }
   else if(on && dashpage != 1)
   {
-    if(driveMode == 11 || driveMode == 10)
+    if(driveMode == 11 || driveMode == 9)
     {
       dashpage = 1;
       changeDriveMode();
@@ -129,13 +129,13 @@ void loop()
   //Update Temperature pixels
   if(previousmaxCellTemp != maxCellTemp)
   {
-    if(on && driveMode != 11 && driveMode != 10){ updateTempPixels(); }
+    if(on && driveMode != 11 && driveMode != 9){ updateTempPixels(); }
     else if(!on){ updateTempPixels(); }
   }
   previousmaxCellTemp = maxCellTemp;
 
   //Update fault lights
-  if((driveMode != 11 && driveMode != 10) || !on)
+  if((driveMode != 11 && driveMode != 9) || !on)
   {
     imdLight(IMDfault);
     amsLight(AMSfault);
@@ -143,7 +143,7 @@ void loop()
     qbaiLight(TBPfault);
   }
   
-  if(HVSOC <= 20 && driveMode != 11 && driveMode != 10)
+  if(HVSOC <= 20 && driveMode != 11 && driveMode != 9)
   {
     repixels.setPixelColor(1, 255,0,0);
     repixels.show();
@@ -154,7 +154,7 @@ void loop()
     repixels.show();
   }
 
-  if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
+  if(driveMode != 11 && driveMode != 9){ driveModeEnabledLight(driveActive); }
   
   sendCARCANFrame();  
 }
@@ -177,7 +177,7 @@ void updateDriveMode()
 
 void fixDriveModeNumber()
 {
-  if(driveMode == 0){ driveMode = 10;}
+  if(driveMode == 0){ driveMode = 10; }
   else if(driveMode == 1){ driveMode = 11; }
   else { driveMode -= 2; }
 }
@@ -230,11 +230,7 @@ void changeDriveMode()
       previousdriveMode = 8;
       break;
     case 9:
-      printCommonScreenInfo("Extra2", 9);
-      previousdriveMode = 9;
-      break;
-    case 10:
-      if((previousdriveMode != 10) || !previouslyon)
+      if((previousdriveMode != 9) || !previouslyon)
       {
         bmpDraw("mroom.bmp", 0, 0);
         for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
@@ -252,8 +248,12 @@ void changeDriveMode()
         bspdLight(false);
         qbaiLight(false);
       }
-      previousdriveMode = 10;
+      previousdriveMode = 9;
       mushroomMode();
+      break;
+    case 10:
+      printCommonScreenInfo("Extra2", 10);
+      previousdriveMode = 10;
       break;
     case 11:
       if((previousdriveMode != 11) || !previouslyon)
@@ -282,7 +282,7 @@ void changeDriveMode()
 
 void scrollDashLeft()
 {
-  if(driveMode != 11 && driveMode != 10)
+  if(driveMode != 11 && driveMode != 9)
   {
     if(dashpage == 1){ dashpage = 3; }
     else{ dashpage--; }
@@ -291,7 +291,7 @@ void scrollDashLeft()
 
 void scrollDashRight()
 {
-  if(driveMode != 11 && driveMode != 10)
+  if(driveMode != 11 && driveMode != 9)
   {
     if(dashpage == 3){ dashpage = 1; }
     else{ dashpage++; }
@@ -453,7 +453,7 @@ void sendCARCANFrame()
 uint8_t ignitionByte()
 {
   uint8_t buf = 0;
-  if(driveMode == 11 || driveMode == 10){ buf |= 0; }
+  if(driveMode == 11 || driveMode == 9){ buf |= 0; }
   else { buf |= !digitalRead(Ignition_1); }
   buf <<= 1;
   buf |= !on;
