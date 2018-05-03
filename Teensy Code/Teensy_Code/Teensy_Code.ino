@@ -464,7 +464,7 @@ uint8_t driveModeByte()
 {
   uint8_t buf = 0;
   if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
-  else { buf = 100; }
+  else{ buf = driveMode; }
   return buf;
 }
 
