@@ -440,7 +440,7 @@ void sendCARCANFrame()
   txmsg.id = 0x24;
   txmsg.len = 8;
   txmsg.buf[0] = ignitionByte();
-  txmsg.buf[1] = 0;
+  txmsg.buf[1] = driveModeByte();
   txmsg.buf[2] = 0;
   txmsg.buf[3] = 0;
   txmsg.buf[4] = 0;
@@ -454,9 +454,17 @@ uint8_t ignitionByte()
 {
   uint8_t buf = 0;
   if(driveMode == 11 || driveMode == 10){ buf |= 0; }
-  else {buf |= !digitalRead(Ignition_1); }
+  else { buf |= !digitalRead(Ignition_1); }
   buf <<= 1;
   buf |= !on;
+  return buf;
+}
+
+uint8_t driveModeByte()
+{
+  uint8_t buf = 0;
+  if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
+  else { buf = 100; }
   return buf;
 }
 
@@ -465,13 +473,13 @@ void sendDAQCANFrame()
   txmsg.id = 0x00;
   txmsg.len = 8;
   txmsg.buf[0] = 0;
-  txmsg.buf[1] = 1;
-  txmsg.buf[2] = 2;
-  txmsg.buf[3] = 3;
-  txmsg.buf[4] = 4;
-  txmsg.buf[5] = 5;
-  txmsg.buf[6] = 6;
-  txmsg.buf[7] = 7;
+  txmsg.buf[1] = 0;
+  txmsg.buf[2] = 0;
+  txmsg.buf[3] = 0;
+  txmsg.buf[4] = 0;
+  txmsg.buf[5] = 0;
+  txmsg.buf[6] = 0;
+  txmsg.buf[7] = 0;
   DAQCAN.write(txmsg);
 }
 
