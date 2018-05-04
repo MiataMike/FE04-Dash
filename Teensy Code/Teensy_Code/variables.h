@@ -126,6 +126,7 @@ extern uint8_t driveMode;
 extern uint8_t dashpage;
 extern uint8_t dashcount;
 extern uint8_t razzledelay;
+extern bool temprangechange;
 
 //CAN Setup
 extern FlexCAN CARCAN;

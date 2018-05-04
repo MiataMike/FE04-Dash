@@ -67,6 +67,7 @@ uint8_t driveMode = 1;
 uint8_t dashpage = 1;
 uint8_t dashcount = 3;
 uint8_t razzledelay = 50;
+bool temprangechange = false;
 
 //CAN Setup
 FlexCAN CARCAN(500000,0);

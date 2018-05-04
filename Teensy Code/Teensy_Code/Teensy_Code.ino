@@ -51,6 +51,7 @@ void setup()
   //Dash CAN Setup
   CARCAN.begin();
   DAQCAN.begin();
+  Serial.begin(9600);
 }
 
 void loop()
@@ -127,7 +128,7 @@ void loop()
   previousHVSOC = HVSOC;
   
   //Update Temperature pixels
-  if(previousmaxCellTemp != maxCellTemp)
+  if(previousmaxCellTemp != maxCellTemp || (driveMode == 3 && !temprangechange) || (driveMode !=3 && temprangechange))
   {
     if(on && driveMode != 11 && driveMode != 9){ updateTempPixels(); }
     else if(!on){ updateTempPixels(); }
@@ -386,6 +387,7 @@ void updateTempPixels()
     else if(maxCellTemp <= 57) { pixels = 8; }
     else if(maxCellTemp <= 58) { pixels = 10; }
     else if(maxCellTemp <= 60) { pixels = 12; }
+    temprangechange = true;
   }
   else
   {
@@ -401,6 +403,7 @@ void updateTempPixels()
     else if(maxCellTemp <=49) { pixels = 10; }
     else if(maxCellTemp <=54) { pixels = 11; }
     else { pixels = 12; }
+    temprangechange = false;
   }
     
   switch(pixels)
@@ -617,7 +620,7 @@ void processCARCANFrame()
   }
   else
   {
-    Serial.print("WTF????");
+    //Serial.print("WTF????");
   }
 }
 
