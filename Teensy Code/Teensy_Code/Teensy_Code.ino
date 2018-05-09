@@ -121,7 +121,7 @@ void loop()
   }
   
   //Update Servo
-  if(previousHVSOC != HVSOC)
+  if(previousHVSOC != HVSOC && HVSOC != 0 && HVSOC <=100)
   {
     updatesocServo();
   }
