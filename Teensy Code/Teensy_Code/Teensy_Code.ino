@@ -6,7 +6,7 @@
 #include "variables.h"
 #include "screenCode.h"
 
-bool reverseMode = false;
+bool reverseMode = true;
 
 void setup() 
 {
@@ -475,8 +475,18 @@ uint8_t ignitionByte()
 uint8_t driveModeByte()
 {
   uint8_t buf = 0;
-  if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
-  else{ buf = driveMode; }
+  //if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
+  //else{ buf = driveMode; }
+  if(reverseMode){ buf = 1; }
+  else{ buf = 0; }
+  buf <<= 4;
+  buf |= driveMode;
+  return buf;
+}
+
+uint8_t regenByte()
+{
+  uint8_t buf = 0;
   return buf;
 }
 
