@@ -60,6 +60,17 @@ void printCommonBackground()
   {
     updateScreenCarSpeed();
   }
+
+  if(previousbrakePosition != brakePosition || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  {
+    tft.setTextSize(4);
+    tft.setTextColor(HX8357_BLACK);
+    tft.setCursor(15,200);
+    tft.print(previousbrakePosition);
+    tft.setTextColor(HX8357_GREEN);
+    tft.setCursor(15,200);
+    tft.print(brakePosition);
+  }
 }
 
 void updateScreenSOC()

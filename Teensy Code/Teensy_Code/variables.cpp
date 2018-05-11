@@ -26,6 +26,8 @@ bool shutdownActive = false;
 int16_t carSpeed = 100; //car speed read through CAN bus
 int16_t previouscarSpeed = 900;
 double carSpeedF = 0; //float
+uint8_t brakePosition = 0;
+uint8_t previousbrakePosition = 255;
 
 //0x29
 uint16_t MCTemp = 0;

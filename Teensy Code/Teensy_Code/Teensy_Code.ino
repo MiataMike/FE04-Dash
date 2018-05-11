@@ -135,6 +135,7 @@ void loop()
   }
   previousmaxCellTemp = maxCellTemp;
   previouscarSpeed = carSpeed;
+  previousbrakePosition = brakePosition;
 
   //Update fault lights
   if((driveMode != 11 && driveMode != 10) || !on)
@@ -489,6 +490,7 @@ uint8_t regenByte()
 {
   uint8_t buf = 0;
   return buf;
+  //67.5 is max
 }
 
 void sendDAQCANFrame()
@@ -571,6 +573,7 @@ void processCARCANFrame()
       carSpeed = carSpeed - 65536;
     }
     carSpeed = abs(carSpeed);
+    brakePosition = rxmsg.buf[7];
   }
   else if(rxmsg.id == 0x29)
   {

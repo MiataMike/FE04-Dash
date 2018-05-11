@@ -85,6 +85,8 @@ extern bool shutdownActive;
 extern int16_t carSpeed; //car speed read through CAN bus
 extern int16_t previouscarSpeed;
 extern double carSpeedF; //float
+extern uint8_t brakePosition;
+extern uint8_t previousbrakePosition;
 
 //0x29
 extern uint16_t MCTemp;
