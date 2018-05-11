@@ -303,7 +303,7 @@ void printSecretScreen()
   {
     if(!previouslysecretScreen)
     {
-      bmpDraw("dbutt.bmp", 0, 0);
+      bmpDraw("mata.bmp", 0, 0);
       secretScreen = true;
       previouslysecretScreen = true;
     }
