@@ -163,7 +163,7 @@ void loop()
 
 void updateDriveMode()
 {
-  on = 1;//!digitalRead(Ignition_2);
+  on = !digitalRead(Ignition_2);
   if(!driveActive && !startActive)
   {
     driveMode = digitalRead(SW_bit3);
