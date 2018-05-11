@@ -260,10 +260,10 @@ void printBrakeScreen()
   if(!previouslybrakeScreen)
   {
     tft.fillRect(55,tft_height/2-40,370,100,HX8357_RED);
-    tft.setTextSize(4);
     tft.setTextColor(HX8357_BLACK);
     if(vehicleVoltage > 10)
     {
+      tft.setTextSize(4);
       tft.setCursor(105, tft_height/2-30);
       tft.println("Press Brake");
       tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
@@ -273,7 +273,8 @@ void printBrakeScreen()
     }
     else
     {
-      tft.setCursor(150, tft_height/2 -30);
+      tft.setTextSize(6);
+      tft.setCursor(145, tft_height/2-15);
       tft.println("HV OFF");
     }
     brakeScreen = true;
