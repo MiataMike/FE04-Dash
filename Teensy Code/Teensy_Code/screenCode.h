@@ -9,6 +9,7 @@ void startScreen();
 void printCommonBackground();
 void updateScreenSOC();
 void updateScreenBatteryTemp();
+void updateScreenCarSpeed();
 void printScreenNumber();
 void printScreenTitle(String title, uint8_t number);
 void printCommonScreenInfo(String title, uint8_t number);

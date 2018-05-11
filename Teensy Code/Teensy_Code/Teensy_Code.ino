@@ -134,6 +134,7 @@ void loop()
     else if(!on){ updateTempPixels(); }
   }
   previousmaxCellTemp = maxCellTemp;
+  previouscarSpeed = carSpeed;
 
   //Update fault lights
   if((driveMode != 11 && driveMode != 10) || !on)
@@ -162,7 +163,7 @@ void loop()
 
 void updateDriveMode()
 {
-  on = !digitalRead(Ignition_2);
+  on = 1;//!digitalRead(Ignition_2);
   if(!driveActive && !startActive)
   {
     driveMode = digitalRead(SW_bit3);
@@ -564,6 +565,12 @@ void processCARCANFrame()
     carSpeed <<= 8;
     carSpeed |= rxmsg.buf[6];
     carSpeedF = double(carSpeed)/10;
+    carSpeed = carSpeed / 10;
+    if(carSpeed > 32767)
+    {
+      carSpeed = carSpeed - 65536;
+    }
+    carSpeed = abs(carSpeed);
   }
   else if(rxmsg.id == 0x29)
   {

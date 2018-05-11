@@ -23,7 +23,8 @@ bool TBPfault = false;
 bool driveActive = false;
 bool startActive = false;
 bool shutdownActive = false;
-int carSpeed = 0; //car speed read through CAN bus 
+int16_t carSpeed = 100; //car speed read through CAN bus
+int16_t previouscarSpeed = 900;
 double carSpeedF = 0; //float
 
 //0x29

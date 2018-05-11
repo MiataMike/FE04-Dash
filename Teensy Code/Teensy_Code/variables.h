@@ -82,7 +82,8 @@ extern bool TBPfault; //Throttle Brake Plausibility (QBAI)
 extern bool driveActive;
 extern bool startActive;
 extern bool shutdownActive;
-extern int carSpeed; //car speed read through CAN bus 
+extern int16_t carSpeed; //car speed read through CAN bus
+extern int16_t previouscarSpeed;
 extern double carSpeedF; //float
 
 //0x29

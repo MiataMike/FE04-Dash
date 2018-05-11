@@ -24,26 +24,42 @@ void startScreen()
 
 void printCommonBackground()
 {
-  tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
-  tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
-  tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
-  tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
+  if(!previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  {
+    tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
+    tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
+    tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
+    tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
+    tft.drawFastVLine(tft_width/2,0,tft_height,HX8357_GREEN);
+
+    tft.setTextColor(HX8357_GREEN);
+    tft.setCursor(43,60);
+    tft.setTextSize(2);
+    tft.println("SOC");
+
+    tft.setCursor(367,60);
+    tft.setTextSize(2);
+    tft.println("Batt Temp");
+
+    tft.setCursor((tft_width/2)-17,150);
+    tft.setTextSize(2);
+    tft.print("MPH");
+  }
+  
   if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
   {
     updateScreenSOC();
   }
-  tft.setTextColor(HX8357_GREEN);
-  tft.setCursor(43,60);
-  tft.setTextSize(2);
-  tft.println("SOC");
+  
   if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
   {
     updateScreenBatteryTemp();
   }
-  tft.setTextColor(HX8357_GREEN);
-  tft.setCursor(367,60);
-  tft.setTextSize(2);
-  tft.println("Batt Temp");
+
+  if(previouscarSpeed != carSpeed || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  {
+    updateScreenCarSpeed();
+  }
 }
 
 void updateScreenSOC()
@@ -78,6 +94,21 @@ void updateScreenBatteryTemp()
   else if(maxCellTemp < 10){ tft.setCursor(3*(tft_width/4)+40,20); }
   tft.print(maxCellTemp);
   tft.print("C"); 
+}
+
+void updateScreenCarSpeed()
+{
+  tft.setTextSize(8);
+  tft.setTextColor(HX8357_BLACK);
+  if(previouscarSpeed >= 100){ tft.setCursor((tft_width/2)-67,85); }
+  else if(previouscarSpeed < 100 && previouscarSpeed > 9){ tft.setCursor((tft_width/2)-43,85); }
+  else if(previouscarSpeed < 10){ tft.setCursor((tft_width/2)-20,85); }
+  tft.print(previouscarSpeed);
+  tft.setTextColor(HX8357_GREEN);
+  if(carSpeed >= 100){ tft.setCursor((tft_width/2)-67,85); }
+  else if(carSpeed < 100 && carSpeed > 9){ tft.setCursor((tft_width/2)-43,85); }
+  else if(carSpeed < 10){ tft.setCursor((tft_width/2)-20,85); }
+  tft.print(carSpeed);
 }
 
 void printScreenNumber()
