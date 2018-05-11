@@ -82,6 +82,9 @@ extern bool TBPfault; //Throttle Brake Plausibility (QBAI)
 extern bool driveActive;
 extern bool startActive;
 extern bool shutdownActive;
+extern uint8_t lvVoltage;
+extern uint8_t previouslvVoltage;
+extern uint8_t lvVoltageF;
 extern int16_t carSpeed; //car speed read through CAN bus
 extern int16_t previouscarSpeed;
 extern double carSpeedF; //float
@@ -132,6 +135,8 @@ extern uint8_t razzledelay;
 extern bool temprangechange;
 extern bool brakeScreen;
 extern bool previouslybrakeScreen;
+extern uint16_t maxTorque;
+extern uint16_t previousmaxTorque;
 
 //CAN Setup
 extern FlexCAN CARCAN;

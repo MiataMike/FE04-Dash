@@ -23,6 +23,9 @@ bool TBPfault = false;
 bool driveActive = false;
 bool startActive = false;
 bool shutdownActive = false;
+uint8_t lvVoltage = 0;
+uint8_t previouslvVoltage = 200;
+uint8_t lvVoltageF = 0;
 int16_t carSpeed = 100; //car speed read through CAN bus
 int16_t previouscarSpeed = 900;
 double carSpeedF = 0; //float
@@ -73,6 +76,8 @@ uint8_t razzledelay = 50;
 bool temprangechange = false;
 bool brakeScreen = false;
 bool previouslybrakeScreen = false;
+uint16_t maxTorque = 0;
+uint16_t previousmaxTorque = 5000;
 
 //CAN Setup
 FlexCAN CARCAN(500000,0);

@@ -166,10 +166,11 @@ void loop()
     brakeScreen = false;
   }
   previousbrakePosition = brakePosition;
+  previouslvVoltage = lvVoltage;
 
   if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
   
-  sendCARCANFrame();  
+  sendCARCANFrame();
 }
 
 void updateDriveMode()
@@ -209,49 +210,60 @@ void changeDriveMode()
   switch(driveMode)
   {
     case 0:
+      maxTorque = 270;
       printCommonScreenInfo("Acceleration", 0);
       previousdriveMode = 0;
       break;
     case 1:
+      maxTorque = 240;
       printCommonScreenInfo("Skid Pad", 1);
       previousdriveMode = 1;
       break;
     case 2:
+      maxTorque = 240;
       printCommonScreenInfo("Autocross", 2);
       previousdriveMode = 2;
       break;
     case 3:
+      maxTorque = 240;
       printCommonScreenInfo("Endurance", 3);
       previousdriveMode = 3;
       break;
     case 4:
+      maxTorque = 240;
       printCommonScreenInfo("Sunday Driving", 4);
       previousdriveMode = 4;
       break;
     case 5:
+      maxTorque = 100;
       printCommonScreenInfo("Granny Mode", 5);
       previousdriveMode = 5;
       break;
     case 6:
       if(reverseMode)
       {
+        maxTorque = 50;
         printCommonScreenInfo("Reverse", 6);
       }
       else
       {
+        maxTorque = 240;
         printCommonScreenInfo("Extra0", 6);
       }
       previousdriveMode = 6;
       break;
     case 7:
+      maxTorque = 240;
       printCommonScreenInfo("Extra", 7);
       previousdriveMode = 7;
       break;
     case 8:
+      maxTorque = 240;
       printCommonScreenInfo("Extra1", 8);
       previousdriveMode = 8;
       break;
     case 9:
+      maxTorque = 240;
       printCommonScreenInfo("Extra2", 9);
       previousdriveMode = 9;
       break;
@@ -573,6 +585,13 @@ void processCARCANFrame()
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ TBPfault = true; }
     else TBPfault = false;
+
+    lvVoltage = rxmsg.buf[3];
+    lvVoltage <<= 8;
+    lvVoltage |= rxmsg.buf[4];
+    lvVoltageF = lvVoltage / 10;
+    lvVoltage = lvVoltage / 10;
+    
     carSpeed = rxmsg.buf[5];
     carSpeed <<= 8;
     carSpeed |= rxmsg.buf[6];

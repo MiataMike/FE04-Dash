@@ -30,6 +30,9 @@ void printCommonBackground()
     tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
     tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
     tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
+    tft.drawFastHLine(0,tft_height-50,tft_width,HX8357_GREEN);
+    tft.drawFastVLine(tft_width/4,tft_height-50,50,HX8357_GREEN);
+    tft.drawFastVLine(3*(tft_width/4),tft_height-50,50,HX8357_GREEN);
     //tft.drawFastVLine(tft_width/2,0,tft_height,HX8357_GREEN);
 
     tft.setTextColor(HX8357_GREEN);
@@ -44,6 +47,14 @@ void printCommonBackground()
     tft.setCursor((tft_width/2)-17,150);
     tft.setTextSize(2);
     tft.print("MPH");
+
+    tft.setCursor(18,tft_height-45);
+    tft.setTextSize(2);
+    tft.print("Max Trq");
+    
+    tft.setCursor(tft_width-65,tft_height-45);
+    tft.setTextSize(2);
+    tft.print("LV");
   }
   
   if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
@@ -59,6 +70,11 @@ void printCommonBackground()
   if(previouscarSpeed != carSpeed || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
   {
     updateScreenCarSpeed();
+  }
+
+  if(previouslvVoltage != lvVoltage || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  {
+    updateScreenLVVoltage();
   }
 }
 
@@ -109,6 +125,38 @@ void updateScreenCarSpeed()
   else if(carSpeed < 100 && carSpeed > 9){ tft.setCursor((tft_width/2)-43,85); }
   else if(carSpeed < 10){ tft.setCursor((tft_width/2)-20,85); }
   tft.print(carSpeed);
+}
+
+void updateScreenLVVoltage()
+{
+  tft.setTextSize(3);
+  tft.setTextColor(HX8357_BLACK);
+  if(previouslvVoltage > 9){ tft.setCursor(3*(tft_width/4)+40,tft_height-25); }
+  else if(previouslvVoltage < 10){ tft.setCursor(3*(tft_width/4)+48,tft_height-25); }
+  tft.print(previouslvVoltage);
+  tft.print("V");
+  tft.setTextColor(HX8357_GREEN);
+  if(lvVoltage > 9){ tft.setCursor(3*(tft_width/4)+40,tft_height-25); }
+  else if(lvVoltage < 10){ tft.setCursor(3*(tft_width/4)+48,tft_height-25); }
+  tft.print(lvVoltage);
+  tft.print("V"); 
+}
+
+void updateScreenMaxTorque()
+{
+  tft.setTextSize(3);
+  tft.setTextColor(HX8357_BLACK);
+  if(previousmaxTorque > 99){ tft.setCursor(15,tft_height-25); }
+  else if(previousmaxTorque < 100 && maxTorque > 9){ tft.setCursor(26,tft_height-25); }
+  else if(previousmaxTorque < 10){ tft.setCursor(38,tft_height-25); }
+  tft.print(previousmaxTorque);
+  tft.print("Nm");
+  tft.setTextColor(HX8357_GREEN);
+  if(maxTorque > 99){ tft.setCursor(15,tft_height-25); }
+  else if(maxTorque < 100 && maxTorque > 9){ tft.setCursor(26,tft_height-25); }
+  else if(maxTorque < 10){ tft.setCursor(38,tft_height-25); }
+  tft.print(maxTorque);
+  tft.print("Nm");
 }
 
 void printScreenNumber()
@@ -200,6 +248,8 @@ void printCommonScreenInfo(String title, uint8_t number)
   {
     printScreenNumber();
     previousdriveMode = driveMode;
+    updateScreenMaxTorque();
+    previousmaxTorque = maxTorque;
   }
   if(previouslyStartActive != startActive){ previouslyStartActive = startActive; }
 }
@@ -210,18 +260,26 @@ void printBrakeScreen()
   if(!previouslybrakeScreen)
   {
     tft.fillRect(55,tft_height/2-40,370,100,HX8357_RED);
-    tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
-    tft.drawFastVLine(158,tft_height/2+5,50,HX8357_BLACK);
-    tft.drawFastVLine(240,tft_height/2+5,50,HX8357_BLACK);
-    tft.drawFastVLine(323,tft_height/2+5,50,HX8357_BLACK);
     tft.setTextSize(4);
-    tft.setCursor(105, tft_height/2-30);
     tft.setTextColor(HX8357_BLACK);
-    tft.println("Press Brake");
+    if(vehicleVoltage > 10)
+    {
+      tft.setCursor(105, tft_height/2-30);
+      tft.println("Press Brake");
+      tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
+      tft.drawFastVLine(158,tft_height/2+5,50,HX8357_BLACK);
+      tft.drawFastVLine(240,tft_height/2+5,50,HX8357_BLACK);
+      tft.drawFastVLine(323,tft_height/2+5,50,HX8357_BLACK);
+    }
+    else
+    {
+      tft.setCursor(150, tft_height/2 -30);
+      tft.println("HV OFF");
+    }
     brakeScreen = true;
     previouslybrakeScreen = true;
   }
-  if(previousbrakePosition != brakePosition)
+  if(previousbrakePosition != brakePosition && vehicleVoltage > 10)
   {
     brakePositionBuffer = brakePosition;
     if(brakePositionBuffer > 30){ brakePositionBuffer = 30; }
