@@ -164,6 +164,9 @@ extern Adafruit_NeoPixel repixels;
 extern Servo socservo;
 extern uint8_t servoval;
 
+extern bool secretScreen;
+extern bool previouslysecretScreen;
+
 extern const unsigned char STlogo [] PROGMEM;
 
 #endif

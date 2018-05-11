@@ -78,6 +78,7 @@ void loop()
       changeDriveMode();
       previouslyon = true;
       previouslybrakeScreen = false;
+      previouslysecretScreen = false;
     }
     else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
     {
@@ -114,7 +115,7 @@ void loop()
       changeDashPage();
     }
   }
-  else if(!on && previouslyon)
+  else if((!on && previouslyon) || previouslysecretScreen != secretScreen)
   {
     startScreen();
     updateTempPixels();
@@ -169,6 +170,8 @@ void loop()
   previouslvVoltage = lvVoltage;
 
   if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
+
+  printSecretScreen();
   
   sendCARCANFrame();
 }
@@ -851,16 +854,5 @@ void razzleMode()
   repixels.show();
   delay(razzledelay);
   amsLight(ON);
-}
-
-void fillSTlogo()
-{
-  for(int16_t x = -35; x < tft_width; x+=68)
-  {
-    for(int16_t y = 0; y < tft_height; y+=64)
-    {
-      tft.drawBitmap(x,y,STlogo, 128, 64, HX8357_BLACK);
-    }
-  }
 }
 

@@ -24,7 +24,7 @@ void startScreen()
 
 void printCommonBackground()
 {
-  if(!previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  if(!previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen || previouslysecretScreen != secretScreen)
   {
     tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
     tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
@@ -296,6 +296,23 @@ void printBrakeScreen()
   } 
 }
 
+void printSecretScreen()
+{
+  bool secret_enabled = true;
+  if(secret_enabled && !driveActive && !on && !startActive && brakePosition > 20 && throttleOneRaw > 2000 && vehicleVoltage < 10 && driveMode == 11)
+  {
+    if(!previouslysecretScreen)
+    {
+      bmpDraw("dbutt.bmp", 0, 0);
+      secretScreen = true;
+      previouslysecretScreen = true;
+    }
+  }
+  else
+  {
+    secretScreen = false;
+  }
+}
 
 
 
