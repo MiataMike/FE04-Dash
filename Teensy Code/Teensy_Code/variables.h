@@ -129,8 +129,11 @@ extern float packCurrentF;
 
 //Dash
 extern uint8_t driveMode;
+extern uint8_t previousdriveMode;
 extern uint8_t dashpage;
+extern uint8_t previousdashpage;
 extern uint8_t dashcount;
+extern String previousTitle;
 extern uint8_t razzledelay;
 extern bool temprangechange;
 extern bool brakeScreen;
@@ -152,8 +155,6 @@ extern uint8_t rotation;
 //Key
 extern bool on;
 extern bool previouslyon;
-extern uint8_t previousdriveMode;
-extern String previousTitle;
 extern bool previouslyStartActive;
 
 //NeoPixels

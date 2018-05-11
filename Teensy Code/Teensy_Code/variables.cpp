@@ -70,8 +70,11 @@ float packCurrentF = 0;
 
 //Dash
 uint8_t driveMode = 1;
+uint8_t previousdriveMode = 100;
 uint8_t dashpage = 1;
+uint8_t previousdashpage = 1;
 uint8_t dashcount = 3;
+String previousTitle = "Previous";
 uint8_t razzledelay = 50;
 bool temprangechange = false;
 bool brakeScreen = false;
@@ -93,8 +96,6 @@ uint8_t rotation = 1;
 //Key
 bool on = false;
 bool previouslyon = false;
-uint8_t previousdriveMode = 100;
-String previousTitle = "Previous";
 bool previouslyStartActive = false;
 
 //NeoPixels

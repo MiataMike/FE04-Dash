@@ -68,6 +68,7 @@ void loop()
   
   if(on && dashpage == 1)
   {
+    previousdashpage = 1;
     if(!previouslyon || previouslybrakeScreen != brakeScreen)        //If it was on the start logo, erase screen
     {
       if(driveMode != 11 && driveMode != 10)
@@ -341,9 +342,11 @@ void changeDashPage()
   {
     case 2:
       printCommonScreenInfo("Faults", 12);
+      previousdashpage = 2;
       break;
     case 3:
       printCommonScreenInfo("CAN Messages", 13);
+      previousdashpage = 3;
       break;
   }
 }
