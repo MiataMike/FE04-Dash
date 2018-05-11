@@ -207,7 +207,7 @@ void printCommonScreenInfo(String title, uint8_t number)
 void printBrakeScreen()
 {
   uint8_t brakePositionBuffer;
-  if(!brakeScreen)
+  if(!previouslybrakeScreen)
   {
     tft.fillRect(55,tft_height/2-40,370,100,HX8357_RED);
     tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
@@ -219,13 +219,15 @@ void printBrakeScreen()
     tft.setTextColor(HX8357_BLACK);
     tft.println("Press Brake");
     brakeScreen = true;
+    previouslybrakeScreen = true;
   }
   if(previousbrakePosition != brakePosition)
   {
     brakePositionBuffer = brakePosition;
     if(brakePositionBuffer > 30){ brakePositionBuffer = 30; }
-    if(brakePositionBuffer < previousbrakePosition)
+    if(brakePositionBuffer < previousbrakePosition && brakePosition < 30)
     {
+      tft.fillRect(75,tft_height/2+5,previousbrakePosition*11,50,HX8357_RED);
       tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
       tft.drawFastVLine(158,tft_height/2+5,50,HX8357_BLACK);
       tft.drawFastVLine(240,tft_height/2+5,50,HX8357_BLACK);

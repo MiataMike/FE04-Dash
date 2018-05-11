@@ -157,10 +157,9 @@ void loop()
     repixels.show();
   }
 
-  if(!digitalRead(Ignition_1))
+  if(!digitalRead(Ignition_1) && !driveActive)
   {
     printBrakeScreen();
-    previouslybrakeScreen = true;
   }
   else
   {
