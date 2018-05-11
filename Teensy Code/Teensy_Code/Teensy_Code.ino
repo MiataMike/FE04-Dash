@@ -78,7 +78,6 @@ void loop()
       changeDriveMode();
       previouslyon = true;
       previouslybrakeScreen = false;
-      previouslysecretScreen = false;
     }
     else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
     {
@@ -120,6 +119,7 @@ void loop()
     startScreen();
     updateTempPixels();
     previouslyon = false;
+    previouslysecretScreen = false;
   }
   
   //Update Servo
