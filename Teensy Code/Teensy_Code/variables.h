@@ -83,8 +83,8 @@ extern bool driveActive;
 extern bool startActive;
 extern bool shutdownActive;
 extern uint8_t lvVoltage;
-extern uint8_t previouslvVoltage;
-extern uint8_t lvVoltageF;
+extern float lvVoltageF;
+extern float previouslvVoltageF;
 extern int16_t carSpeed; //car speed read through CAN bus
 extern int16_t previouscarSpeed;
 extern double carSpeedF; //float

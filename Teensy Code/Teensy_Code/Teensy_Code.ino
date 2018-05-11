@@ -168,7 +168,7 @@ void loop()
     brakeScreen = false;
   }
   previousbrakePosition = brakePosition;
-  previouslvVoltage = lvVoltage;
+  previouslvVoltageF = lvVoltageF;
 
   if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
 
@@ -595,7 +595,7 @@ void processCARCANFrame()
     lvVoltage = rxmsg.buf[3];
     lvVoltage <<= 8;
     lvVoltage |= rxmsg.buf[4];
-    lvVoltageF = lvVoltage / 10;
+    lvVoltageF = (float)lvVoltage / 10;
     lvVoltage = lvVoltage / 10;
     
     carSpeed = rxmsg.buf[5];

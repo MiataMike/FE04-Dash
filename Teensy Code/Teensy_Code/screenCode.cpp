@@ -72,7 +72,7 @@ void printCommonBackground()
     updateScreenCarSpeed();
   }
 
-  if(previouslvVoltage != lvVoltage || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  if(previouslvVoltageF != lvVoltageF || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
   {
     updateScreenLVVoltage();
   }
@@ -131,14 +131,14 @@ void updateScreenLVVoltage()
 {
   tft.setTextSize(3);
   tft.setTextColor(HX8357_BLACK);
-  if(previouslvVoltage > 9){ tft.setCursor(3*(tft_width/4)+40,tft_height-25); }
-  else if(previouslvVoltage < 10){ tft.setCursor(3*(tft_width/4)+48,tft_height-25); }
-  tft.print(previouslvVoltage);
+  if(previouslvVoltageF > 9){ tft.setCursor(3*(tft_width/4)+20,tft_height-25); }
+  else if(previouslvVoltageF < 10){ tft.setCursor(3*(tft_width/4)+28,tft_height-25); }
+  tft.print(previouslvVoltageF,1);
   tft.print("V");
   tft.setTextColor(HX8357_GREEN);
-  if(lvVoltage > 9){ tft.setCursor(3*(tft_width/4)+40,tft_height-25); }
-  else if(lvVoltage < 10){ tft.setCursor(3*(tft_width/4)+48,tft_height-25); }
-  tft.print(lvVoltage);
+  if(lvVoltageF > 9){ tft.setCursor(3*(tft_width/4)+20,tft_height-25); }
+  else if(lvVoltageF < 10){ tft.setCursor(3*(tft_width/4)+28,tft_height-25); }
+  tft.print(lvVoltageF,1);
   tft.print("V"); 
 }
 
