@@ -30,7 +30,7 @@ void printCommonBackground()
     tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
     tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
     tft.drawFastVLine(3*(tft_width/4),0,75,HX8357_GREEN);
-    tft.drawFastVLine(tft_width/2,0,tft_height,HX8357_GREEN);
+    //tft.drawFastVLine(tft_width/2,0,tft_height,HX8357_GREEN);
 
     tft.setTextColor(HX8357_GREEN);
     tft.setCursor(43,60);
@@ -113,14 +113,14 @@ void updateScreenCarSpeed()
 
 void printScreenNumber()
 {
-  tft.setCursor((tft_width/2)-25,tft_height-35);
+  tft.setCursor((tft_width/2)-10,tft_height-35);
   tft.setTextSize(4);
   tft.setTextColor(HX8357_BLACK);
   tft.println(previousdriveMode);
   if(driveActive){ tft.setTextColor(HX8357_BLUE); }
   else if(startActive){ tft.setTextColor(HX8357_RED); }
   else{ tft.setTextColor(HX8357_GREEN); }
-  tft.setCursor((tft_width/2)-25,tft_height-35);
+  tft.setCursor((tft_width/2)-10,tft_height-35);
   tft.println(driveMode);
 }
 
