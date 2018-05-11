@@ -24,7 +24,7 @@ void startScreen()
 
 void printCommonBackground()
 {
-  if(!previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  if(!previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
   {
     tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
     tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
@@ -46,30 +46,19 @@ void printCommonBackground()
     tft.print("MPH");
   }
   
-  if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
   {
     updateScreenSOC();
   }
   
-  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
   {
     updateScreenBatteryTemp();
   }
 
-  if(previouscarSpeed != carSpeed || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
+  if(previouscarSpeed != carSpeed || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
   {
     updateScreenCarSpeed();
-  }
-
-  if(previousbrakePosition != brakePosition || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10)
-  {
-    tft.setTextSize(4);
-    tft.setTextColor(HX8357_BLACK);
-    tft.setCursor(15,200);
-    tft.print(previousbrakePosition);
-    tft.setTextColor(HX8357_GREEN);
-    tft.setCursor(15,200);
-    tft.print(brakePosition);
   }
 }
 
@@ -202,12 +191,12 @@ void printScreenTitle(String title, uint8_t number)
 
 void printCommonScreenInfo(String title, uint8_t number)
 {
-  if(previousTitle != title || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive)
+  if(previousTitle != title || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
   {
     printScreenTitle(title, number);
     previousTitle = title;
   }
-  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive)
+  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
   {
     printScreenNumber();
     previousdriveMode = driveMode;
@@ -215,6 +204,36 @@ void printCommonScreenInfo(String title, uint8_t number)
   if(previouslyStartActive != startActive){ previouslyStartActive = startActive; }
 }
 
+void printBrakeScreen()
+{
+  uint8_t brakePositionBuffer;
+  if(!brakeScreen)
+  {
+    tft.fillRect(55,tft_height/2-40,370,100,HX8357_RED);
+    tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
+    tft.drawFastVLine(158,tft_height/2+5,50,HX8357_BLACK);
+    tft.drawFastVLine(240,tft_height/2+5,50,HX8357_BLACK);
+    tft.drawFastVLine(323,tft_height/2+5,50,HX8357_BLACK);
+    tft.setTextSize(4);
+    tft.setCursor(105, tft_height/2-30);
+    tft.setTextColor(HX8357_BLACK);
+    tft.println("Press Brake");
+    brakeScreen = true;
+  }
+  if(previousbrakePosition != brakePosition)
+  {
+    brakePositionBuffer = brakePosition;
+    if(brakePositionBuffer > 30){ brakePositionBuffer = 30; }
+    if(brakePositionBuffer < previousbrakePosition)
+    {
+      tft.drawRect(75,tft_height/2+5,330,50,HX8357_BLACK);
+      tft.drawFastVLine(158,tft_height/2+5,50,HX8357_BLACK);
+      tft.drawFastVLine(240,tft_height/2+5,50,HX8357_BLACK);
+      tft.drawFastVLine(323,tft_height/2+5,50,HX8357_BLACK);
+    }
+    tft.fillRect(75,tft_height/2+5,brakePositionBuffer*11,50,HX8357_BLACK);
+  } 
+}
 
 
 

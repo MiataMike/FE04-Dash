@@ -68,7 +68,7 @@ void loop()
   
   if(on && dashpage == 1)
   {
-    if(!previouslyon)        //If it was on the start logo, erase screen
+    if(!previouslyon || previouslybrakeScreen != brakeScreen)        //If it was on the start logo, erase screen
     {
       if(driveMode != 11 && driveMode != 10)
       {
@@ -77,6 +77,7 @@ void loop()
       }
       changeDriveMode();
       previouslyon = true;
+      previouslybrakeScreen = false;
     }
     else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
     {
@@ -135,7 +136,6 @@ void loop()
   }
   previousmaxCellTemp = maxCellTemp;
   previouscarSpeed = carSpeed;
-  previousbrakePosition = brakePosition;
 
   //Update fault lights
   if((driveMode != 11 && driveMode != 10) || !on)
@@ -156,6 +156,17 @@ void loop()
     repixels.setPixelColor(1, 0,0,0);
     repixels.show();
   }
+
+  if(!digitalRead(Ignition_1))
+  {
+    printBrakeScreen();
+    previouslybrakeScreen = true;
+  }
+  else
+  {
+    brakeScreen = false;
+  }
+  previousbrakePosition = brakePosition;
 
   if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
   

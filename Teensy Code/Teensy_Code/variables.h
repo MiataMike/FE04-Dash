@@ -130,6 +130,8 @@ extern uint8_t dashpage;
 extern uint8_t dashcount;
 extern uint8_t razzledelay;
 extern bool temprangechange;
+extern bool brakeScreen;
+extern bool previouslybrakeScreen;
 
 //CAN Setup
 extern FlexCAN CARCAN;
