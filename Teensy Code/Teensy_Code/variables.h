@@ -168,6 +168,17 @@ extern uint8_t servoval;
 extern bool secretScreen;
 extern bool previouslysecretScreen;
 
+//debounce
+extern unsigned long Ldebounce;
+extern unsigned long Rdebounce;
+extern unsigned long DRSdebounce;
+
+//regen
+#define shortedThreshold 69420
+#define groundThreshold 0
+#define maxRegen 30
+extern uint8_t regen_scaled;
+
 extern const unsigned char STlogo [] PROGMEM;
 
 #endif

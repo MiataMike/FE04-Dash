@@ -106,6 +106,15 @@ Adafruit_NeoPixel repixels = Adafruit_NeoPixel(NUM_RE_PIXELS,RE_neo_pixel_DI, NE
 Servo socservo;
 uint8_t servoval = 0;
 
+//debounce
+unsigned long Ldebounce = 0;
+unsigned long Rdebounce = 0;
+unsigned long DRSdebounce = 0;
+
+//Regen
+uint8_t regen_scaled = 0;
+
+
 bool secretScreen = false;
 bool previouslysecretScreen = false;
 
