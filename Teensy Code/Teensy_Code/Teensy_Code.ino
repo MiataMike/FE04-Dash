@@ -497,7 +497,7 @@ void sendCARCANFrame()
   txmsg.buf[0] = ignitionByte();
   txmsg.buf[1] = driveModeByte();
   txmsg.buf[2] = regenConvert(regen_scaled); 
-  txmsg.buf[3] = 0;
+  txmsg.buf[3] = fanByte();
   txmsg.buf[4] = 0;
   txmsg.buf[5] = 0;
   txmsg.buf[6] = 0;
@@ -520,8 +520,11 @@ uint8_t driveModeByte()
   uint8_t buf = 0;
   //if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
   //else{ buf = driveMode; }
-  if(reverseMode){ buf = 1; }
+  if(driveActive){ buf = 1; }
   else{ buf = 0; }
+  buf <<= 1;
+  if(reverseMode){ buf |= 1; }
+  else{ buf |= 0; }
   buf <<= 4;
   buf |= driveMode;
   return buf;
@@ -542,11 +545,37 @@ uint8_t regenConvert(uint8_t regenReading)
   return (regenReading - 20) / (75.0-20.0) * maxRegen; 
   } 
 }
-uint8_t regenByte()
+
+uint8_t fanByte()
 {
-  uint8_t buf = 0;
-  return buf;
-  //67.5 is max
+  uint8_t buffer = 0;
+  if(driveActive)
+  {
+    if(maxCellTemp < lowTemp){ fanPWM = 1; }
+    else if(maxCellTemp > highTemp){ fanPWM = 100; }
+    else
+    {
+      fanPWM = ((maxCellTemp - lowTemp)/(highTemp - lowTemp)) * 100;
+    }
+    buffer = (uint8_t)(fanPWM);
+  }
+  else if(driveMode == 10)
+  {
+    if(throttleOneRaw < 500)
+    {
+      buffer = 1;
+    }
+    else
+    {
+      buffer = map(throttleOneRaw, 500, 3800, 1, 100);
+    }
+    
+  }
+  else
+  {
+    buffer = 1;
+  }
+  return buffer;
 }
 
 void sendDAQCANFrame()

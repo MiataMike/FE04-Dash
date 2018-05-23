@@ -177,7 +177,12 @@ extern unsigned long DRSdebounce;
 #define shortedThreshold 69420 
 #define groundThreshold 0 
 #define maxRegen 90 
-extern uint8_t regen_scaled; 
+extern uint8_t regen_scaled;
+
+//Fans
+extern uint8_t highTemp;
+extern uint8_t lowTemp;
+extern float fanPWM;
 
 extern const unsigned char STlogo [] PROGMEM;
 

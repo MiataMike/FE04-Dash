@@ -75,7 +75,7 @@ uint8_t dashpage = 1;
 uint8_t previousdashpage = 1;
 uint8_t dashcount = 3;
 String previousTitle = "Previous";
-uint8_t razzledelay = 50;
+uint8_t razzledelay = 25;
 bool temprangechange = false;
 bool brakeScreen = false;
 bool previouslybrakeScreen = false;
@@ -112,7 +112,12 @@ unsigned long Rdebounce = 0;
 unsigned long DRSdebounce = 0; 
  
 //Regen 
-uint8_t regen_scaled = 0; 
+uint8_t regen_scaled = 0;
+
+//Fans
+uint8_t highTemp = 50;
+uint8_t lowTemp = 30;
+float fanPWM = 1;
  
 bool secretScreen = false;
 bool previouslysecretScreen = false;
