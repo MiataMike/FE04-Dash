@@ -179,6 +179,9 @@ extern unsigned long DRSdebounce;
 #define maxRegen 90 
 extern uint8_t regen_scaled;
 
+//DRS
+extern bool DRSengaged;
+
 //Fans
 extern uint8_t highTemp;
 extern uint8_t lowTemp;

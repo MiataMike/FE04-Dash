@@ -8,6 +8,10 @@
 
 bool reverseMode = true;
 
+//regen
+#define lower 40
+#define upper 80
+
 void setup() 
 {
   //Fault Light Setup
@@ -38,11 +42,14 @@ void setup()
   pinMode(right_button, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(right_button), scrollDashRight, FALLING);
 
+  //regen paddle
+  pinMode(Paddle,INPUT_PULLUP);
+
   //Teensy SD Card Setup
   SD.begin(SDCS);
   pinMode(DRS_flap, INPUT_PULLUP); 
-  attachInterrupt(digitalPinToInterrupt(DRS_flap), drsEngage, FALLING); 
-  attachInterrupt(digitalPinToInterrupt(DRS_flap), drsDisengage, RISING); 
+  //attachInterrupt(digitalPinToInterrupt(DRS_flap), drsEngage, FALLING); 
+  //attachInterrupt(digitalPinToInterrupt(DRS_flap), drsDisengage, RISING); 
    
   
   //Dash Screen Setup
@@ -234,7 +241,7 @@ void changeDriveMode()
       previousdriveMode = 2;
       break;
     case 3:
-      maxTorque = 240;
+      maxTorque = 180;
       printCommonScreenInfo("Endurance", 3);
       previousdriveMode = 3;
       break;
@@ -498,7 +505,7 @@ void sendCARCANFrame()
   txmsg.buf[1] = driveModeByte();
   txmsg.buf[2] = regenConvert(regen_scaled); 
   txmsg.buf[3] = fanByte();
-  txmsg.buf[4] = 0;
+  txmsg.buf[4] = DRSByte();
   txmsg.buf[5] = 0;
   txmsg.buf[6] = 0;
   txmsg.buf[7] = 0;
@@ -532,17 +539,19 @@ uint8_t driveModeByte()
 
 uint8_t regenConvert(uint8_t regenReading) 
 { 
-  if (regenReading < 20) // lower threshold 
+  Serial.println(regenReading);
+  if (regenReading < lower) // lower threshold 
   { 
     return 0; 
   } 
-  else if (regenReading > 75) 
+  else if (regenReading > upper) 
   { 
     return maxRegen; 
   } 
   else 
   { 
-  return (regenReading - 20) / (75.0-20.0) * maxRegen; 
+  Serial.println(((regenReading - lower)*1.0) / (upper-lower) * maxRegen);
+  return (regenReading - lower) / (upper-lower) * maxRegen; 
   } 
 }
 
@@ -591,6 +600,20 @@ void sendDAQCANFrame()
   txmsg.buf[6] = 0;
   txmsg.buf[7] = 0;
   DAQCAN.write(txmsg);
+}
+
+int DRSByte()
+{
+  Serial.print("drs");
+  Serial.println(digitalRead(DRS_flap));
+  if (analogRead(DRS_flap) > 2000)
+  {
+    return 0x0F;
+  }
+  else
+  {
+    return 0xF0;
+  }
 }
 
 void processCARCANFrame()
@@ -918,19 +941,22 @@ void razzleMode()
 
 void drsDisengage() 
 { 
+  DRSengaged = false;
   return; 
 } 
 
 void drsEngage() 
 { 
-   
+    DRSengaged = true;
   return; 
 } 
 
 uint16_t getRegen() 
 { 
   uint16_t reading;  
-  reading = analogRead(Paddle);  if(reading < groundThreshold) 
+  reading = analogRead(Paddle);
+  //Serial.println(reading);
+  if(reading < groundThreshold) 
   { 
     //grounded (unplugged) 
     return 0; 

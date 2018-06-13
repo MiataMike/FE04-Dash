@@ -114,6 +114,9 @@ unsigned long DRSdebounce = 0;
 //Regen 
 uint8_t regen_scaled = 0;
 
+//DRS
+bool DRSengaged;
+
 //Fans
 uint8_t highTemp = 50;
 uint8_t lowTemp = 30;
