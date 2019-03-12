@@ -305,6 +305,10 @@ void changeDriveMode()
       previousdriveMode = 10;
       mushroomMode();
       break;
+/*
+Mushroom and Razzle (Doggo) mode NEED TO GO
+*/
+      
     case 11:
       if((previousdriveMode != 11) || !previouslyon)
       {
@@ -495,44 +499,47 @@ void updateTempPixels()
   cdpixels.show();
 }
 
+//New CAN STUFF
 
-//CAN Stuff
 void sendCARCANFrame()
 {
   txmsg.id = 0x24;
   txmsg.len = 8;
-  txmsg.buf[0] = ignitionByte();
-  txmsg.buf[1] = driveModeByte();
-  txmsg.buf[2] = regenConvert(regen_scaled); 
-  txmsg.buf[3] = fanByte();
-  txmsg.buf[4] = DRSByte();
+  txmsg.buf[0] = packageByteZero();
+  txmsg.buf[1] = regenConvert(regen_scaled);
+  txmsg.buf[2] = 0;
+  txmsg.buf[3] = 0;
+  txmsg.buf[4] = 0;
   txmsg.buf[5] = 0;
   txmsg.buf[6] = 0;
   txmsg.buf[7] = 0;
   CARCAN.write(txmsg);
 }
 
-uint8_t ignitionByte()
+uint8_t packageByteZero()
 {
   uint8_t buf = 0;
-  if(driveMode == 11 || driveMode == 10){ buf |= 0; }
-  else { buf |= !digitalRead(Ignition_1); }
+  buf |= !digitalRead(Ignition_1);
   buf <<= 1;
   buf |= !on;
+  buf <<= 1;
+  buf |= DRSRead();
+  buf <<= 4;
+  buf |= driveModeRead();
   return buf;
 }
 
-uint8_t driveModeByte()
+//uint8_t driveModeByte()
+uint8_t driveModeRead()
 {
   uint8_t buf = 0;
   //if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
   //else{ buf = driveMode; }
-  if(driveActive){ buf = 1; }
-  else{ buf = 0; }
-  buf <<= 1;
+  //if(driveActive){ buf = 1; }
+  //else{ buf = 0; }
+  //buf <<= 1;
   if(reverseMode){ buf |= 1; }
   else{ buf |= 0; }
-  buf <<= 4;
   buf |= driveMode;
   return buf;
 }
@@ -555,38 +562,6 @@ uint8_t regenConvert(uint8_t regenReading)
   } 
 }
 
-uint8_t fanByte()
-{
-  uint8_t buffer = 0;
-  if(driveActive)
-  {
-    if(maxCellTemp < lowTemp){ fanPWM = 1; }
-    else if(maxCellTemp > highTemp){ fanPWM = 100; }
-    else
-    {
-      fanPWM = ((maxCellTemp - lowTemp)/(highTemp - lowTemp)) * 100;
-    }
-    buffer = (uint8_t)(fanPWM);
-  }
-  else if(driveMode == 10)
-  {
-    if(throttleOneRaw < 500)
-    {
-      buffer = 1;
-    }
-    else
-    {
-      buffer = map(throttleOneRaw, 500, 3800, 1, 100);
-    }
-    
-  }
-  else
-  {
-    buffer = 1;
-  }
-  return buffer;
-}
-
 void sendDAQCANFrame()
 {
   txmsg.id = 0x00;
@@ -602,17 +577,18 @@ void sendDAQCANFrame()
   DAQCAN.write(txmsg);
 }
 
-int DRSByte()
+//int DRSByte()
+int DRSRead()
 {
   Serial.print("drs");
   Serial.println(digitalRead(DRS_flap));
   if (analogRead(DRS_flap) > 2000)
   {
-    return 0x0F;
+    return 1;
   }
   else
   {
-    return 0xF0;
+    return 0;
   }
 }
 
