@@ -83,37 +83,37 @@ void loop()
     previousdashpage = 1;
     if(!previouslyon || previouslybrakeScreen != brakeScreen)        //If it was on the start logo, erase screen
     {
-      if(driveMode != 11 && driveMode != 10)
-      {
-         tft.fillScreen(HX8357_BLACK);
-         printCommonBackground();
-      }
+//      if(driveMode != 11 && driveMode != 10)
+//      {
+//         tft.fillScreen(HX8357_BLACK);
+//         printCommonBackground();
+//      }
       changeDriveMode();
       previouslyon = true;
       previouslybrakeScreen = false;
     }
-    else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
-    {
-      changeDriveMode();
-    }
+//    else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
+//    {
+//      changeDriveMode();
+//    }
     else                        //If any other drive mode, update screen
     {
-     if(previousdriveMode == 11 || previousdriveMode == 10)      
-     {
-       tft.fillScreen(HX8357_BLACK);  //blank screen
-       updateTempPixels();            //reset pixels to current battery temp
-     }
+//     if(previousdriveMode == 11 || previousdriveMode == 10)      
+//     {
+//       tft.fillScreen(HX8357_BLACK);  //blank screen
+//       updateTempPixels();            //reset pixels to current battery temp
+//     }
      printCommonBackground();         //update background
      changeDriveMode();               //updates everything else on screen
     }
   }
   else if(on && dashpage != 1)
   {
-    if(driveMode == 11 || driveMode == 10)
-    {
-      dashpage = 1;
-      changeDriveMode();
-    }
+//    if(driveMode == 11 || driveMode == 10)
+//    {
+//      dashpage = 1;
+//      changeDriveMode();
+//    }
     else if(!previouslyon)
     {
       tft.fillScreen(HX8357_BLACK);
@@ -145,14 +145,14 @@ void loop()
   //Update Temperature pixels
   if(previousmaxCellTemp != maxCellTemp || (driveMode == 3 && !temprangechange) || (driveMode !=3 && temprangechange))
   {
-    if(on && driveMode != 11 && driveMode != 10){ updateTempPixels(); }
+    if(on /*&& driveMode != 11 && driveMode != 10*/){ updateTempPixels(); }
     else if(!on){ updateTempPixels(); }
   }
   previousmaxCellTemp = maxCellTemp;
   previouscarSpeed = carSpeed;
 
   //Update fault lights
-  if((driveMode != 11 && driveMode != 10) || !on)
+  if(/*(driveMode != 11 && driveMode != 10) ||*/ !on)
   {
     imdLight(IMDfault);
     amsLight(AMSfault);
@@ -160,7 +160,7 @@ void loop()
     qbaiLight(TBPfault);
   }
   
-  if(HVSOC <= 20 && driveMode != 11 && driveMode != 10)
+  if(HVSOC <= 20 /*&& driveMode != 11 && driveMode != 10*/)
   {
     repixels.setPixelColor(1, 255,0,0);
     repixels.show();
@@ -182,7 +182,7 @@ void loop()
   previousbrakePosition = brakePosition;
   previouslvVoltageF = lvVoltageF;
 
-  if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }
+  if(1/*driveMode != 11 && driveMode != 10*/){ driveModeEnabledLight(driveActive); }
 
   printSecretScreen();
   
@@ -284,49 +284,56 @@ void changeDriveMode()
       previousdriveMode = 9;
       break;
     case 10:
-      if((previousdriveMode != 10) || !previouslyon)
-      {
-        bmpDraw("mroom.bmp", 0, 0);
-        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
-        {
-          cdpixels.setPixelColor(i, 0,0,0);
-        }
-        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
-        {
-          repixels.setPixelColor(i, 0,0,0);
-        }
-        cdpixels.show();
-        repixels.show();
-        imdLight(false);
-        amsLight(false);
-        bspdLight(false);
-        qbaiLight(false);
-      }
-      previousdriveMode = 10;
-      mushroomMode();
+      maxTorque = 240;
+      printCommonScreenInfo("Extra3", 8);
+      previousdriveMode = 8;
       break;
+//      if((previousdriveMode != 10) || !previouslyon)
+//      {
+//        bmpDraw("mroom.bmp", 0, 0);
+//        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
+//        {
+//          cdpixels.setPixelColor(i, 0,0,0);
+//        }
+//        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
+//        {
+//          repixels.setPixelColor(i, 0,0,0);
+//        }
+//        cdpixels.show();
+//        repixels.show();
+//        imdLight(false);
+//        amsLight(false);
+//        bspdLight(false);
+//        qbaiLight(false);
+//      }
+//      previousdriveMode = 10;
+//      mushroomMode();
+//      break;
 /*
 Mushroom and Razzle (Doggo) mode NEED TO GO
 */
-      
     case 11:
-      if((previousdriveMode != 11) || !previouslyon)
-      {
-        bmpDraw("rnd.bmp", 0, 0);
-        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
-        {
-          cdpixels.setPixelColor(i, 0,0,0);
-        }
-        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
-        {
-          repixels.setPixelColor(i, 0,0,0);
-        }
-        cdpixels.show();
-        repixels.show();
-      }
-      previousdriveMode = 11;
-      razzleMode();
+      maxTorque = 240;
+      printCommonScreenInfo("Extra1", 8);
+      previousdriveMode = 8;
       break;
+//      if((previousdriveMode != 11) || !previouslyon)
+//      {
+//        bmpDraw("rnd.bmp", 0, 0);
+//        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
+//        {
+//          cdpixels.setPixelColor(i, 0,0,0);
+//        }
+//        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
+//        {
+//          repixels.setPixelColor(i, 0,0,0);
+//        }
+//        cdpixels.show();
+//        repixels.show();
+//      }
+//      previousdriveMode = 11;
+//      razzleMode();
+//      break;
     default:
       printCommonScreenInfo("default", 69);
       previousdriveMode = 69;
@@ -338,11 +345,11 @@ void scrollDashLeft()
 {
   if (millis() - Ldebounce > 100)
   { 
-    if(driveMode != 11 && driveMode != 10)
-    {
+//    if(driveMode != 11 && driveMode != 10)
+//    {
      if(dashpage == 1){ dashpage = 3; }
      else{ dashpage--; } 
-    }
+//    }
     Ldebounce = millis();
   }
 }
@@ -351,11 +358,11 @@ void scrollDashRight()
 {
   if (millis() - Rdebounce > 100)
   {
-    if(driveMode != 11 && driveMode != 10)
-    {
+//    if(driveMode != 11 && driveMode != 10)
+//    {
       if(dashpage == 3){ dashpage = 1; }
       else{ dashpage++; }
-    }
+//    }
     Rdebounce = millis(); 
   }  
 }
@@ -380,7 +387,7 @@ void imdLight(bool on)
   digitalWrite(IMD_light, on);
 }
 
-void amsLight(bool on)
+void amsLight(bool )on
 {
   digitalWrite(AMS_light, on);
 }
@@ -771,6 +778,8 @@ void loopPixel(uint32_t color )
   }
 }
 
+//Obsolete for now
+/*
 void mushroomMode()
 {
   cdpixels.setPixelColor(0, 255,0,0);
@@ -914,7 +923,7 @@ void razzleMode()
   delay(razzledelay);
   amsLight(ON);
 }
-
+*/
 void drsDisengage() 
 { 
   DRSengaged = false;
