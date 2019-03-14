@@ -114,7 +114,7 @@ void loop()
 //      dashpage = 1;
 //      changeDriveMode();
 //    }
-    else if(!previouslyon)
+    if(!previouslyon)
     {
       tft.fillScreen(HX8357_BLACK);
       printCommonBackground();
@@ -182,7 +182,8 @@ void loop()
   previousbrakePosition = brakePosition;
   previouslvVoltageF = lvVoltageF;
 
-  if(1/*driveMode != 11 && driveMode != 10*/){ driveModeEnabledLight(driveActive); }
+  /*if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }*/
+  driveModeEnabledLight(driveActive);
 
   printSecretScreen();
   
@@ -285,8 +286,8 @@ void changeDriveMode()
       break;
     case 10:
       maxTorque = 240;
-      printCommonScreenInfo("Extra3", 8);
-      previousdriveMode = 8;
+      printCommonScreenInfo("Extra3", 10);
+      previousdriveMode = 10;
       break;
 //      if((previousdriveMode != 10) || !previouslyon)
 //      {
@@ -314,8 +315,8 @@ Mushroom and Razzle (Doggo) mode NEED TO GO
 */
     case 11:
       maxTorque = 240;
-      printCommonScreenInfo("Extra1", 8);
-      previousdriveMode = 8;
+      printCommonScreenInfo("Extra4", 11);
+      previousdriveMode = 11;
       break;
 //      if((previousdriveMode != 11) || !previouslyon)
 //      {
@@ -957,4 +958,3 @@ uint16_t getRegen()
   } 
 } 
  
-
