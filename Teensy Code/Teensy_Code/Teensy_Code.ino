@@ -145,8 +145,9 @@ void loop()
   //Update Temperature pixels
   if(previousmaxCellTemp != maxCellTemp || (driveMode == 3 && !temprangechange) || (driveMode !=3 && temprangechange))
   {
-    if(on /*&& driveMode != 11 && driveMode != 10*/){ updateTempPixels(); }
-    else if(!on){ updateTempPixels(); }
+    /*if(on && driveMode != 11 && driveMode != 10){ updateTempPixels(); }
+    else if(!on){ updateTempPixels(); }*/
+    updateTempPixels();
   }
   previousmaxCellTemp = maxCellTemp;
   previouscarSpeed = carSpeed;
@@ -535,6 +536,7 @@ uint8_t packageByteZero()
 }
 
 //uint8_t driveModeByte()
+//May need some changes:
 uint8_t driveModeRead()
 {
   uint8_t buf = 0;
@@ -629,6 +631,7 @@ void processCARCANFrame()
   }
 
   //Bridge Card Messages
+  /* Master Blaster Messages*/
   else if(rxmsg.id == 0x28)
   {
     dataByte = rxmsg.buf[0];
