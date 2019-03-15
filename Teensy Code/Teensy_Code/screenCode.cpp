@@ -24,7 +24,7 @@ void startScreen()
 
 void printCommonBackground()
 {
-  if(!previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen || previouslysecretScreen != secretScreen)
+  if(!previouslyon ||/* previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen || previouslysecretScreen != secretScreen)
   {
     tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
     tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
@@ -57,22 +57,22 @@ void printCommonBackground()
     tft.print("LV");
   }
   
-  if(previousHVSOC != HVSOC || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  if(previousHVSOC != HVSOC || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
   {
     updateScreenSOC();
   }
   
-  if(previousmaxCellTemp != maxCellTemp || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  if(previousmaxCellTemp != maxCellTemp || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
   {
     updateScreenBatteryTemp();
   }
 
-  if(previouscarSpeed != carSpeed || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  if(previouscarSpeed != carSpeed || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
   {
     updateScreenCarSpeed();
   }
 
-  if(previouslvVoltageF != lvVoltageF || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslybrakeScreen != brakeScreen)
+  if(previouslvVoltageF != lvVoltageF || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
   {
     updateScreenLVVoltage();
   }
@@ -239,12 +239,12 @@ void printScreenTitle(String title, uint8_t number)
 
 void printCommonScreenInfo(String title, uint8_t number)
 {
-  if(previousTitle != title || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
+  if(previousTitle != title || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
   {
     printScreenTitle(title, number);
     previousTitle = title;
   }
-  if(previousdriveMode != driveMode || !previouslyon || previousdriveMode == 11 || previousdriveMode == 10 || previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
+  if(previousdriveMode != driveMode || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
   {
     printScreenNumber();
     previousdriveMode = driveMode;
