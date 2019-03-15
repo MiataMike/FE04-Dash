@@ -85,8 +85,8 @@ void loop()
     {
 //      if(driveMode != 11 && driveMode != 10)
 //      {
-//         tft.fillScreen(HX8357_BLACK);
-//         printCommonBackground();
+      tft.fillScreen(HX8357_BLACK);
+      printCommonBackground();
 //      }
       changeDriveMode();
       previouslyon = true;
@@ -310,9 +310,6 @@ void changeDriveMode()
 //      previousdriveMode = 10;
 //      mushroomMode();
 //      break;
-/*
-Mushroom and Razzle (Doggo) mode NEED TO GO
-*/
     case 11:
       maxTorque = 240;
       printCommonScreenInfo("Extra4", 11);
@@ -361,8 +358,8 @@ void scrollDashRight()
   {
 //    if(driveMode != 11 && driveMode != 10)
 //    {
-      if(dashpage == 3){ dashpage = 1; }
-      else{ dashpage++; }
+    if(dashpage == 3){ dashpage = 1; }
+    else{ dashpage++; }
 //    }
     Rdebounce = millis(); 
   }  
