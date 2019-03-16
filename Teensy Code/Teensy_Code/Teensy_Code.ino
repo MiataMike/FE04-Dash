@@ -386,7 +386,7 @@ void imdLight(bool on)
   digitalWrite(IMD_light, on);
 }
 
-void amsLight(bool )on
+void amsLight(bool on)
 {
   digitalWrite(AMS_light, on);
 }
