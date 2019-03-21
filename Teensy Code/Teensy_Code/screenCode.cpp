@@ -296,26 +296,6 @@ void printBrakeScreen()
   } 
 }
 
-void printSecretScreen()
-{
-  bool secret_enabled = true;
-  if(secret_enabled && !driveActive && !on && !startActive && brakePosition > 20 && throttleOneRaw > 2000 && vehicleVoltage < 10 && driveMode == 11)
-  {
-    if(!previouslysecretScreen)
-    {
-      bmpDraw("mata.bmp", 0, 0);
-      secretScreen = true;
-      previouslysecretScreen = true;
-    }
-  }
-  else
-  {
-    secretScreen = false;
-  }
-}
-
-
-
 
 #define BUFFPIXEL 80
 

@@ -6,8 +6,6 @@
 #include "variables.h"
 #include "screenCode.h"
 
-bool reverseMode = true;
-
 //regen
 #define lower 40
 #define upper 80
@@ -88,37 +86,20 @@ void loop()
     previousdashpage = 1;
     if(!previouslyon || previouslybrakeScreen != brakeScreen)        //If it was on the start logo, erase screen
     {
-//      if(driveMode != 11 && driveMode != 10)
-//      {
       tft.fillScreen(HX8357_BLACK);
       printCommonBackground();
-//      }
       changeDriveMode();
       previouslyon = true;
       previouslybrakeScreen = false;
     }
-//    else if(driveMode == 11 || driveMode == 10)  //If it is in razzle mode, update image to dog
-//    {
-//      changeDriveMode();
-//    }
-    else                        //If any other drive mode, update screen
+    else
     {
-//     if(previousdriveMode == 11 || previousdriveMode == 10)      
-//     {
-//       tft.fillScreen(HX8357_BLACK);  //blank screen
-//       updateTempPixels();            //reset pixels to current battery temp
-//     }
-     printCommonBackground();         //update background
+	 printCommonBackground();         //update background
      changeDriveMode();               //updates everything else on screen
     }
   }
   else if(on && dashpage != 1)
   {
-//    if(driveMode == 11 || driveMode == 10)
-//    {
-//      dashpage = 1;
-//      changeDriveMode();
-//    }
     if(!previouslyon)
     {
       tft.fillScreen(HX8357_BLACK);
@@ -132,12 +113,11 @@ void loop()
       changeDashPage();
     }
   }
-  else if((!on && previouslyon) || previouslysecretScreen != secretScreen)
+  else if((!on && previouslyon))
   {
     startScreen();
     updateTempPixels();
     previouslyon = false;
-    previouslysecretScreen = false;
   }
   
   //Update Servo
@@ -188,10 +168,7 @@ void loop()
   previousbrakePosition = brakePosition;
   previouslvVoltageF = lvVoltageF;
 
-  /*if(driveMode != 11 && driveMode != 10){ driveModeEnabledLight(driveActive); }*/
   driveModeEnabledLight(driveActive);
-
-  printSecretScreen();
 
   unsigned long timeCurrent=millis();
   if((timeCurrent-lastCANMillis)>10)
@@ -241,112 +218,53 @@ void changeDriveMode()
     case 0:
       maxTorque = 270;
       printCommonScreenInfo("Acceleration", 0);
-      previousdriveMode = 0;
       break;
     case 1:
-      maxTorque = 240;
+      maxTorque = 150;
       printCommonScreenInfo("Skid Pad", 1);
-      previousdriveMode = 1;
       break;
     case 2:
       maxTorque = 240;
       printCommonScreenInfo("Autocross", 2);
-      previousdriveMode = 2;
       break;
     case 3:
-      maxTorque = 180;
+      maxTorque = 200;
       printCommonScreenInfo("Endurance", 3);
-      previousdriveMode = 3;
       break;
     case 4:
-      maxTorque = 240;
+      maxTorque = 200;
       printCommonScreenInfo("Sunday Driving", 4);
-      previousdriveMode = 4;
       break;
     case 5:
       maxTorque = 100;
       printCommonScreenInfo("Granny Mode", 5);
-      previousdriveMode = 5;
       break;
     case 6:
-      if(reverseMode)
-      {
-        maxTorque = 50;
-        printCommonScreenInfo("Reverse", 6);
-      }
-      else
-      {
-        maxTorque = 240;
-        printCommonScreenInfo("Extra0", 6);
-      }
-      previousdriveMode = 6;
+      maxTorque = 0;
+      printCommonScreenInfo("Calibration", 6);
       break;
     case 7:
-      maxTorque = 240;
-      printCommonScreenInfo("Extra", 7);
-      previousdriveMode = 7;
+      maxTorque = 0;
+      printCommonScreenInfo("Extra1", 7);
       break;
     case 8:
-      maxTorque = 240;
-      printCommonScreenInfo("Extra1", 8);
-      previousdriveMode = 8;
+      maxTorque = 0;
+      printCommonScreenInfo("Extra2", 8);
       break;
     case 9:
-      maxTorque = 240;
-      printCommonScreenInfo("Extra2", 9);
-      previousdriveMode = 9;
+      maxTorque = 0;
+      printCommonScreenInfo("Extra3", 9);
       break;
     case 10:
-      maxTorque = 240;
-      printCommonScreenInfo("Extra3", 10);
-      previousdriveMode = 10;
+      maxTorque = 0;
+      printCommonScreenInfo("Extra4", 10);
       break;
-//      if((previousdriveMode != 10) || !previouslyon)
-//      {
-//        bmpDraw("mroom.bmp", 0, 0);
-//        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
-//        {
-//          cdpixels.setPixelColor(i, 0,0,0);
-//        }
-//        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
-//        {
-//          repixels.setPixelColor(i, 0,0,0);
-//        }
-//        cdpixels.show();
-//        repixels.show();
-//        imdLight(false);
-//        amsLight(false);
-//        bspdLight(false);
-//        qbaiLight(false);
-//      }
-//      previousdriveMode = 10;
-//      mushroomMode();
-//      break;
     case 11:
-      maxTorque = 240;
-      printCommonScreenInfo("Extra4", 11);
-      previousdriveMode = 11;
+      maxTorque = 0;
+      printCommonScreenInfo("Extra5", 11);
       break;
-//      if((previousdriveMode != 11) || !previouslyon)
-//      {
-//        bmpDraw("rnd.bmp", 0, 0);
-//        for(uint8_t i = 0; i < NUM_CD_PIXELS; i++)
-//        {
-//          cdpixels.setPixelColor(i, 0,0,0);
-//        }
-//        for(uint8_t i = 0; i < NUM_RE_PIXELS; i++)
-//        {
-//          repixels.setPixelColor(i, 0,0,0);
-//        }
-//        cdpixels.show();
-//        repixels.show();
-//      }
-//      previousdriveMode = 11;
-//      razzleMode();
-//      break;
     default:
       printCommonScreenInfo("default", 69);
-      previousdriveMode = 69;
       break;
   }
 }
@@ -521,15 +439,9 @@ void updateTempPixels()
 void sendCARCANFrame()
 {
   txmsg.id = 0x24;
-  txmsg.len = 8;
+  txmsg.len = 2;
   txmsg.buf[0] = packageByteZero();
   txmsg.buf[1] = regenConvert(regen_scaled);
-  txmsg.buf[2] = 0;
-  txmsg.buf[3] = 0;
-  txmsg.buf[4] = 0;
-  txmsg.buf[5] = 0;
-  txmsg.buf[6] = 0;
-  txmsg.buf[7] = 0;
   CARCAN.write(txmsg);
 }
 
@@ -551,13 +463,6 @@ uint8_t packageByteZero()
 uint8_t driveModeRead()
 {
   uint8_t buf = 0;
-  //if(!previouslyon || previousdriveMode != driveMode){ buf = driveMode; }
-  //else{ buf = driveMode; }
-  //if(driveActive){ buf = 1; }
-  //else{ buf = 0; }
-  //buf <<= 1;
-  if(reverseMode){ buf |= 1; }
-  else{ buf |= 0; }
   buf |= driveMode;
   return buf;
 }
