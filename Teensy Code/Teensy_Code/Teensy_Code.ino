@@ -12,6 +12,8 @@ bool reverseMode = true;
 #define lower 40
 #define upper 80
 
+unsigned long lastCANMillis;
+
 void setup() 
 {
   //Fault Light Setup
@@ -63,6 +65,9 @@ void setup()
   CARCAN.begin();
   DAQCAN.begin();
   Serial.begin(9600);
+
+
+  lastCANMillis=millis();
 }
 
 void loop()
@@ -187,8 +192,14 @@ void loop()
   driveModeEnabledLight(driveActive);
 
   printSecretScreen();
-  
-  sendCARCANFrame();
+
+  unsigned long timeCurrent=millis();
+  if((timeCurrent-lastCANMillis)>10)
+  {
+    Serial.println(timeCurrent-lastCANMillis);
+    sendCARCANFrame();
+    lastCANMillis=timeCurrent;
+  }
 }
 
 void updateDriveMode()
