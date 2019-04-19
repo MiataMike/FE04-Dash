@@ -450,23 +450,13 @@ uint8_t packageByteZero()
   uint8_t buf = 0;
   buf |= !digitalRead(Ignition_1);
   buf <<= 1;
-  buf |= !on;
+  buf |= !digitalRead(Ignition_2);
   buf <<= 1;
   buf |= DRSRead();
   buf <<= 4;
-  buf |= driveModeRead();
+  buf |= driveMode & 0x0F;
   return buf;
 }
-
-//uint8_t driveModeByte()
-//May need some changes:
-uint8_t driveModeRead()
-{
-  uint8_t buf = 0;
-  buf |= driveMode;
-  return buf;
-}
-
 uint8_t regenConvert(uint8_t regenReading) 
 { 
   Serial.println(regenReading);
