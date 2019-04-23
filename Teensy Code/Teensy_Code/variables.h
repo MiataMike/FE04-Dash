@@ -49,7 +49,7 @@
 #define RJ45_L2 19
 
 #define Ignition_1 35
-#define Ignition_2 36
+#define Ignition_2 20
 
 #define SW_bit0 14
 #define SW_bit1 15

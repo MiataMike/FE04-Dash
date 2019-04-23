@@ -34,7 +34,7 @@ void setup()
   //Ignition Switch Setup
   pinMode(Ignition_1, INPUT_PULLUP);
   pinMode(Ignition_2, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(Ignition_2), updateDriveMode, CHANGE);
+  //attachInterrupt(digitalPinToInterrupt(Ignition_2), updateDriveMode, CHANGE);
   
   //Steering Wheel Setup
   pinMode(left_button, INPUT_PULLUP);
@@ -455,6 +455,11 @@ uint8_t packageByteZero()
   buf |= DRSRead();
   buf <<= 4;
   buf |= driveMode & 0x0F;
+
+
+  Serial.println(digitalRead(Ignition_1));
+  Serial.println(digitalRead(Ignition_2));
+  
   return buf;
 }
 uint8_t regenConvert(uint8_t regenReading) 
