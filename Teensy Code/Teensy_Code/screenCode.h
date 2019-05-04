@@ -7,12 +7,12 @@
 void setupScreen();
 void startScreen();
 void printCommonBackground();
+void printUpdates();
 void updateScreenSOC();
 void updateScreenBatteryTemp();
 void updateScreenCarSpeed();
 void updateScreenLVVoltage();
 void updateScreenMaxTorque();
-void printScreenNumber();
 void printScreenTitle(String title);
 void printCommonScreenInfo(String title);
 void printBrakeScreen();

@@ -55,6 +55,11 @@ void printCommonBackground()
     tft.print("LV");
 
   
+  
+}
+
+void printUpdates()
+{
   if(previousHVSOC != HVSOC)
   {
     updateScreenSOC();
@@ -157,19 +162,6 @@ void updateScreenMaxTorque()
   tft.print("Nm");
 }
 
-void printScreenNumber()
-{
-  tft.setCursor((tft_width/2)-10,tft_height-35);
-  tft.setTextSize(4);
-  tft.setTextColor(HX8357_BLACK);
-  tft.println(previousdriveMode);
-  if(driveActive){ tft.setTextColor(HX8357_BLUE); }
-  else if(startActive){ tft.setTextColor(HX8357_RED); }
-  else{ tft.setTextColor(HX8357_GREEN); }
-  tft.setCursor((tft_width/2)-10,tft_height-35);
-  tft.println(driveMode);
-}
-
 void printScreenTitle(String title)
 {
   tft.setCursor((tft_width/2)-70,30);
@@ -197,12 +189,11 @@ void printScreenTitle(String title)
 
 void printCommonScreenInfo(String title)
 {
-  if(previousdriveMode != driveMode)
-    printScreenTitle(title);
+  printScreenTitle(title);
   previousTitle = title;
 
-  printScreenNumber();
-  previousdriveMode = driveMode;
+  //printScreenNumber();
+  //previousdriveMode = driveMode;
   updateScreenMaxTorque();
   previousmaxTorque = maxTorque;
 }

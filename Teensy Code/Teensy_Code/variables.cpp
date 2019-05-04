@@ -21,6 +21,7 @@ bool IMDfault = false;
 bool AMSfault = false;
 bool TBPfault = false;
 bool driveActive = false;
+bool previousdriveActive = false;
 bool startActive = false;
 bool shutdownActive = false;
 uint8_t lvVoltage = 0;
@@ -80,11 +81,11 @@ uint16_t maxTorque = 0;
 uint16_t previousmaxTorque = 5000;
 
 //CAN Setup
-//FlexCAN CARCAN(500000,0);
-//FlexCAN DAQCAN(500000,1);
+FlexCAN CARCAN(500000,0);
+FlexCAN DAQCAN(500000,1);
 
-FlexCAN CARCAN(0);
-FlexCAN DAQCAN(1);
+//FlexCAN CARCAN(0);
+//FlexCAN DAQCAN(1);
 
 CAN_message_t txmsg,rxmsg;
 
@@ -96,6 +97,7 @@ uint8_t rotation = 1;
 
 //Key
 bool on = false;
+bool previouslyon = false;
 bool previouslyStartActive = false;
 
 //NeoPixels

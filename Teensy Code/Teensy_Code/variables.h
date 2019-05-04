@@ -4,10 +4,10 @@
 #include <SPI.h>
 #include <Adafruit_NeoPixel.h>
 #include <Adafruit_NeoMatrix.h>
-//#include <Adafruit_GFX.h>
+#include <Adafruit_GFX.h>
 #include <HX8357_t3.h>
-#include <FlexCAN.h>
-//#include <kinetis_flexcan_t3.h>
+#include <FlexCAN_t3.h>
+#include <kinetis_flexcan_t3.h>
 #include <SD.h>
 #include <string.h>
 #include <Servo.h>
@@ -80,6 +80,7 @@ extern bool IMDfault;
 extern bool AMSfault;
 extern bool TBPfault; //Throttle Brake Plausibility (QBAI)
 extern bool driveActive;
+extern bool previousdriveActive;
 extern bool startActive;
 extern bool shutdownActive;
 extern uint8_t lvVoltage;

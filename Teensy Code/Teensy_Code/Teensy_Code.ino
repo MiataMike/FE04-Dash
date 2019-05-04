@@ -53,14 +53,14 @@ void setup()
   
   //Dash Screen Setup
   setupScreen();
-  updateDriveMode();
+  
   
   //Dash Lights Setup
   setupLights();
   
   //Dash CAN Setup
-  CARCAN.begin(500000);
-  DAQCAN.begin(500000);
+  CARCAN.begin();
+  DAQCAN.begin();
   Serial.begin(9600);
 
 
@@ -69,6 +69,8 @@ void setup()
 
   tft.fillScreen(HX8357_BLACK);
   printCommonBackground();
+  updateDriveMode();
+  printUpdates();
 }
 
 void loop()
@@ -84,9 +86,20 @@ void loop()
     processDAQCANFrame();
   }
   
+  if(previouslyon != on)//If car is turned on update text
+  {
+    changeDriveMode();
+    previouslyon=on;
+  }
 
-	 //printCommonBackground();         //update background
-   if(previousdriveMode != driveMode)changeDriveMode();           
+  if(previousdriveActive != driveActive)//If car is turned on update text
+  {
+    changeDriveMode();
+    previousdriveActive=driveActive;
+  }
+
+	 printUpdates();
+        
    
   
   //Update Servo
@@ -149,9 +162,6 @@ void updateDriveMode()
 {
   previousdriveMode=driveMode;
 
-
-  
-  on = !digitalRead(Ignition_2);
   if(!driveActive && !startActive)
   {
     driveMode = digitalRead(SW_bit3);
@@ -166,6 +176,8 @@ void updateDriveMode()
     
     fixDriveModeNumber();
   }
+
+  changeDriveMode(); 
 }
 
 void fixDriveModeNumber()
@@ -266,24 +278,24 @@ void scrollDashRight()
   }  
 }
 
-void imdLight(bool on)
+void imdLight(bool ledOn)
 {
-  digitalWrite(IMD_light, on);
+  digitalWrite(IMD_light, ledOn);
 }
 
-void amsLight(bool on)
+void amsLight(bool ledOn)
 {
-  digitalWrite(AMS_light, on);
+  digitalWrite(AMS_light, ledOn);
 }
 
-void bspdLight(bool on)
+void bspdLight(bool ledOn)
 {
-  digitalWrite(BSPD_light, on);
+  digitalWrite(BSPD_light, ledOn);
 }
 
-void qbaiLight(bool on)
+void qbaiLight(bool ledOn)
 {
-  digitalWrite(QBAI_light, on);
+  digitalWrite(QBAI_light, ledOn);
 }
 
 void driveModeEnabledLight(bool enabled)
@@ -521,6 +533,9 @@ void processCARCANFrame()
     dataByte >>=1;
     if((dataByte & 0x01) == 1){ TBPfault = true; }
     else TBPfault = false;
+    dataByte >>=1;
+    if((dataByte & 0x01) == 1){ on = true; }
+    else on = false;
 
     lvVoltage = rxmsg.buf[3];
     lvVoltage <<= 8;
