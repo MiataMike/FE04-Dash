@@ -72,19 +72,20 @@ float packCurrentF = 0;
 uint8_t driveMode = 1;
 uint8_t previousdriveMode = 100;
 uint8_t dashpage = 1;
-uint8_t previousdashpage = 1;
 uint8_t dashcount = 3;
 String previousTitle = "Previous";
-uint8_t razzledelay = 25;
 bool temprangechange = false;
 bool brakeScreen = false;
-bool previouslybrakeScreen = false;
 uint16_t maxTorque = 0;
 uint16_t previousmaxTorque = 5000;
 
 //CAN Setup
-FlexCAN CARCAN(500000,0);
-FlexCAN DAQCAN(500000,1);
+//FlexCAN CARCAN(500000,0);
+//FlexCAN DAQCAN(500000,1);
+
+FlexCAN CARCAN(0);
+FlexCAN DAQCAN(1);
+
 CAN_message_t txmsg,rxmsg;
 
 //TFT Screen Setup
@@ -95,7 +96,6 @@ uint8_t rotation = 1;
 
 //Key
 bool on = false;
-bool previouslyon = false;
 bool previouslyStartActive = false;
 
 //NeoPixels
@@ -190,4 +190,3 @@ const unsigned char STlogo [] PROGMEM = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-

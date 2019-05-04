@@ -24,8 +24,6 @@ void startScreen()
 
 void printCommonBackground()
 {
-  if(!previouslyon ||/* previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen || previouslysecretScreen != secretScreen)
-  {
     tft.drawRect(0,0,tft_width,tft_height,HX8357_GREEN);
     tft.drawFastHLine(0,75,tft_width,HX8357_GREEN);
     tft.drawFastVLine(tft_width/4,0,75,HX8357_GREEN);
@@ -55,24 +53,24 @@ void printCommonBackground()
     tft.setCursor(tft_width-65,tft_height-45);
     tft.setTextSize(2);
     tft.print("LV");
-  }
+
   
-  if(previousHVSOC != HVSOC || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
+  if(previousHVSOC != HVSOC)
   {
     updateScreenSOC();
   }
   
-  if(previousmaxCellTemp != maxCellTemp || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
+  if(previousmaxCellTemp != maxCellTemp)
   {
     updateScreenBatteryTemp();
   }
 
-  if(previouscarSpeed != carSpeed || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
+  if(previouscarSpeed != carSpeed)
   {
     updateScreenCarSpeed();
   }
 
-  if(previouslvVoltageF != lvVoltageF || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslybrakeScreen != brakeScreen)
+  if(previouslvVoltageF != lvVoltageF)
   {
     updateScreenLVVoltage();
   }
@@ -172,86 +170,41 @@ void printScreenNumber()
   tft.println(driveMode);
 }
 
-void printScreenTitle(String title, uint8_t number)
+void printScreenTitle(String title)
 {
   tft.setCursor((tft_width/2)-70,30);
   tft.setTextSize(3);
   tft.fillRect(2+(tft_width/4),2,(tft_width/2)-2,73,HX8357_BLACK);
-  if(driveActive){ tft.setTextColor(HX8357_BLUE); }
-  else if(startActive){ tft.setTextColor(HX8357_RED); }
-  else{ tft.setTextColor(HX8357_GREEN); }
-  switch(number)
+  
+  
+  if(on)
   {
-    case 0:
-      tft.setCursor(tft_width/4 + 13, 30); //GOOD
-      break;
-    case 1:
-      tft.setCursor(tft_width/4 + 50, 30); //GOOD
-      break;
-    case 2:
-      tft.setCursor(tft_width/4 + 40, 30); //GOOD
-      break;
-    case 3:
-      tft.setCursor(tft_width/4 + 40, 30); //GOOD
-      break;
-    case 4: //THIS ONE IS SPECIAL
-      break;
-    case 5:
-      tft.setCursor(tft_width/4 + 22, 30); //GOOD
-      break;
-    case 6:
-      tft.setCursor(tft_width/4 + 60, 30); //GOOD
-      break;
-    case 7:
-      tft.setCursor(tft_width/4 + 65, 30); //GOOD
-      break;
-    case 8:
-      tft.setCursor(tft_width/4 + 65, 30); //GOOD
-      break;
-    case 9:
-      tft.setCursor(tft_width/4 + 65, 30); //GOOD
-      break;
-    case 10:
-      tft.setCursor(tft_width/4 + 65, 30); //GOOD
-      break;
-    case 11:
-      tft.setCursor(tft_width/4 + 5, 30); //GOOD
-      break;
-    case 12:
-      tft.setCursor(tft_width/4 + 65, 30); //GOOD
-      break;
-    case 13:
-      tft.setCursor(tft_width/4 + 15, 30); //GOOD
-      break;
-    default:
-      tft.setCursor(tft_width/4 + 15, 30);
-      break;
+    if(driveActive)
+      tft.setTextColor(HX8357_BLUE);
+    else
+      tft.setTextColor(HX8357_GREEN);
   }
-  if(number != 4){ tft.println(title); }
   else
   {
-    tft.setCursor(tft_width/4 + 63, 13);
-    tft.println("Sunday");
-    tft.setCursor(tft_width/4 + 54, 43);
-    tft.println("Driving");      
+    tft.setTextColor(HX8357_RED);
   }
+
+
+  tft.setCursor(tft_width/2 - 8*title.length(), 30);
+  tft.println(title); 
+
 }
 
-void printCommonScreenInfo(String title, uint8_t number)
+void printCommonScreenInfo(String title)
 {
-  if(previousTitle != title || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
-  {
-    printScreenTitle(title, number);
-    previousTitle = title;
-  }
-  if(previousdriveMode != driveMode || !previouslyon || /*previousdriveMode == 11 || previousdriveMode == 10 ||*/ previouslyStartActive != startActive || previouslybrakeScreen != brakeScreen)
-  {
-    printScreenNumber();
-    previousdriveMode = driveMode;
-    updateScreenMaxTorque();
-    previousmaxTorque = maxTorque;
-  }
-  if(previouslyStartActive != startActive){ previouslyStartActive = startActive; }
+  if(previousdriveMode != driveMode)
+    printScreenTitle(title);
+  previousTitle = title;
+
+  printScreenNumber();
+  previousdriveMode = driveMode;
+  updateScreenMaxTorque();
+  previousmaxTorque = maxTorque;
 }
 
 void printBrakeScreen()
@@ -278,7 +231,6 @@ void printBrakeScreen()
       tft.println("HV OFF");
     }
     brakeScreen = true;
-    previouslybrakeScreen = true;
   }
   if(previousbrakePosition != brakePosition && vehicleVoltage > 10)
   {

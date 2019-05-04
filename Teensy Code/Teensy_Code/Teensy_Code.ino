@@ -34,7 +34,6 @@ void setup()
   //Ignition Switch Setup
   pinMode(Ignition_1, INPUT_PULLUP);
   pinMode(Ignition_2, INPUT_PULLUP);
-  //attachInterrupt(digitalPinToInterrupt(Ignition_2), updateDriveMode, CHANGE);
   
   //Steering Wheel Setup
   pinMode(left_button, INPUT_PULLUP);
@@ -60,12 +59,16 @@ void setup()
   setupLights();
   
   //Dash CAN Setup
-  CARCAN.begin();
-  DAQCAN.begin();
+  CARCAN.begin(500000);
+  DAQCAN.begin(500000);
   Serial.begin(9600);
 
 
   lastCANMillis=millis();
+
+
+  tft.fillScreen(HX8357_BLACK);
+  printCommonBackground();
 }
 
 void loop()
@@ -81,44 +84,10 @@ void loop()
     processDAQCANFrame();
   }
   
-  if(on && dashpage == 1)
-  {
-    previousdashpage = 1;
-    if(!previouslyon || previouslybrakeScreen != brakeScreen)        //If it was on the start logo, erase screen
-    {
-      tft.fillScreen(HX8357_BLACK);
-      printCommonBackground();
-      changeDriveMode();
-      previouslyon = true;
-      previouslybrakeScreen = false;
-    }
-    else
-    {
-	 printCommonBackground();         //update background
-     changeDriveMode();               //updates everything else on screen
-    }
-  }
-  else if(on && dashpage != 1)
-  {
-    if(!previouslyon)
-    {
-      tft.fillScreen(HX8357_BLACK);
-      printCommonBackground();
-      changeDashPage();
-      previouslyon = true;
-    }
-    else
-    {
-      printCommonBackground();
-      changeDashPage();
-    }
-  }
-  else if((!on && previouslyon))
-  {
-    startScreen();
-    updateTempPixels();
-    previouslyon = false;
-  }
+
+	 //printCommonBackground();         //update background
+   if(previousdriveMode != driveMode)changeDriveMode();           
+   
   
   //Update Servo
   if(previousHVSOC != HVSOC && HVSOC != 0 && HVSOC <=100)
@@ -128,25 +97,20 @@ void loop()
   previousHVSOC = HVSOC;
   
   //Update Temperature pixels
-  if(previousmaxCellTemp != maxCellTemp || (driveMode == 3 && !temprangechange) || (driveMode !=3 && temprangechange))
+  if(previousmaxCellTemp != maxCellTemp)
   {
-    /*if(on && driveMode != 11 && driveMode != 10){ updateTempPixels(); }
-    else if(!on){ updateTempPixels(); }*/
     updateTempPixels();
   }
   previousmaxCellTemp = maxCellTemp;
   previouscarSpeed = carSpeed;
 
-  //Update fault lights
-  if(/*(driveMode != 11 && driveMode != 10) ||*/ !on)
-  {
-    imdLight(IMDfault);
-    amsLight(AMSfault);
-    bspdLight(BSPDfault);
-    qbaiLight(TBPfault);
-  }
+  imdLight(IMDfault);
+  amsLight(AMSfault);
+  bspdLight(BSPDfault);
+  qbaiLight(TBPfault);
+
   
-  if(HVSOC <= 20 /*&& driveMode != 11 && driveMode != 10*/)
+  if(HVSOC <= 20)
   {
     repixels.setPixelColor(1, 255,0,0);
     repixels.show();
@@ -157,6 +121,7 @@ void loop()
     repixels.show();
   }
 
+/*
   if(!digitalRead(Ignition_1) && !driveActive)
   {
     printBrakeScreen();
@@ -165,6 +130,7 @@ void loop()
   {
     brakeScreen = false;
   }
+  */
   previousbrakePosition = brakePosition;
   previouslvVoltageF = lvVoltageF;
 
@@ -181,6 +147,10 @@ void loop()
 
 void updateDriveMode()
 {
+  previousdriveMode=driveMode;
+
+
+  
   on = !digitalRead(Ignition_2);
   if(!driveActive && !startActive)
   {
@@ -191,6 +161,9 @@ void updateDriveMode()
     driveMode |= digitalRead(SW_bit1);
     driveMode <<= 1;
     driveMode |= digitalRead(SW_bit0);
+
+    //driveMode=4;  //DEBUGGING
+    
     fixDriveModeNumber();
   }
 }
@@ -217,54 +190,54 @@ void changeDriveMode()
   {
     case 0:
       maxTorque = 270;
-      printCommonScreenInfo("Acceleration", 0);
+      printCommonScreenInfo("Accel(1)");
       break;
     case 1:
       maxTorque = 150;
-      printCommonScreenInfo("Skid Pad", 1);
+      printCommonScreenInfo("Skid Pad(2)");
       break;
     case 2:
       maxTorque = 240;
-      printCommonScreenInfo("Autocross", 2);
+      printCommonScreenInfo("AutoX(3)");
       break;
     case 3:
       maxTorque = 200;
-      printCommonScreenInfo("Endurance", 3);
+      printCommonScreenInfo("Enduro(4)");
       break;
     case 4:
       maxTorque = 200;
-      printCommonScreenInfo("Sunday Driving", 4);
+      printCommonScreenInfo("Sunday(5)");
       break;
     case 5:
       maxTorque = 100;
-      printCommonScreenInfo("Granny Mode", 5);
+      printCommonScreenInfo("Cpt. Slow(6)");
       break;
     case 6:
       maxTorque = 0;
-      printCommonScreenInfo("Calibration", 6);
+      printCommonScreenInfo("Pedal Cal(7)");
       break;
     case 7:
       maxTorque = 0;
-      printCommonScreenInfo("Extra1", 7);
+      printCommonScreenInfo("Extra1");
       break;
     case 8:
       maxTorque = 0;
-      printCommonScreenInfo("Extra2", 8);
+      printCommonScreenInfo("Extra2");
       break;
     case 9:
       maxTorque = 0;
-      printCommonScreenInfo("Extra3", 9);
+      printCommonScreenInfo("Extra3");
       break;
     case 10:
       maxTorque = 0;
-      printCommonScreenInfo("Extra4", 10);
+      printCommonScreenInfo("Extra4");
       break;
     case 11:
       maxTorque = 0;
-      printCommonScreenInfo("Extra5", 11);
+      printCommonScreenInfo("Extra5");
       break;
     default:
-      printCommonScreenInfo("default", 69);
+      printCommonScreenInfo("default");
       break;
   }
 }
@@ -273,11 +246,10 @@ void scrollDashLeft()
 {
   if (millis() - Ldebounce > 100)
   { 
-//    if(driveMode != 11 && driveMode != 10)
-//    {
-     if(dashpage == 1){ dashpage = 3; }
-     else{ dashpage--; } 
-//    }
+     if(dashpage == 1)
+        dashpage = 3;
+     else
+        dashpage--; 
     Ldebounce = millis();
   }
 }
@@ -286,28 +258,12 @@ void scrollDashRight()
 {
   if (millis() - Rdebounce > 100)
   {
-//    if(driveMode != 11 && driveMode != 10)
-//    {
-    if(dashpage == 3){ dashpage = 1; }
-    else{ dashpage++; }
-//    }
+    if(dashpage == 3)
+      dashpage = 1;
+    else
+      dashpage++;
     Rdebounce = millis(); 
   }  
-}
-
-void changeDashPage()
-{
-  switch(dashpage)
-  {
-    case 2:
-      printCommonScreenInfo("Faults", 12);
-      previousdashpage = 2;
-      break;
-    case 3:
-      printCommonScreenInfo("CAN Messages", 13);
-      previousdashpage = 3;
-      break;
-  }
 }
 
 void imdLight(bool on)
@@ -541,7 +497,6 @@ void processCARCANFrame()
     brakePressureRearF = (float)(brakePressureRearRaw-256)/10;
   }
 
-  //Bridge Card Messages
   /* Master Blaster Messages*/
   else if(rxmsg.id == 0x28)
   {
@@ -690,152 +645,6 @@ void loopPixel(uint32_t color )
   }
 }
 
-//Obsolete for now
-/*
-void mushroomMode()
-{
-  cdpixels.setPixelColor(0, 255,0,0);
-  cdpixels.setPixelColor(1, 255,0,0);
-  cdpixels.setPixelColor(2, 255,255,255);
-  cdpixels.setPixelColor(3, 255,255,255);
-  cdpixels.setPixelColor(4, 255,0,0);
-  cdpixels.setPixelColor(5, 255,0,0);
-  cdpixels.setPixelColor(6, 255,255,255);
-  cdpixels.setPixelColor(7, 255,255,255);
-  cdpixels.setPixelColor(8, 255,0,0);
-  cdpixels.setPixelColor(9, 255,0,0);
-  cdpixels.setPixelColor(10, 255,255,255);
-  cdpixels.setPixelColor(11, 255,255,255);
-  cdpixels.show();
-}
-
-void razzleMode()
-{
-  qbaiLight(ON);
-  delay(razzledelay);
-  bspdLight(ON);
-  delay(razzledelay);
-  amsLight(ON);
-  delay(razzledelay);
-  
-  qbaiLight(OFF);
-  delay(razzledelay);
-  imdLight(ON);
-  delay(razzledelay);
-  
-  bspdLight(OFF);
-  delay(razzledelay);
-  cdpixels.setPixelColor(0, 207,0,82);
-  cdpixels.show();
-  delay(razzledelay);
-  
-  amsLight(OFF);
-  delay(razzledelay);
-  cdpixels.setPixelColor(1, 143,0,158);
-  cdpixels.show();
-  delay(razzledelay);
-  
-  imdLight(OFF);
-  delay(razzledelay);
-  cdpixels.setPixelColor(2, 103,0,209);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(0, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(3, 42,0,255);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(1, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(4, 0,0,255);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(2, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(5, 0,115,116);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(3, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(6, 0,153,98);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(4, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(7, 0,173,0);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(5, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(8, 0,255,0);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(6, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(9, 199,255,0);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(7, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(10, 253,255,0);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(8, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  cdpixels.setPixelColor(11, 255,185,0);
-  cdpixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(9, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  repixels.setPixelColor(0, 255,185,0);
-  repixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(10, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  repixels.setPixelColor(1, 0,0,255);
-  repixels.show();
-  delay(razzledelay);
-
-  cdpixels.setPixelColor(11, 0,0,0);
-  cdpixels.show();
-  delay(razzledelay);
-  qbaiLight(ON);
-  delay(razzledelay);
-
-  repixels.setPixelColor(0, 0,0,0);
-  repixels.show();
-  delay(razzledelay);
-  bspdLight(ON);
-  delay(razzledelay);
-
-  repixels.setPixelColor(1, 0,0,0);
-  repixels.show();
-  delay(razzledelay);
-  amsLight(ON);
-}
-*/
 void drsDisengage() 
 { 
   DRSengaged = false;
