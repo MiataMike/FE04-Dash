@@ -85,6 +85,14 @@ void loop()
   {
     processDAQCANFrame();
   }
+
+  if(previousdriveActive != driveActive)//If car is turned on update text
+  {
+    changeDriveMode();
+    previousdriveActive=driveActive;
+  }   
+  
+  printUpdates();
   
   if(previouslyon != on)//If car is turned on update text
   {
@@ -92,15 +100,6 @@ void loop()
     previouslyon=on;
   }
 
-  if(previousdriveActive != driveActive)//If car is turned on update text
-  {
-    changeDriveMode();
-    previousdriveActive=driveActive;
-  }
-
-	 printUpdates();
-        
-   
   
   //Update Servo
   if(previousHVSOC != HVSOC && HVSOC != 0 && HVSOC <=100)
@@ -114,6 +113,7 @@ void loop()
   {
     updateTempPixels();
   }
+  updateTempPixels();
   previousmaxCellTemp = maxCellTemp;
   previouscarSpeed = carSpeed;
 
