@@ -32,7 +32,7 @@
 #define MOSI 11
 #define MISO 12
 #define CLK 13
-#define SDCS BUILTIN_SDCARD
+//#define SDCS BUILTIN_SDCARD
 
 #define Paddle A13
 #define up_button 24
