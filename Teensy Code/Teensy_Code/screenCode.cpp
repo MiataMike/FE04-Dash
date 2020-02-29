@@ -53,7 +53,7 @@ void printCommonBackground()
     tft.setTextSize(2);
     tft.print("Max Trq");
     
-    tft.setCursor(tft_width-65,tft_height-70);
+    tft.setCursor(tft_width-70,tft_height-70);
     tft.setTextSize(2);
     tft.print("LV"); 
 }
@@ -152,15 +152,16 @@ void updateScreenLVVoltage()
   tft.setTextSize(3);
   tft.setTextColor(HX8357_BLACK);
   
-  if(previouslvVoltageF > 9){ tft.setCursor(3*(tft_width/4)+20,tft_height-40); }
-  else if(previouslvVoltageF < 10){ tft.setCursor(3*(tft_width/4)+28,tft_height-40); }
+  if(previouslvVoltageF > 9){ tft.setCursor(3*(tft_width/4)+15,tft_height-40); }
+  else if(previouslvVoltageF < 10){ tft.setCursor(3*(tft_width/4)+25,tft_height-40); }
+  tft.fillRect( 3*(tft_width/4)+15, tft_height-40, 30, 10, HX8357_BLACK);
   
   tft.print(previouslvVoltageF,1);
   tft.print("V");
   tft.setTextColor(HX8357_GREEN);
   
-  if(lvVoltageF > 9){ tft.setCursor(3*(tft_width/4)+20,tft_height-40); }
-  else if(lvVoltageF < 10){ tft.setCursor(3*(tft_width/4)+28,tft_height-40); }
+  if(lvVoltageF > 9){ tft.setCursor(3*(tft_width/4)+15,tft_height-40); }
+  else if(lvVoltageF < 10){ tft.setCursor(3*(tft_width/4)+25,tft_height-40); }
   
   tft.print(lvVoltageF,1);
   tft.print("V"); 
@@ -222,13 +223,14 @@ void printScreenTitle(String title)
     tft.setTextSize(6);
     tft.setCursor(40, 140);
     tft.fillRect(3, 87, tft_width, 140, HX8357_BLACK);
-    tft.print("CALIFORNIA");
+    tft.print("CALIFORN I A");
     return;
   }
   
   if ( previousdriveMode == 6 && previousdriveMode != driveMode )
   {
     // if the previous drive mode was calibration mode, write over it
+    tft.fillRect(3, 87, tft_width, 140, HX8357_BLACK);
     updateScreenCarSpeed();
   }
 

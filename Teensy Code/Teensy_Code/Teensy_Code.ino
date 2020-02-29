@@ -86,21 +86,20 @@ void loop()
     processDAQCANFrame();
   }
 
+  printUpdates();
+
   if(previousdriveActive != driveActive)//If car is turned on update text
   {
     changeDriveMode();
     previousdriveActive=driveActive;
   }   
-  
-  printUpdates();
-  
+    
   if(previouslyon != on)//If car is turned on update text
   {
     changeDriveMode();
     previouslyon=on;
   }
 
-  
   //Update Servo
   if(previousHVSOC != HVSOC && HVSOC != 0 && HVSOC <=100)
   {
