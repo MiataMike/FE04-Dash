@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.7.0">
+<eagle version="9.6.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -2067,6 +2067,9 @@ Please make sure your boards conform to these design rules.</description>
 <param name="checkRestrict" value="1"/>
 <param name="checkStop" value="0"/>
 <param name="checkValues" value="0"/>
+<param name="checkNames" value="1"/>
+<param name="checkWireStubs" value="1"/>
+<param name="checkPolygonWidth" value="0"/>
 <param name="useDiameter" value="13"/>
 <param name="maxErrors" value="50"/>
 </designrules>
@@ -2209,23 +2212,49 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="33.019" y="66.075" size="1.27" layer="22" rot="MR90"/>
 <attribute name="PARTNO" value="VS-50WQ10FNPBF" x="40.258" y="65.567" size="1.778" layer="28" rot="MR0" display="off"/>
 </element>
-<element name="H1" library="FormE" package="MOLEX-CLIKMATE-8-VERTICAL-HEADER" value="5025840870" x="-40.003" y="62.633" rot="MR270"/>
+<element name="H1" library="FormE" package="MOLEX-CLIKMATE-8-VERTICAL-HEADER" value="5025840870" x="-40.003" y="62.633" smashed="yes" rot="MR270">
+<attribute name="NAME" x="-47.067" y="68.633" size="1.27" layer="26" rot="MR270"/>
+</element>
 <element name="L3" library="FormE" package="WURTH-744325XXXX" value="10uH" x="53.345" y="67.513" smashed="yes" rot="MR180">
 <attribute name="NAME" x="58.806" y="63.941" size="1.27" layer="26" rot="MR180"/>
 <attribute name="PARTNO" value="7443251000" x="53.345" y="67.513" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="LED1" library="adafruit" package="WS2812B" value="WS2812B5050" x="67.016671875" y="83.009725" rot="MR0"/>
-<element name="LED10" library="adafruit" package="WS2812B" value="WS2812B5050" x="-43.649196875" y="95.42259375" rot="MR0"/>
-<element name="LED11" library="adafruit" package="WS2812B" value="WS2812B5050" x="-56.757453125" y="89.5940125" rot="MR345"/>
-<element name="LED12" library="adafruit" package="WS2812B" value="WS2812B5050" x="-67.016671875" y="83.009725" rot="MR0"/>
-<element name="LED2" library="adafruit" package="WS2812B" value="WS2812B5050" x="55.741453125" y="89.9750125" rot="MR15"/>
-<element name="LED3" library="adafruit" package="WS2812B" value="WS2812B5050" x="43.522196875" y="95.54959375" rot="MR0"/>
-<element name="LED4" library="adafruit" package="WS2812B" value="WS2812B5050" x="31.900225" y="99.283775" rot="MR0"/>
-<element name="LED5" library="adafruit" package="WS2812B" value="WS2812B5050" x="19.248578125" y="102.268275" rot="MR0"/>
-<element name="LED6" library="adafruit" package="WS2812B" value="WS2812B5050" x="6.612165625" y="103.45188125" rot="MR0"/>
-<element name="LED7" library="adafruit" package="WS2812B" value="WS2812B5050" x="-6.485165625" y="103.57888125" rot="MR0"/>
-<element name="LED8" library="adafruit" package="WS2812B" value="WS2812B5050" x="-19.375578125" y="102.268275" rot="MR0"/>
-<element name="LED9" library="adafruit" package="WS2812B" value="WS2812B5050" x="-32.027225" y="99.156775" rot="MR0"/>
+<element name="LED1" library="adafruit" package="WS2812B" value="WS2812B5050" x="67.016671875" y="83.009725" smashed="yes" rot="MR0">
+<attribute name="NAME" x="63.524171875" y="84.597225" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED10" library="adafruit" package="WS2812B" value="WS2812B5050" x="-43.649196875" y="95.42259375" smashed="yes" rot="MR0">
+<attribute name="NAME" x="-47.141696875" y="97.01009375" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED11" library="adafruit" package="WS2812B" value="WS2812B5050" x="-56.757453125" y="89.5940125" smashed="yes" rot="MR345">
+<attribute name="NAME" x="-60.541825" y="90.22349375" size="0.8128" layer="26" ratio="10" rot="MR255"/>
+</element>
+<element name="LED12" library="adafruit" package="WS2812B" value="WS2812B5050" x="-67.016671875" y="83.009725" smashed="yes" rot="MR0">
+<attribute name="NAME" x="-70.509171875" y="84.597225" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED2" library="adafruit" package="WS2812B" value="WS2812B5050" x="55.741453125" y="89.9750125" smashed="yes" rot="MR15">
+<attribute name="NAME" x="52.778834375" y="92.41234375" size="0.8128" layer="26" ratio="10" rot="MR285"/>
+</element>
+<element name="LED3" library="adafruit" package="WS2812B" value="WS2812B5050" x="43.522196875" y="95.54959375" smashed="yes" rot="MR0">
+<attribute name="NAME" x="40.029696875" y="97.13709375" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED4" library="adafruit" package="WS2812B" value="WS2812B5050" x="31.900225" y="99.283775" smashed="yes" rot="MR0">
+<attribute name="NAME" x="28.407725" y="100.871275" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED5" library="adafruit" package="WS2812B" value="WS2812B5050" x="19.248578125" y="102.268275" smashed="yes" rot="MR0">
+<attribute name="NAME" x="15.756078125" y="103.855775" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED6" library="adafruit" package="WS2812B" value="WS2812B5050" x="6.612165625" y="103.45188125" smashed="yes" rot="MR0">
+<attribute name="NAME" x="3.119665625" y="105.03938125" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED7" library="adafruit" package="WS2812B" value="WS2812B5050" x="-6.485165625" y="103.57888125" smashed="yes" rot="MR0">
+<attribute name="NAME" x="-9.977665625" y="105.16638125" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED8" library="adafruit" package="WS2812B" value="WS2812B5050" x="-19.375578125" y="102.268275" smashed="yes" rot="MR0">
+<attribute name="NAME" x="-22.868078125" y="103.855775" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
+<element name="LED9" library="adafruit" package="WS2812B" value="WS2812B5050" x="-32.027225" y="99.156775" smashed="yes" rot="MR0">
+<attribute name="NAME" x="-35.519725" y="100.744275" size="0.8128" layer="26" ratio="10" rot="MR270"/>
+</element>
 <element name="R10" library="rcl" package="R0603" value="15k" x="43.188" y="73.446" smashed="yes" rot="MR90">
 <attribute name="NAME" x="44.704" y="70.739" size="1.27" layer="26" rot="MR0"/>
 <attribute name="PARTNO" value="ERJ-3EKF1502V" x="43.188" y="73.446" size="1.778" layer="28" rot="MR90" display="off"/>
@@ -2253,13 +2282,17 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="27.13" y="78.654" size="1.27" layer="26" rot="MR180"/>
 <attribute name="PARTNO" value="ERJ-3EKF1623V" x="28.273" y="76.368" size="1.778" layer="28" rot="MR180" display="off"/>
 </element>
-<element name="U$2" library="Teensy356" package="TEENSY_3.5/3.6" value="TEENSY_3.5/3.6" x="1.389" y="44.616" rot="MR0"/>
+<element name="U$2" library="Teensy356" package="TEENSY_3.5/3.6" value="TEENSY_3.5/3.6" x="1.389" y="44.616" smashed="yes" rot="MR0"/>
 <element name="U2" library="FormE" package="TPS54540" value="TPS54540DDARQ1" x="36.109" y="74.061" smashed="yes" rot="MR90">
 <attribute name="NAME" x="33.315" y="77.997" size="1.27" layer="26" rot="MR180"/>
 <attribute name="PARTNO" value="TPS54540DDAR" x="36.109" y="74.061" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="U3" library="FormE" package="SOIC8-N_MC" value="" x="-28.53" y="67.631" rot="MR180"/>
-<element name="J1" library="FormE" package="MOLEX-CLIKMATE-4-R/A" value="502585-0470" x="-39.869" y="77.562" rot="MR270"/>
+<element name="U3" library="FormE" package="SOIC8-N_MC" value="" x="-28.53" y="67.631" smashed="yes" rot="MR180">
+<attribute name="NAME" x="-29.8" y="63.821" size="1.27" layer="26" ratio="6" rot="SMR180"/>
+</element>
+<element name="J1" library="FormE" package="MOLEX-CLIKMATE-4-R/A" value="502585-0470" x="-39.869" y="77.562" smashed="yes" rot="MR270">
+<attribute name="NAME" x="-46.219" y="82.642" size="1.27" layer="26" rot="MR270"/>
+</element>
 <element name="R1" library="rcl" package="R0805" value="100" x="-47.796" y="77.303" smashed="yes" rot="MR180">
 <attribute name="NAME" x="-49.955" y="79.589" size="1.27" layer="26" rot="MR180"/>
 </element>
@@ -2338,7 +2371,9 @@ Please make sure your boards conform to these design rules.</description>
 <element name="R11" library="rcl" package="R0805" value="100" x="23.241" y="84.455" smashed="yes" rot="MR180">
 <attribute name="NAME" x="21.59" y="86.614" size="1.27" layer="26" rot="MR180"/>
 </element>
-<element name="U1" library="FormE" package="ADG3304" value="ADG3304BRUZ-REEL7" x="35.052" y="57.658" rot="MR270"/>
+<element name="U1" library="FormE" package="ADG3304" value="ADG3304BRUZ-REEL7" x="35.052" y="57.658" smashed="yes" rot="MR270">
+<attribute name="NAME" x="36.322" y="61.468" size="1.27" layer="26" rot="MR0"/>
+</element>
 <element name="R12" library="rcl" package="R0805" value="0/DNP" x="35.56" y="82.931" smashed="yes" rot="MR180">
 <attribute name="NAME" x="34.163" y="85.217" size="1.27" layer="26" rot="MR180"/>
 </element>
@@ -2440,7 +2475,7 @@ Please make sure your boards conform to these design rules.</description>
 <attribute name="NAME" x="8.636" y="41.021" size="1.27" layer="26" rot="MR90"/>
 <attribute name="PARTNO" value="ERJ-6ENF1001V" x="-3.81" y="36.703" size="1.778" layer="28" rot="MR90" display="off"/>
 </element>
-<element name="U$1" library="FormE" package="TE-776200-1" value="TE-776200-1" x="0" y="69.977"/>
+<element name="U$1" library="FormE" package="TE-776200-1" value="TE-776200-1" x="0" y="69.977" smashed="yes"/>
 </elements>
 <signals>
 <signal name="GND">
@@ -2483,13 +2518,13 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="36.109" y1="77.777" x2="36.109" y2="74.061" width="0.8128" layer="16"/>
 <wire x1="39.109" y1="73.426" x2="36.744" y2="73.426" width="0.8128" layer="16"/>
 <wire x1="36.744" y1="73.426" x2="36.109" y2="74.061" width="0.8128" layer="16"/>
-<polygon width="0.8128" layer="1" rank="6">
+<polygon width="0.8128" layer="1" thermals="no" rank="6">
 <vertex x="-85.217" y="113.665"/>
 <vertex x="85.09" y="113.792"/>
 <vertex x="85.598" y="17.907"/>
 <vertex x="-84.709" y="17.78"/>
 </polygon>
-<polygon width="0.8128" layer="16" rank="6">
+<polygon width="0.8128" layer="16" thermals="no" rank="6">
 <vertex x="-82.55" y="111.252"/>
 <vertex x="81.915" y="111.379"/>
 <vertex x="82.55" y="19.812"/>
@@ -3567,6 +3602,10 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="-21.471" y1="52.236" x2="-21.471" y2="49.919" width="0.3048" layer="1"/>
 <contactref element="U$1" pad="P$12"/>
 <wire x1="0" y1="69.977" x2="0" y2="57.15" width="0.3048" layer="1"/>
+<contactref element="U$2" pad="20/A6"/>
+<wire x1="-0.508" y1="56.642" x2="14.097" y2="56.642" width="0.3048" layer="16"/>
+<wire x1="14.097" y1="56.642" x2="14.097" y2="52.244" width="0.3048" layer="16"/>
+<wire x1="14.097" y1="52.244" x2="14.089" y2="52.236" width="0.1524" layer="16"/>
 </signal>
 <signal name="N$11">
 <contactref element="R9" pad="1"/>
@@ -3860,6 +3899,13 @@ Please make sure your boards conform to these design rules.</description>
 <wire x1="14" y1="77.694" x2="14" y2="73.977" width="0.3048" layer="1"/>
 </signal>
 </signals>
+<mfgpreviewcolors>
+<mfgpreviewcolor name="soldermaskcolor" color="0xC8008000"/>
+<mfgpreviewcolor name="silkscreencolor" color="0xFFFEFEFE"/>
+<mfgpreviewcolor name="backgroundcolor" color="0xFF282828"/>
+<mfgpreviewcolor name="coppercolor" color="0xFFFFBF00"/>
+<mfgpreviewcolor name="substratecolor" color="0xFF786E46"/>
+</mfgpreviewcolors>
 <errors>
 <approved hash="19,1,1bd27a2e7ab91b45"/>
 <approved hash="19,1,9053d82fd8bc90c0"/>
